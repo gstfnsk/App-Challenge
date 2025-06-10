@@ -13,7 +13,7 @@ struct JobOpening {
     let startDate: Date
     let endDate: Date
     let location: String
-    let salary: Double
+    let salary: Decimal
     let description: String
 }
 
