@@ -8,7 +8,6 @@
 import UIKit
 
 class JobDetailsViewController: UIViewController {
-    
     private lazy var jobDetailsTitle: UILabel = {
             var label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +28,7 @@ class JobDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setup()
         view.backgroundColor = .red
         // Do any additional setup after loading the view.
@@ -53,13 +53,5 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contactButton.widthAnchor.constraint(equalToConstant: 200),
             contactButton.heightAnchor.constraint(equalToConstant: 44)
         ])
-        
     }
-    
-    
 }
-
-
-
-
-
