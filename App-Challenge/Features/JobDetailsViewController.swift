@@ -9,7 +9,16 @@ import UIKit
 
 class JobDetailsViewController: UIViewController {
     
-    private lazy var wppbutton: UIButton = {
+    private lazy var jobDetailsTitle: UILabel = {
+            var label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = "Detalhes da Vaga"
+            label.textAlignment = .center
+            label.font = UIFont(name: "SFProRounded-Bold", size: 30)
+            return label
+        }()
+    
+    private lazy var contactButton: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Contatar empresa", for: .normal)
@@ -34,15 +43,15 @@ class JobDetailsViewController: UIViewController {
 
 extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
-        view.addSubview(wppbutton)
+        view.addSubview(contactButton)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            wppbutton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            wppbutton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            wppbutton.widthAnchor.constraint(equalToConstant: 200),
-            wppbutton.heightAnchor.constraint(equalToConstant: 44)
+            contactButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            contactButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            contactButton.widthAnchor.constraint(equalToConstant: 200),
+            contactButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
     }
