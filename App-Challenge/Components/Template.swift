@@ -8,7 +8,6 @@
 import UIKit
 
 final class UIComponentName: UIView {
-    
     // MARK: - Public Properties
     // Add public properties here to configure the component
     
@@ -16,11 +15,13 @@ final class UIComponentName: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
         setup()
     }
 
@@ -31,7 +32,6 @@ final class UIComponentName: UIView {
 }
 
 extension UIComponentName: ViewCodeProtocol {
-    
     // MARK: - Add Subviews
     
     func addSubviews() {
