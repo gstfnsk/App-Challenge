@@ -53,7 +53,7 @@ class JobDetailsViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.borderWidth = 0
         textView.tintColor = .white
-//        textView.font 
+//        textView.font
         return textView
     }()
     
@@ -150,11 +150,28 @@ class JobDetailsViewController: UIViewController {
     private lazy var contactButton: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Contatar empresa", for: .normal)
-        button.backgroundColor = UIColor.green
+        button.setTitle("Registrar interesse na vaga", for: .normal)
+        button.backgroundColor = UIColor.systemBlue
         button.addTarget(self, action: #selector(openWhatsApp), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var shareButton: UIButton = {
+        var button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Share", for: .normal)
+        button.backgroundColor = UIColor.systemBlue
+        return button
+    }()
+    
+    lazy var buttonsStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [contactButton, shareButton])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+//        stack.axis = .vertical
+        stack.spacing = 12
+        return stack
+    }()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,6 +182,7 @@ class JobDetailsViewController: UIViewController {
     }
     
     @objc private func openWhatsApp() {
+        print("clicou")
         if let url = URL(string: "https://wa.me/+5551997645781?text=Oi%2C%20vi%20o%20an%C3%BAncio%20da%20vaga%20no%20%2AFreela%20onTap%2A%20e%20gostaria%20de%20me%20candidatar.") {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
@@ -178,7 +196,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
         contentView.addSubview(descriptionStack)
         contentView.addSubview(responsabilitiesStack)
         contentView.addSubview(requirementsStack)
-        contentView.addSubview(contactButton)
+        contentView.addSubview(buttonsStack)
     }
     
     func setupConstraints() {
@@ -206,11 +224,11 @@ extension JobDetailsViewController: ViewCodeProtocol {
             requirementsStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             requirementsStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            
-            contactButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            contactButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 700),
-            contactButton.widthAnchor.constraint(equalToConstant: 200),
-            contactButton.heightAnchor.constraint(equalToConstant: 44)
+            buttonsStack.widthAnchor.constraint(equalToConstant: 200),
+            buttonsStack.heightAnchor.constraint(equalToConstant: 44),
+            buttonsStack.topAnchor.constraint(equalTo: requirementsStack.bottomAnchor, constant: 30),
+            buttonsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30)
         ])
     }
 }
