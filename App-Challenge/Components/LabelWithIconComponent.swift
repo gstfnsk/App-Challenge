@@ -56,12 +56,11 @@ class LabelWithIconComponent: UIView {
 }
 
 extension LabelWithIconComponent: ViewCodeProtocol {
-    
     func addSubviews() {
         addSubview(labelWihIcon)
     }
     
-    func makeConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             labelWihIcon.topAnchor.constraint(equalTo: self.topAnchor),
             labelWihIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
