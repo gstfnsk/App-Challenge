@@ -4,12 +4,13 @@
 //
 //  Created by Ana Carolina Palhares Poletto on 10/06/25.
 //
-import Foundation
+
 import UIKit
 
-struct Company {
+struct CompanyProfile: Identifiable {
+    var id: UUID
     var name: String
-    var establishmentType: Establishment
+    var establishmentType: EstablishmentType
     var cnpj: String
     var address: String
     var description: String
@@ -20,10 +21,9 @@ struct Company {
     var password: String
 }
 
-enum Establishment: String {
+enum EstablishmentType: String {
     case restaurant
     case bar
     case coffeeshop
     case other
 }
-
