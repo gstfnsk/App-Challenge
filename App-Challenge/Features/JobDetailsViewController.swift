@@ -161,6 +161,7 @@ class JobDetailsViewController: UIViewController {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Share", for: .normal)
+        button.layer.cornerRadius = 12
         button.backgroundColor = UIColor.systemBlue
         return button
     }()
