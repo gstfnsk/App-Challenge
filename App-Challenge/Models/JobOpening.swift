@@ -30,4 +30,3 @@ enum Position: String {
     case barista      // Barista
     case other        // Outro
 }
-
