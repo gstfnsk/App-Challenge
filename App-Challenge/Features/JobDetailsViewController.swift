@@ -17,6 +17,22 @@ class JobDetailsViewController: UIViewController {
             return label
         }()
     
+    private lazy var scrollView: UIScrollView = {
+                let scrollView = UIScrollView()
+                scrollView.translatesAutoresizingMaskIntoConstraints = false
+                return scrollView
+        }()
+    
+    lazy var descriptionLabel: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Descrição da vaga:"
+        label.textAlignment = .left
+        return label
+    }()
+    
+    
+    
     private lazy var contactButton: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -43,13 +59,24 @@ class JobDetailsViewController: UIViewController {
 
 extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
-        view.addSubview(contactButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contactButton)
+        scrollView.addSubview(descriptionLabel)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            contactButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            contactButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 411),
+            descriptionLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -16),
+            
+            contactButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contactButton.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             contactButton.widthAnchor.constraint(equalToConstant: 200),
             contactButton.heightAnchor.constraint(equalToConstant: 44)
         ])
