@@ -48,11 +48,11 @@ class JobDetailsViewController: UIViewController {
             textView.text = """
             Estamos em busca de uma recepcionista para integrar nosso time e garantir uma experiência de excelência aos nossos clientes desde o primeiro contato. Se você tem atenção aos detalhes, postura profissional e paixão pela hospitalidade, esta vaga é para você.
             """
-            textView.textColor = .white
+            textView.textColor = .black
             textView.backgroundColor = .clear
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.borderWidth = 0
-        textView.tintColor = .white
+        textView.tintColor = .systemGray
 //        textView.font
         return textView
     }()
@@ -90,11 +90,11 @@ class JobDetailsViewController: UIViewController {
             - Resolver imprevistos com empatia e profissionalismo.
             - Manter postura e apresentação impecáveis, alinhadas ao padrão da casa.
             """
-            textView.textColor = .white
+            textView.textColor = .black
             textView.backgroundColor = .clear
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.borderWidth = 0
-        textView.tintColor = .white
+        textView.tintColor = .systemGray2
 //        textView.font
         return textView
     }()
@@ -130,11 +130,11 @@ class JobDetailsViewController: UIViewController {
             - Fluência em português. Desejável conhecimento em francês e/ou inglês.
             - Familiaridade com sistemas de reservas é um diferencial.
             """
-            textView.textColor = .white
+            textView.textColor = .black
             textView.backgroundColor = .clear
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.layer.borderWidth = 0
-        textView.tintColor = .white
+        textView.tintColor = .systemGray2
 //        textView.font
         return textView
     }()
@@ -151,6 +151,7 @@ class JobDetailsViewController: UIViewController {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Registrar interesse na vaga", for: .normal)
+        button.layer.cornerRadius = 12
         button.backgroundColor = UIColor.systemBlue
         button.addTarget(self, action: #selector(openWhatsApp), for: .touchUpInside)
         return button
@@ -177,7 +178,7 @@ class JobDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        view.backgroundColor = .red
+        view.backgroundColor = .systemGray6
         // Do any additional setup after loading the view.
     }
     
@@ -223,9 +224,12 @@ extension JobDetailsViewController: ViewCodeProtocol {
             requirementsStack.topAnchor.constraint(equalTo: responsabilitiesStack.bottomAnchor, constant: 13),
             requirementsStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             requirementsStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            contactButton.widthAnchor.constraint(equalToConstant: 247),
+            contactButton.heightAnchor.constraint(equalToConstant: 50),
 
-            buttonsStack.widthAnchor.constraint(equalToConstant: 200),
-            buttonsStack.heightAnchor.constraint(equalToConstant: 44),
+//            buttonsStack.widthAnchor.constraint(equalToConstant: 200),
+            buttonsStack.heightAnchor.constraint(equalToConstant: 50),
             buttonsStack.topAnchor.constraint(equalTo: requirementsStack.bottomAnchor, constant: 30),
             buttonsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30)
