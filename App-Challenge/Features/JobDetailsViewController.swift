@@ -202,12 +202,15 @@ extension JobDetailsViewController: ViewCodeProtocol {
     }
     
     func setupConstraints() {
+        descriptionLabel.backgroundColor = .red.withAlphaComponent(0.2)
+        descriptionTextView.backgroundColor = .blue.withAlphaComponent(0.2)
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
+            contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -229,7 +232,6 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contactButton.widthAnchor.constraint(equalToConstant: 247),
             contactButton.heightAnchor.constraint(equalToConstant: 50),
 
-//            buttonsStack.widthAnchor.constraint(equalToConstant: 200),
             buttonsStack.heightAnchor.constraint(equalToConstant: 50),
             buttonsStack.topAnchor.constraint(equalTo: requirementsStack.bottomAnchor, constant: 30),
             buttonsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
