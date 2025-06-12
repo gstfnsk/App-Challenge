@@ -24,7 +24,7 @@ extension JobListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as? CardCollectionViewCell
-        else { fatalError() }
+        else { fatalError("Error na celula") }
         
         cell.configure(title: "teste", bgColor: .blue)
                 

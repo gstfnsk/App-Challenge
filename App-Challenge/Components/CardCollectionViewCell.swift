@@ -26,7 +26,7 @@ class CardCollectionViewCell: UICollectionViewCell {
     }()
     
     // MARK: Properties
-    static let identifier: String = "cardCollectionCell"
+    static let identifier = "cardCollectionCell"
     
     // MARK: Functions
     func configure(title: String, bgImage: UIImage? = nil, bgColor: UIColor? = nil) {

@@ -61,7 +61,7 @@ extension JobListViewController {
     }
     
     func createAllLayout() -> UICollectionViewLayout {
-        let layout = Layout { sectionIndex, layoutEnvironment in
+        return Layout { sectionIndex, layoutEnvironment in
             switch sectionIndex {
             case 0:
                 return self.createSection0()
@@ -71,7 +71,5 @@ extension JobListViewController {
                 return self.createSection2()
             }
         }
-        
-        return layout
     }
 }
