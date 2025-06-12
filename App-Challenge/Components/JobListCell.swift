@@ -6,7 +6,6 @@
 //
 import UIKit
 class JobListCell: UICollectionViewCell {
-    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -119,4 +118,3 @@ extension JobListCell: ViewCodeProtocol {
         ])
     }
 }
-
