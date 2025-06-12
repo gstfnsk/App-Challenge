@@ -5,14 +5,16 @@
 //  Created by Adriel de Souza on 11/06/25.
 //
 
+import UIKit
+
 protocol FreelaOnTapPersistence {
     // MARK: - Read Operations
     
     func fetchCompanies() async throws -> [CompanyProfile]
-    func fetchCompany(id: Int) async throws -> CompanyProfile?
+    func fetchCompany(id: UUID) async throws -> CompanyProfile?
     
     func fetchJobOffers() async throws -> [JobOffer]
-    func fetchJobOffer(id: Int, includeCompany: Bool) async throws -> JobOffer?
+    func fetchJobOffer(id: UUID, includeCompany: Bool) async throws -> JobOffer?
     
     // MARK: - Write Operations
     

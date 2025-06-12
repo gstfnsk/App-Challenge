@@ -57,7 +57,7 @@ extension CloudKitManager {
         throw CloudKitError.notImplemented
     }
 
-    func fetchCompany(id: Int) async throws -> CompanyProfile? {
+    func fetchCompany(id: UUID) async throws -> CompanyProfile? {
         try await throwIfICloudNotAvailable()
 
         throw CloudKitError.notImplemented
@@ -75,7 +75,7 @@ extension CloudKitManager {
         try await throwIfICloudNotAvailable()
 
         // Predicate for all JobOffers with an ID
-        let predicate = NSPredicate(format: "jobOfferId != %@", "")
+        let predicate = NSPredicate(format: "jobOfferId == %@", "")
 
         let query = CKQuery(recordType: "JobOffer", predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
@@ -96,10 +96,25 @@ extension CloudKitManager {
         return offers
     }
 
-    func fetchJobOffer(id: Int, includeCompany: Bool) async throws -> JobOffer? {
+    func fetchJobOffer(id: UUID, includeCompany: Bool) async throws -> JobOffer? {
         try await throwIfICloudNotAvailable()
 
-        throw CloudKitError.notImplemented
+        // Predicate for all JobOffers with an ID
+        let predicate = NSPredicate(format: "jobOfferId != %@", id.uuidString)
+
+        let query = CKQuery(recordType: "JobOffer", predicate: predicate)
+        let (matchResults, _) = try await publicDB.records(matching: query)
+        
+        for (_, result) in matchResults {
+            switch result {
+            case .success(let record):
+                return JobOffer(record: record)
+            case .failure(let error):
+                throw error
+            }
+        }
+
+        return nil
     }
 
     func saveJobOffer(_ jobOffer: JobOffer) async throws {
