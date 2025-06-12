@@ -12,7 +12,7 @@ class TabBarController: UITabBarController {
         let title = "Pesquisar"
         let image = UIImage(systemName: "text.page.badge.magnifyingglass")
         let tabItem = UITabBarItem(title: title, image: image, selectedImage: image)
-        let rootViewController = ViewController()
+        let rootViewController = JobListViewController()
         rootViewController.tabBarItem = tabItem
         rootViewController.title = "Descobrir"
         let navController = UINavigationController(rootViewController: rootViewController)
