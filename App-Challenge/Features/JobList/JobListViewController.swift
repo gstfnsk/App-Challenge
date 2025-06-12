@@ -17,6 +17,7 @@ class JobListViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createAllLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
+        collectionView.register(TitleJobListCell.self, forCellWithReuseIdentifier: TitleJobListCell.identifier)
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = false
         collectionView.alwaysBounceHorizontal = false
