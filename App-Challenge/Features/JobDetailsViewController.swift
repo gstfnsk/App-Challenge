@@ -57,7 +57,6 @@ class JobDetailsViewController: UIViewController {
             label.text = """
                 Estamos em busca de uma recepcionista para integrar nosso time e garantir uma experiência de excelência aos nossos clientes desde o primeiro contato. Se você tem atenção aos detalhes, postura profissional e paixão pela hospitalidade, esta vaga é para você.
                 """
-            label.textColor = .black
             label.translatesAutoresizingMaskIntoConstraints = false
             label.font = .systemFont(ofSize: 12)
             return label
@@ -90,7 +89,6 @@ class JobDetailsViewController: UIViewController {
                     - Resolver imprevistos com empatia e profissionalismo.
                     - Manter postura e apresentação impecáveis, alinhadas ao padrão da casa.
                     """
-        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
         return label
@@ -121,7 +119,6 @@ class JobDetailsViewController: UIViewController {
             - Fluência em português. Desejável conhecimento em francês e/ou inglês.
             - Familiaridade com sistemas de reservas é um diferencial.
             """
-        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
         return label
@@ -156,9 +153,9 @@ class JobDetailsViewController: UIViewController {
     private lazy var shareButton: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Share", for: .normal)
+        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor.systemBlue
+        button.backgroundColor = UIColor.systemGray5
         return button
     }()
     
@@ -179,10 +176,11 @@ class JobDetailsViewController: UIViewController {
     }
     
     @objc private func openWhatsApp() {
-        print("clicou")
-        if let url = URL(string: "https://wa.me/+5551997645781?text=Oi%2C%20vi%20o%20an%C3%BAncio%20da%20vaga%20no%20%2AFreela%20onTap%2A%20e%20gostaria%20de%20me%20candidatar.") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
+        let alert = UIAlertController(title: "Register Interest", message: "Obrigado por se candidatar, seu perfil já está com o contratante. Agora é só dar o próximo passo.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Entrar em contato", style: .default) { _ in if let url = URL(string: "https://wa.me/+5551997645781?text=Oi%2C%20vi%20o%20an%C3%BAncio%20da%20vaga%20no%20%2AFreela%20onTap%2A%20e%20gostaria%20de%20me%20candidatar.") {  UIApplication.shared.open(url, options: [:], completionHandler: nil)}
+        })
+        alert.addAction(UIAlertAction(title: "Talvez mais tarde", style: .default))
+        present(alert, animated: true)
     }
 }
 
@@ -223,7 +221,10 @@ extension JobDetailsViewController: ViewCodeProtocol {
             buttonsStack.heightAnchor.constraint(equalToConstant: 50),
             buttonsStack.topAnchor.constraint(equalTo: requirementsStack.bottomAnchor, constant: 30),
             buttonsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30)
+            buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            
+            shareButton.heightAnchor.constraint(equalToConstant: 50),
+            shareButton.widthAnchor.constraint(equalToConstant: 59)
         ])
     }
 }
