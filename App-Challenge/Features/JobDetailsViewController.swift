@@ -8,6 +8,8 @@
 import UIKit
 
 class JobDetailsViewController: UIViewController {
+    private var jobOffer: JobOffer?
+    
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -70,14 +72,14 @@ class JobDetailsViewController: UIViewController {
         return stack
     }()
     
-    private lazy var responsabilitiesLabel: UILabel = {
+    private lazy var responsibilitiesLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Responsabilidades:"
         return label
     }()
     
-    private lazy var responsabilitiesText: UILabel = {
+    private lazy var responsibilitiesText: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
         label.text = """
@@ -95,7 +97,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     private lazy var responsabilitiesStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [responsabilitiesLabel, responsabilitiesText])
+        var stack = UIStackView(arrangedSubviews: [responsibilitiesLabel, responsibilitiesText])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 8
@@ -133,7 +135,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     lazy var mainStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [placeholderLabel, companyNameTitle, descriptionStack, responsabilitiesStack, requirementsStack])
+        var stack = UIStackView(arrangedSubviews: [placeholderLabel, descriptionStack, responsabilitiesStack, requirementsStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 13
@@ -166,13 +168,30 @@ class JobDetailsViewController: UIViewController {
         return stack
     }()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setup()
         view.backgroundColor = .systemGray6
+        
+        configureViewWithData()
         // Do any additional setup after loading the view.
+    }
+    
+    // MARK: Methods
+    
+    func configure(with jobOffer: JobOffer) {
+        self.jobOffer = jobOffer
+    }
+    
+    private func configureViewWithData() {
+        guard let job = jobOffer else {
+            return }
+        
+        jobDetailsTitle.text = job.position.rawValue.capitalized
+        descriptionText.text = job.description
+        requirementsText.text = job.requirements
+        responsibilitiesText.text = job.responsibilities
     }
     
     @objc private func openWhatsApp() {
