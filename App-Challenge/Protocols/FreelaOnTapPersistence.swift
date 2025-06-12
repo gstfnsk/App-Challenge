@@ -14,7 +14,7 @@ protocol FreelaOnTapPersistence {
     func fetchCompany(id: UUID) async throws -> CompanyProfile?
     
     func fetchJobOffers() async throws -> [JobOffer]
-    func fetchJobOffer(id: UUID, includeCompany: Bool) async throws -> JobOffer?
+    func fetchJobOffer(id: UUID) async throws -> JobOffer?
     
     // MARK: - Write Operations
     
