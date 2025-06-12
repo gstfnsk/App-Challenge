@@ -26,4 +26,3 @@ enum Establishment: String {
     case coffeeshop
     case other
 }
-
