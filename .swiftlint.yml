@@ -139,8 +139,8 @@ only_rules:
   - trailing_newline
   - trailing_semicolon
   # - trailing_whitespace
-  - unavailable_condition
-  - unavailable_function
+  # - unavailable_condition
+  # - unavailable_function
   - unneeded_break_in_switch
   - unneeded_override
   - unneeded_parentheses_in_closure_argument
