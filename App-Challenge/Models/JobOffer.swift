@@ -12,6 +12,7 @@ struct JobOffer: Identifiable {
     var position: JobPosition
     var durationTime: Int
     var startDate: Date
+    let creationDate: Date // imutable
     var location: String
     var salary: Decimal
     var description: String

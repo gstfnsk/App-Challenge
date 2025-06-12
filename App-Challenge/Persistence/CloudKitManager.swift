@@ -128,6 +128,7 @@ extension CloudKitManager {
         record["position"] = jobOffer.position.rawValue
         record["durationTime"] = jobOffer.durationTime
         record["startDate"] = jobOffer.startDate
+        record["creationDate"] = jobOffer.creationDate
         record["location"] = jobOffer.location
         record["salary"] = jobOffer.salary as CKRecordValue
         record["description"] = jobOffer.description
@@ -145,6 +146,7 @@ extension JobOffer {
             let position = JobPosition(rawValue: positionRaw),
             let durationTime = record["durationTime"] as? Int,
             let startDate = record["startDate"] as? Date,
+            let creationDate = record["creationDate"] as? Date,
             let location = record["location"] as? String,
             let salaryNumber = record["salary"] as? NSNumber,
             let description = record["description"] as? String,
@@ -158,6 +160,7 @@ extension JobOffer {
         self.position = position
         self.durationTime = durationTime
         self.startDate = startDate
+        self.creationDate = creationDate
         self.location = location
         self.salary = salaryNumber.decimalValue
         self.description = description
