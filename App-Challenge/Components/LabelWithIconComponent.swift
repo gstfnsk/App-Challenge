@@ -45,14 +45,13 @@ class LabelWithIconComponent: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setup()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }
 
 extension LabelWithIconComponent: ViewCodeProtocol {
@@ -66,9 +65,6 @@ extension LabelWithIconComponent: ViewCodeProtocol {
             labelWihIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             labelWihIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             labelWihIcon.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-            
         ])
     }
-    
 }
-
