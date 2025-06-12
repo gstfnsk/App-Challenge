@@ -29,16 +29,16 @@ extension JobListViewController {
     
     func createSection1() -> Section {
         /// item
-        let itemSize = Size(widthDimension: .absolute(403.0), heightDimension: .absolute(53.0))
+        let itemSize = Size(widthDimension: .absolute(390.0), heightDimension: .absolute(53.0))
         let item = Item(layoutSize: itemSize)
         
         /// group
-        let groupSize = Size(widthDimension: .estimated(64.0), heightDimension: .absolute(34.0))
+        let groupSize = Size(widthDimension: .estimated(393.0), heightDimension: .absolute(34.0))
         let group = Group.horizontal(layoutSize: groupSize, subitems: [item])
                 
         /// section
         let section = Section(group: group)
-        section.contentInsets = Edges(top: 20, leading: 0, bottom: 20, trailing: 0)
+        section.contentInsets = Edges(top: 20, leading: 20, bottom: 20, trailing: 20)
         
         return section
     }

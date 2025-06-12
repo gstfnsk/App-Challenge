@@ -23,11 +23,24 @@ extension JobListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as? CardCollectionViewCell
-        else { fatalError("Error na celula") }
-        
-        cell.configure(title: "teste", bgColor: .blue)
-                
+        let section = indexPath.section
+        if section == 0 {
+            guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as? CardCollectionViewCell else {
+                fatalError("Erro ao criar CardCollectionViewCell")
+            }
+            cell.configure(title: "Título de um Card", bgColor: .black)
+            return cell
+        }
+        if section == 1 {
+            guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: TitleJobListCell.identifier, for: indexPath) as? TitleJobListCell else {
+                fatalError("Erro ao criar TitleJobListCell (section 1)")
+            }
+            return cell
+        }
+        guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as? CardCollectionViewCell else {
+            fatalError("Erro ao criar CardCollectionViewCell")
+        }
+        cell.configure(title: "Título de um Card", bgColor: .black)
         return cell
     }
 }
