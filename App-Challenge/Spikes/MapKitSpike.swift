@@ -10,16 +10,12 @@ import MapKit
 import CoreLocation
 
 class MapKitSpike: UIViewController, CLLocationManagerDelegate {
-    
     // Optional region where the map should start centered
-    var region: MKCoordinateRegion? = nil
-    
+    var region: MKCoordinateRegion?
     // Converts address strings into geographic coordinates
     let geocoder = CLGeocoder()
-    
     // Suggests possible addresses or places as the user types
     var searchCompleter = MKLocalSearchCompleter()
-    
     // List of search suggestions based on user input (contains title and subtitle, not just plain strings)
     var searchResults = [MKLocalSearchCompletion]()
     
