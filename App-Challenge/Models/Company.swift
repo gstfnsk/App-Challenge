@@ -27,3 +27,13 @@ enum EstablishmentType: String {
     case coffeeshop
     case other
 }
+
+// TODO: usar rawValue pra pegar quantidade de funcionários
+
+enum companySize: String {
+    case tiny = "1-10 funcionários"
+    case small = "11-20 funcionários"
+    case medium = "21-30 funcionários"
+    case large = "31-40 funcionários"
+    case superLarge = "Mais de 41 funcionários"
+}

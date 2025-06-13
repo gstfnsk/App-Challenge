@@ -40,7 +40,7 @@ extension JobListViewController: UICollectionViewDataSource {
             fatalError("Erro ao criar CardCollectionViewCell")
         }
         
-        let job1 = JobOffer(id: UUID(), companyId: UUID(), position: .barback, workSchedule: "11H às 19H", startDate: Date(), endDate: Date(), location: "São Paulo", salary: 1000, description: "Lorem ipsum dolor sit amet")
+        let job1 = JobOffer(id: UUID(), companyId: UUID(), position: .barback, durationTime: 5, startDate: Date(), creationDate: .now, location: "São Paulo", salary: 1000, description: "Lorem ipsum dolor sit amet", requirements: "requirements", responsibilities: "resposibilities")
         cell.configure(job: job1)
         return cell
     }

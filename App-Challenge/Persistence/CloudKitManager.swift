@@ -179,12 +179,14 @@ extension CloudKitManager {
         record["id"] = jobOffer.id.uuidString
         record["companyId"] = jobOffer.companyId.uuidString
         record["position"] = jobOffer.position.rawValue
-        record["workSchedule"] = jobOffer.workSchedule
+        record["durationTime"] = jobOffer.durationTime
         record["startDate"] = jobOffer.startDate
-        record["endDate"] = jobOffer.endDate
+        record["creationDate"] = jobOffer.creationDate
         record["location"] = jobOffer.location
         record["salary"] = jobOffer.salary as CKRecordValue
         record["description"] = jobOffer.description
+        record["requirements"] = jobOffer.requirements
+        record["responsibilities"] = jobOffer.responsibilities
 
         try await publicDB.save(record)
     }
@@ -197,12 +199,14 @@ extension JobOffer {
               let companyId = UUID(uuidString: record.recordID.recordName),
             let positionRaw = record["position"] as? String,
             let position = JobPosition(rawValue: positionRaw),
-            let workSchedule = record["workSchedule"] as? String,
+            let durationTime = record["durationTime"] as? Int,
             let startDate = record["startDate"] as? Date,
-            let endDate = record["endDate"] as? Date,
+            let creationDate = record["creationDate"] as? Date,
             let location = record["location"] as? String,
             let salaryNumber = record["salary"] as? NSNumber,
-            let description = record["description"] as? String
+            let description = record["description"] as? String,
+            let requirements = record["requirements"] as? String,
+            let responsibilities = record["responsibilities"] as? String
         else {
             return nil
         }
@@ -210,12 +214,14 @@ extension JobOffer {
         self.id = jobId
         self.companyId = companyId
         self.position = position
-        self.workSchedule = workSchedule
+        self.durationTime = durationTime
         self.startDate = startDate
-        self.endDate = endDate
+        self.creationDate = creationDate
         self.location = location
         self.salary = salaryNumber.decimalValue
         self.description = description
+        self.requirements = requirements
+        self.responsibilities = responsibilities
     }
 }
 
