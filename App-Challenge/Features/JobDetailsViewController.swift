@@ -8,7 +8,6 @@
 import UIKit
 
 class JobDetailsViewController: UIViewController {
-
     var selectedJobIndex: UUID?
     
     private lazy var contentView: UIView = {
