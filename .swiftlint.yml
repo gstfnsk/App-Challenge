@@ -94,7 +94,7 @@ only_rules:
   - optional_data_string_conversion
   - overridden_super_call
   - prefer_key_path
-  - prefer_self_in_static_references
+  # - prefer_self_in_static_references
   - prefer_self_type_over_type_of_self
   - prefer_zero_over_explicit_init
   - private_action
@@ -229,13 +229,13 @@ custom_rules:
     regex: '\bNSPoint\b'
     match_kinds: typeidentifier
     message: 'Use CGPoint instead of NSPoint'
-  no_cgfloat:
-    regex: '\bCGFloat\b'
-    match_kinds: typeidentifier
-    message: 'Use Double instead of CGFloat'
-  no_cgfloat2:
-    regex: '\bCGFloat\('
-    message: 'Use Double instead of CGFloat'
+  # no_cgfloat:
+  #  regex: '\bCGFloat\b'
+  #  match_kinds: typeidentifier
+  #  message: 'Use Double instead of CGFloat'
+  # no_cgfloat2:
+  #  regex: '\bCGFloat\('
+  #  message: 'Use Double instead of CGFloat'
   swiftui_state_private:
     regex: '@(ObservedObject|EnvironmentObject)\s+var'
     message: 'SwiftUI @ObservedObject and @EnvironmentObject properties should be private'
