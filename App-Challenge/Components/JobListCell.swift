@@ -53,8 +53,24 @@ class JobListCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+    
+    // TODO: Change placeholders with real data! Maybe use a collection view with flow layout
+    private lazy var badgeStack: UIStackView = {
+        let badges = [BadgeLabelWithIcon(), BadgeLabelWithIcon(), BadgeLabelWithIcon(), BadgeLabelWithIcon()]
+        badges[0].text = "27/06"
+        badges[1].text = "Horário: 11h30"
+        badges[2].text = "R$ 80"
+        badges[3].text = "5h"
+        
+        let stack = UIStackView(arrangedSubviews: badges)
+        stack.axis = .horizontal
+        stack.spacing = 8
+        
+        return stack
+    }()
+    
     private lazy var stack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [ imageStack, iconStack])
+        let stackView = UIStackView(arrangedSubviews: [imageStack, badgeStack, iconStack])
         stackView.axis = .vertical
         stackView.spacing = 8
         stackView.alignment = .leading // <- ESSENCIAL PRA TUDO FICAR COLADO À ESQUERDA
