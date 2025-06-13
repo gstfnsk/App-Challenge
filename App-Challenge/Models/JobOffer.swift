@@ -8,7 +8,7 @@ import Foundation
 
 struct JobOffer: Identifiable {
     var id: UUID
-    var companyId: UUID?
+    var companyId: UUID
     var position: JobPosition
     var durationTime: Int
     var startDate: Date

@@ -5,7 +5,6 @@
 //  Created by Ana Carolina Palhares Poletto on 11/06/25.
 //
 import UIKit
-
 class LabelWithIconComponent: UIView {
     private lazy var icon: UIImageView = {
         var image = UIImageView()
@@ -53,7 +52,6 @@ class LabelWithIconComponent: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
 extension LabelWithIconComponent: ViewCodeProtocol {
     func addSubviews() {
         addSubview(labelWihIcon)
@@ -64,7 +62,8 @@ extension LabelWithIconComponent: ViewCodeProtocol {
             labelWihIcon.topAnchor.constraint(equalTo: self.topAnchor),
             labelWihIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             labelWihIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            labelWihIcon.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            labelWihIcon.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            icon.heightAnchor.constraint(equalTo: label.heightAnchor)
         ])
     }
 }
