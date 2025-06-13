@@ -56,6 +56,13 @@ final class BadgeLabelWithIcon: UIView {
 
         setup()
     }
+    
+    convenience init(text: String, icon: UIImage? = nil, size: BadgeSize = .small) {
+        self.init(frame: .zero)
+        
+        self.text = text
+        self.icon = icon
+    }
 
     // MARK: - Private Methods
     private var badgeHeightConstraint: NSLayoutConstraint?
@@ -132,6 +139,8 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
         iconView.tintColor = featureColor
 
         backgroundColor = .tertiarySystemFill
+        
+        setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
 }
 
