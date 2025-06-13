@@ -45,13 +45,13 @@ extension JobListViewController {
         // item
         let itemSize = Size(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(174)
+            heightDimension: .estimated(174)
         )
         let item = Item(layoutSize: itemSize)
         // group
         let groupSize = Size(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(174)
+            heightDimension: .estimated(174)
         )
         let group = Group.vertical(layoutSize: groupSize, subitems: [item])
         // section
