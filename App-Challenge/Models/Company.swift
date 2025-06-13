@@ -14,7 +14,7 @@ struct CompanyProfile: Identifiable {
     var cnpj: String
     var address: String
     var description: String
-    var companySize: companySize
+    var companySize: String
     var photo: String //Depois trocar para como pretendemos fazer upload da foto
     var whatsappNumber: String
     var email: String
