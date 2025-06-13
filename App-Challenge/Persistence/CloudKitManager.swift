@@ -19,7 +19,7 @@ enum CloudKitError: Error {
 
 struct CloudKitManager: FreelaOnTapPersistence {
     // Shared singleton instance
-    static let shared = CloudKitManager()
+    static let shared = Self()
     static let databaseQueue = DispatchQueue(label: "com.freelaontap.databaseQueue")
 
     // Prevent external instantiation

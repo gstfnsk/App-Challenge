@@ -27,7 +27,7 @@ class SearchBarSpike: UIViewController {
        table.backgroundColor = UIColor.white
        
        // Register default UITableViewCell for reuse
-       table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(CustomCell.self, forCellReuseIdentifier: CustomCell.identifier)
 
        return table
     }()
@@ -123,15 +123,21 @@ extension SearchBarSpike: UITableViewDelegate, UITableViewDataSource {
     // Configure each table view cell to show either filtered or full list item
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Dequeue reusable cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.identifier, for: indexPath) as? CustomCell
+        
+        let item = isFiltering() ? filteredWorks[indexPath.row] : works[indexPath.row]
         
         // Set cell text to filtered or full array element
-        cell.textLabel?.text = isFiltering() ? filteredWorks[indexPath.row] : works[indexPath.row]
+        cell?.config(title: item)
         
-        return cell
+
+        return cell ?? UITableViewCell()
+    }
+    
+    private func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> Double {
+        return 120 // ou outro valor fixo
     }
 }
-
 // MARK: - UISearchResultsUpdating Protocol Implementation
 extension SearchBarSpike: UISearchResultsUpdating {
     // Called whenever the search bar text changes

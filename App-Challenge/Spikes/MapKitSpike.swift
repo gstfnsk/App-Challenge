@@ -10,14 +10,17 @@ import MapKit
 import CoreLocation
 
 class MapKitSpike: UIViewController, CLLocationManagerDelegate {
-    // Optional region where the map should start centered
-    var region: MKCoordinateRegion?
     // Converts address strings into geographic coordinates
     let geocoder = CLGeocoder()
+    
     // Suggests possible addresses or places as the user types
     var searchCompleter = MKLocalSearchCompleter()
+    
     // List of search suggestions based on user input (contains title and subtitle, not just plain strings)
     var searchResults = [MKLocalSearchCompletion]()
+    
+    // array with all notations to put at map
+    var allPointNotation: [MKPointAnnotation] = []
     
     // Utility method to generate CLLocationCoordinate2D from latitude and longitude values
     func fetchLocation(latitude: CLLocationDegrees, longitude: CLLocationDegrees) -> CLLocationCoordinate2D {
@@ -39,7 +42,7 @@ class MapKitSpike: UIViewController, CLLocationManagerDelegate {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
-        let attributedString = NSAttributedString(string: "endereço aqui", attributes: [.foregroundColor : UIColor.black])
+        let attributedString = NSAttributedString(string: "endereço aqui", attributes: [.foregroundColor: UIColor.black])
         textField.attributedPlaceholder = attributedString
         textField.backgroundColor = .white
         textField.textColor = .black
@@ -48,7 +51,7 @@ class MapKitSpike: UIViewController, CLLocationManagerDelegate {
     }()
     
     // Button that triggers the address lookup and map update
-    lazy var button:UIButton = {
+    lazy var button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 16
@@ -74,9 +77,13 @@ class MapKitSpike: UIViewController, CLLocationManagerDelegate {
             // Use first result if available
             if let placeMarkToLocation = placeMark?.first, let locationCLLocationCordinate = placeMarkToLocation.location {
                 // Set annotation coordinates and title based on the typed address
-                pointNotation.coordinate = locationCLLocationCordinate.coordinate
-                pointNotation.title = adress
-                mapView.addAnnotation(pointNotation)
+                let newPointNotation = MKPointAnnotation()
+                newPointNotation.coordinate = locationCLLocationCordinate.coordinate
+                newPointNotation.title = adress
+                
+                allPointNotation.append(newPointNotation)
+                mapView.addAnnotation(newPointNotation)
+
                 centerMap(regionToCenter: locationCLLocationCordinate.coordinate)
             }
         }
@@ -99,25 +106,16 @@ class MapKitSpike: UIViewController, CLLocationManagerDelegate {
         let map = MKMapView()
         map.translatesAutoresizingMaskIntoConstraints = false
         map.showsUserLocation = true
+        map.delegate = self
         // Set initial region if available
-        if let region {
-            print(region)
-            map.setRegion(region , animated: true)
-        }
+
         return map
-    }()
-    
-    // Reusable map annotation (pin) object
-    lazy var pointNotation: MKPointAnnotation = {
-        let note = MKPointAnnotation()
-        note.title = textField.text
-        return note
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
         
+        view.backgroundColor = .green
         // Configure MKLocalSearchCompleter
         searchCompleter.delegate = self
         searchCompleter.resultTypes = .address
@@ -128,7 +126,6 @@ class MapKitSpike: UIViewController, CLLocationManagerDelegate {
 }
 
 extension MapKitSpike {
-    
     // Layout setup for all UI elements
     func setup() {
         view.addSubview(mapView)
@@ -153,13 +150,12 @@ extension MapKitSpike {
             mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            mapView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 100),
+            mapView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 100)
         ])
     }
 }
 
 extension MapKitSpike: UITableViewDelegate, UITableViewDataSource {
-    
     // Number of rows based on the number of search results
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
@@ -184,19 +180,21 @@ extension MapKitSpike: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension MapKitSpike: UITextFieldDelegate {
-    
     // Update the searchCompleter's query fragment as the user types
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
-        guard let stringRange = Range(range, in: currentText) else { return true }
-        let updateText = currentText.replacingCharacters(in: stringRange, with: string)
+        print("texto corrent :\(currentText)") // before the last change
+        guard let stringRange = Range(range, in: currentText) else {
+            return true
+        } // take the range where user puted a new string
+        let updateText = currentText.replacingCharacters(in: stringRange, with: string) // puts the new string at the stringRange
+        print("texto atualizado :\(updateText)") // after the last change
         searchCompleter.queryFragment = updateText
         return true
     }
 }
 
 extension MapKitSpike: MKLocalSearchCompleterDelegate {
-    
     // When new suggestions are received, update the results and reload the table
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
@@ -206,5 +204,18 @@ extension MapKitSpike: MKLocalSearchCompleterDelegate {
     // Handle possible error from the search completer
     func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         print("Error in search completer:", error.localizedDescription)
+    }
+}
+
+extension MapKitSpike: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let annotation = view.annotation else {
+            return
+        }
+        
+        let alert = UIAlertController(title: "Anotação selecionada", message: annotation.title ?? "Sem título", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default))
+        
+        present(alert, animated: true)
     }
 }
