@@ -70,7 +70,6 @@ final class BadgeLabelWithIcon: UIView {
         let newHeightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(badgeSize.rawValue))
         newHeightConstraint.isActive = true
         badgeHeightConstraint = newHeightConstraint
-        
     }
 
     // MARK: - UI Elements
@@ -117,7 +116,7 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             
-            iconView.heightAnchor.constraint(equalToConstant: 15),
+            iconView.heightAnchor.constraint(equalToConstant: 15)
         ])
         
         updateBadgeSize()
