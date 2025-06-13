@@ -23,6 +23,7 @@ class JobListViewController: UIViewController {
         collectionView.alwaysBounceHorizontal = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = true
+        collectionView.delegate = self
         return collectionView
     }()
     
@@ -37,5 +38,13 @@ class JobListViewController: UIViewController {
 extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         print("Degbug: \(searchController.searchBar.text ?? "")")
+    }
+}
+
+extension JobListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // let selectedJob = indexPath.item
+        let vc = JobDetailsViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

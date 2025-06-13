@@ -8,6 +8,8 @@
 import UIKit
 
 class JobDetailsViewController: UIViewController {
+    var selectedJobIndex: UUID?
+    
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
