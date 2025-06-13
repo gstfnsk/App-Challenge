@@ -4,9 +4,7 @@
 //
 //  Created by Ana Carolina Palhares Poletto on 11/06/25.
 //
-
 import UIKit
-
 // MARK: CollectionView Layout
 extension JobListViewController {
     func createSection0() -> Section {
@@ -44,19 +42,22 @@ extension JobListViewController {
     }
     
     func createSection2() -> Section {
-        /// item
-        let itemSize = Size(widthDimension: .absolute(361), heightDimension: .absolute(174))
+        // item
+        let itemSize = Size(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(174)
+        )
         let item = Item(layoutSize: itemSize)
-        
-        /// group
-        let groupSize = Size(widthDimension: .absolute(361), heightDimension: .absolute(174))
+        // group
+        let groupSize = Size(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(174)
+        )
         let group = Group.vertical(layoutSize: groupSize, subitems: [item])
-
-        /// section
+        // section
         let section = Section(group: group)
         section.interGroupSpacing = 10.0
         section.contentInsets = Edges(top: 20, leading: 16, bottom: 16, trailing: 16)
-        
         return section
     }
     

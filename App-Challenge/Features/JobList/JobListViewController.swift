@@ -5,7 +5,6 @@
 //  Created by Ana Carolina Palhares Poletto on 11/06/25.
 //
 import UIKit
-
 class JobListViewController: UIViewController {
     lazy var searchController: UISearchController = {
         var search = UISearchController.create()
@@ -18,6 +17,7 @@ class JobListViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
         collectionView.register(TitleJobListCell.self, forCellWithReuseIdentifier: TitleJobListCell.identifier)
+        collectionView.register(JobListCell.self, forCellWithReuseIdentifier: JobListCell.identifier)
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = false
         collectionView.alwaysBounceHorizontal = false

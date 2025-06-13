@@ -5,7 +5,6 @@
 //  Created by Ana Carolina Palhares Poletto on 11/06/25.
 //
 import UIKit
-
 // MARK: CollectionView DataSource
 extension JobListViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -37,10 +36,12 @@ extension JobListViewController: UICollectionViewDataSource {
             }
             return cell
         }
-        guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as? CardCollectionViewCell else {
+        guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: JobListCell.identifier, for: indexPath) as? JobListCell else {
             fatalError("Erro ao criar CardCollectionViewCell")
         }
-        cell.configure(title: "Título de um Card", bgColor: .black)
+        
+        let job1 = JobOffer(id: UUID(), companyId: UUID(), position: .barback, workSchedule: "11H às 19H", startDate: Date(), endDate: Date(), location: "São Paulo", salary: 1000, description: "Lorem ipsum dolor sit amet")
+        cell.configure(job: job1)
         return cell
     }
 }
