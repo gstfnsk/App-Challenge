@@ -21,15 +21,15 @@ struct JobOffer: Identifiable {
 }
 
 enum JobPosition: String {
-    case waiter = "garçom"       // Garçom
-    case bartender = "barman"  // Barman
-    case chef = "chef"        // Chef de cozinha
-    case cook = "cozinheiro"         // Cozinheiro
-    case hostess = "recepcionista"      // Recepcionista
-    case dishwasher = "lavador de roupa"   // Lavador de pratos
-    case busser = "auxiliar de garçom"      // Auxiliar de garçom
-    case barback = "auxiliar de bar"     // Auxiliar de bar
-    case manager = "gerente"      // Gerente
-    case barista = "barista"     // Barista
-    case other = "outro"       // Outro
+    case waiter = "garçom"
+    case bartender = "barman"
+    case chef = "chef"
+    case cook = "cozinheiro"
+    case hostess = "recepcionista"
+    case dishwasher = "lavador de roupa"
+    case busser = "auxiliar de garçom"
+    case barback = "auxiliar de bar"
+    case manager = "gerente"
+    case barista = "barista"
+    case other = "outro"
 }
