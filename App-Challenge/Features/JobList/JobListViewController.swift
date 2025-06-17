@@ -6,16 +6,19 @@
 //
 import UIKit
 class JobListViewController: UIViewController {
+    var listedJobOffers: [JobOffer] = []
+    
     lazy var searchController: UISearchController = {
         var search = UISearchController.create()
         search.searchResultsUpdater = self
         search.searchBar.delegate = self
         return search
     }()
+    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createAllLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
+        collectionView.register(BadgeLabelViewCell.self, forCellWithReuseIdentifier: BadgeLabelViewCell.identifier)
         collectionView.register(TitleJobListCell.self, forCellWithReuseIdentifier: TitleJobListCell.identifier)
         collectionView.register(JobListCell.self, forCellWithReuseIdentifier: JobListCell.identifier)
         collectionView.dataSource = self
@@ -32,7 +35,9 @@ class JobListViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        
         setup()
+        updateJobOfferList()
     }
 }
 extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {

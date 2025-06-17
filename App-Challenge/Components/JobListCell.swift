@@ -33,14 +33,14 @@ class JobListCell: UICollectionViewCell {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         stackView.axis = .vertical
         stackView.spacing = 4
-        stackView.alignment = .leading // <- IMPORTANTE
+        stackView.alignment = .leading
         return stackView
     }()
     private lazy var imageStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [ imageView, labelStackView])
         stackView.axis = .horizontal
         stackView.spacing = 8
-        stackView.alignment = .center // ou .leading, se quiser colar tudo no topo
+        stackView.alignment = .center
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -48,7 +48,7 @@ class JobListCell: UICollectionViewCell {
     private lazy var iconStack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [ time, location])
         stackView.spacing = 16
-        stackView.alignment = .leading // <- IMPORTANTE
+        stackView.alignment = .leading
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -73,7 +73,7 @@ class JobListCell: UICollectionViewCell {
         let stackView = UIStackView(arrangedSubviews: [imageStack, badgeStack, iconStack])
         stackView.axis = .vertical
         stackView.spacing = 8
-        stackView.alignment = .leading // <- ESSENCIAL PRA TUDO FICAR COLADO À ESQUERDA
+        stackView.alignment = .leading
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -104,20 +104,34 @@ class JobListCell: UICollectionViewCell {
 //        imageView.image = company.photo
         
     }
-    
-    // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setupShadow()
+        setupContentView()
         setup()
-        contentView.layer.cornerRadius = 8.0
-        contentView.clipsToBounds = true
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.tertiaryLabel.cgColor
     }
-    
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        
+        setupShadow()
+        setupContentView()
+        setup()
+    }
+
+    private func setupShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.15
+        layer.shadowOffset = CGSize(width: 2, height: 2)
+        layer.shadowRadius = 8
+        layer.masksToBounds = false
+    }
+
+    private func setupContentView() {
+        contentView.backgroundColor = .systemBackground
+        contentView.layer.cornerRadius = 12
+        contentView.layer.masksToBounds = true
     }
 }
 extension JobListCell: ViewCodeProtocol {
