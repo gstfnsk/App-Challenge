@@ -7,19 +7,19 @@
 import UIKit
 class JobListViewController: UIViewController {
     let refreshControl = UIRefreshControl()
-    // will be populate with CK data
-    var jobOffer: [JobOffer] = []
-
+    var listedJobOffers: [JobOffer] = []
+    
     lazy var searchController: UISearchController = {
         var search = UISearchController.create()
         search.searchResultsUpdater = self
         search.searchBar.delegate = self
         return search
     }()
+    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createAllLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
+        collectionView.register(BadgeLabelViewCell.self, forCellWithReuseIdentifier: BadgeLabelViewCell.identifier)
         collectionView.register(TitleJobListCell.self, forCellWithReuseIdentifier: TitleJobListCell.identifier)
         collectionView.register(JobListCell.self, forCellWithReuseIdentifier: JobListCell.identifier)
         collectionView.dataSource = self
@@ -42,31 +42,7 @@ class JobListViewController: UIViewController {
     }
     
     @objc private func refreshJobs() {
-        Task {
-            do {
-                var newJobs = try await CloudKitManager.shared.fetchJobOffers()
-                // test
-                newJobs.append(JobOffer(id: UUID(), companyId: UUID(), position: JobPosition.bartender, durationTime: 8, startDate: Date(), creationDate: Date(), location: "AVENIDA TAL", salary: 49.00, description: "DESCRICAO", requirements: "teste", responsibilities: "top"))
-                
-                if areJobsDifferent(oldJobs: jobOffer, newJobs: newJobs) {
-                    jobOffer = newJobs
-                    print("There are new data.")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                        self.collectionView.reloadData()
-                        self.refreshControl.endRefreshing()
-                    }
-                } else {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                        print("There is not new data.")
-                    }
-                }
-            } catch {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-                    print("Erro ao buscar vagas: \(error)")
-                }
-            }
-            refreshControl.endRefreshing()
-        }
+        updateJobOfferList()
     }
     
     // MARK: Life Cycle
@@ -74,7 +50,9 @@ class JobListViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
+        
         setup()
+        updateJobOfferList()
     }
 }
 
