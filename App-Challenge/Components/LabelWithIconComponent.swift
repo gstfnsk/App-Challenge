@@ -10,7 +10,7 @@ class LabelWithIconComponent: UIView {
         var image = UIImageView()
         image = UIImageView(image: UIImage(systemName: "person"))
         image.contentMode = .scaleAspectFit
-        image.tintColor = .secondaryLabel
+        image.tintColor = .DesignSystem.terracota600
         return image
     }()
     private lazy var label: UILabel = {
@@ -24,7 +24,7 @@ class LabelWithIconComponent: UIView {
     private lazy var labelWihIcon: UIStackView = {
         var labelWihIcon = UIStackView(arrangedSubviews: [icon, label])
         labelWihIcon.alignment = .leading
-        labelWihIcon.spacing = 8
+        labelWihIcon.spacing = 4
         labelWihIcon.translatesAutoresizingMaskIntoConstraints = false
         return labelWihIcon
     }()
@@ -63,7 +63,7 @@ extension LabelWithIconComponent: ViewCodeProtocol {
             labelWihIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             labelWihIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             labelWihIcon.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            icon.heightAnchor.constraint(equalTo: label.heightAnchor)
+            icon.heightAnchor.constraint(equalToConstant: 16)
         ])
     }
 }

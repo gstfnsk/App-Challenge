@@ -34,8 +34,8 @@ class JobListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-        
+        collectionView.backgroundColor = .DesignSystem.lavanda0
+
         setup()
         updateJobOfferList()
     }

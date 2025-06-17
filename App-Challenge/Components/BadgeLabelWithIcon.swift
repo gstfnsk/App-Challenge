@@ -36,10 +36,16 @@ final class BadgeLabelWithIcon: UIView {
 
     // use default backgroundColor from UIView
 
-    var featureColor: UIColor = .systemBlue {
+    var featureColor: UIColor = .DesignSystem.terracota700 {
         didSet {
             textLabel.textColor = featureColor
             iconView.tintColor = featureColor
+        }
+    }
+
+    var backColor: UIColor = .white {
+        didSet {
+            backgroundColor = backColor
         }
     }
 
@@ -138,7 +144,7 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
         textLabel.textColor = featureColor
         iconView.tintColor = featureColor
 
-        backgroundColor = .tertiarySystemFill
+        backgroundColor = .DesignSystem.terracota100
         
         setContentHuggingPriority(.defaultHigh, for: .vertical)
     }
