@@ -16,27 +16,41 @@ class JobDetailsViewController: UIViewController {
         return view
     }()
     
+    private lazy var imageView: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 361, height: 196)
+        let image0 = UIImage(named: "DefaultRestaurantPhoto")?.cgImage
+        let layer0 = CALayer()
+        layer0.contents = image0
+        layer0.transform = CATransform3DMakeAffineTransform(CGAffineTransform(a: 1, b: 0, c: 0, d: 1.23, tx: 0, ty: -0.11))
+        layer0.bounds = view.bounds
+        layer0.position = view.center
+        view.layer.addSublayer(layer0)
+        view.layer.cornerRadius = 4
+        var parent = self.view!
+        parent.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.widthAnchor.constraint(equalToConstant: 275).isActive = true
+        view.heightAnchor.constraint(equalToConstant: 183).isActive = true
+        view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 0).isActive = true
+        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 1).isActive = true
+        return view
+    }()
+
+    
     private lazy var scrollView: UIScrollView = {
                 let scrollView = UIScrollView()
                 scrollView.translatesAutoresizingMaskIntoConstraints = false
                 return scrollView
         }()
     
-    private lazy var jobDetailsTitle: UILabel = {
-            var label = UILabel()
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = "Recepcionista"
-            label.font = UIFont(name: "SFProRounded-Bold", size: 30)
-            return label
-        }()
-    
-    private lazy var placeholderLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "[placeholder]"
-        label.textAlignment = .center
-        return label
-    }()
+//    private lazy var placeholderLabel: UILabel = {
+//        var label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.text = "[placeholder]"
+//        label.textAlignment = .center
+//        return label
+//    }()
     
     private lazy var companyNameTitle: UILabel = {
             var label = UILabel()
@@ -135,10 +149,53 @@ class JobDetailsViewController: UIViewController {
     }()
     
     lazy var mainStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [placeholderLabel, descriptionStack, responsabilitiesStack, requirementsStack])
+        var stack = UIStackView(arrangedSubviews: [imageView, companyStack, descriptionStack, responsabilitiesStack, requirementsStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 13
+        return stack
+    }()
+    
+    private lazy var companyName: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Le Cochon Volant:"
+        return label
+    }()
+    
+    private lazy var companyDescription: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Restaurante especializado"
+        return label
+    }()
+    
+    private lazy var companyAddress: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "R. Santo Inácio, 295 - Moinhos de Vento, Porto Alegre - RS"
+        return label
+    }()
+    
+    private lazy var companyNumberOfEmployees: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "20-50 funcionários" // tem componente pra isso
+        return label
+    }()
+    
+    private lazy var postedDate: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "1h atrás" // tem componente pra isso
+        return label
+    }()
+    
+    lazy var companyStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [companyName, companyDescription, companyNumberOfEmployees, companyAddress, postedDate])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 6
         return stack
     }()
     
@@ -171,14 +228,28 @@ class JobDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Recepcionista"
+
         setup()
         view.backgroundColor = .systemGray6
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "...",
+                style: .plain,
+                target: self,
+                action: #selector(didTapRightButton)
+            )
         
         configureViewWithData()
         // Do any additional setup after loading the view.
     }
     
     // MARK: Methods
+    
+    @objc private func didTapRightButton() {
+        // Open denunciar alert
+    }
     
     func configure(with jobOffer: JobOffer) {
         self.jobOffer = jobOffer
@@ -188,7 +259,7 @@ class JobDetailsViewController: UIViewController {
         guard let job = jobOffer else {
             return }
         
-        jobDetailsTitle.text = job.position.rawValue.capitalized
+//        navigationController?.title = job.position.rawValue.capitalized
         descriptionText.text = job.description
         requirementsText.text = job.requirements
         responsibilitiesText.text = job.responsibilities
@@ -207,7 +278,6 @@ extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(jobDetailsTitle)
         contentView.addSubview(mainStack)
         contentView.addSubview(buttonsStack)
     }
@@ -225,11 +295,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            jobDetailsTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            jobDetailsTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            jobDetailsTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            
+                       
             mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
