@@ -53,3 +53,4 @@ Examples:
 - Clearly describe what was done.
 - Link related issues if any.
 - Wait for review and approval before merging.
+- When merged, the task can be marked/considered "done"
