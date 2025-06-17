@@ -44,7 +44,9 @@ class JobListViewController: UIViewController {
     @objc private func refreshJobs() {
         Task {
             do {
-                let newJobs = try await CloudKitManager.shared.fetchJobOffers()
+                var newJobs = try await CloudKitManager.shared.fetchJobOffers()
+                // test
+                newJobs.append(JobOffer(id: UUID(), companyId: UUID(), position: JobPosition.bartender, durationTime: 8, startDate: Date(), creationDate: Date(), location: "AVENIDA TAL", salary: 49.00, description: "DESCRICAO", requirements: "teste", responsibilities: "top"))
                 
                 if areJobsDifferent(oldJobs: jobOffer, newJobs: newJobs) {
                     jobOffer = newJobs
