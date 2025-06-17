@@ -30,10 +30,6 @@ class JobDetailsViewController: UIViewController {
         var parent = self.view!
         parent.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.widthAnchor.constraint(equalToConstant: 275).isActive = true
-        view.heightAnchor.constraint(equalToConstant: 183).isActive = true
-        view.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 0).isActive = true
-        view.topAnchor.constraint(equalTo: parent.topAnchor, constant: 1).isActive = true
         return view
     }()
 
@@ -149,7 +145,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     lazy var mainStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [imageView, companyStack, descriptionStack, responsabilitiesStack, requirementsStack])
+        var stack = UIStackView(arrangedSubviews: [companyStack, descriptionStack, responsabilitiesStack, requirementsStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 13
@@ -278,6 +274,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
+        contentView.addSubview(imageView)
         contentView.addSubview(mainStack)
         contentView.addSubview(buttonsStack)
     }
@@ -295,8 +292,14 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-                       
-            mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+
+            imageView.widthAnchor.constraint(equalToConstant: 275),
+            imageView.heightAnchor.constraint(equalToConstant: 183),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28),
+            
+            mainStack.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
