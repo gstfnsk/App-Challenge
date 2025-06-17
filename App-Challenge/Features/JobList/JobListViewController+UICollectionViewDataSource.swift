@@ -20,7 +20,7 @@ extension JobListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == filterSectonId {
-            return 15  // TODO: Pegar quantidade de filtros
+            return JobPosition.allCases.count
         }
         if section == titleSectionId {
             return 1
@@ -36,18 +36,12 @@ extension JobListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
         let section = indexPath.section
-
-        // Filter options
         if section == filterSectonId {
-            guard
-                let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: CardCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? CardCollectionViewCell
-            else {
+            guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: BadgeLabelViewCell.identifier, for: indexPath) as? BadgeLabelViewCell else {
                 fatalError("Erro ao criar CardCollectionViewCell")
             }
-            cell.configure(title: "Título de um Card", bgColor: .black)
+            let jobPostion = JobPosition.allCases[indexPath.item]
+            cell.configure(title: jobPostion.rawValue.capitalized, imageName: jobPostion.iconName)
             return cell
         }
 
