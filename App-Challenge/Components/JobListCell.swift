@@ -104,20 +104,34 @@ class JobListCell: UICollectionViewCell {
 //        imageView.image = company.photo
         
     }
-    
-    // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setupShadow()
+        setupContentView()
         setup()
-        contentView.layer.cornerRadius = 8.0
-        contentView.clipsToBounds = true
-        contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = UIColor.tertiaryLabel.withAlphaComponent(0.12).cgColor
     }
-    
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        
+        setupShadow()
+        setupContentView()
+        setup()
+    }
+
+    private func setupShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.12 // intensidade da sombra (0 a 1)
+        layer.shadowOffset = CGSize(width: 0, height: 4) // direção da sombra
+        layer.shadowRadius = 8 // desfoque da sombra
+        layer.masksToBounds = false
+    }
+
+    private func setupContentView() {
+        contentView.backgroundColor = .systemBackground
+        contentView.layer.cornerRadius = 12
+        contentView.layer.masksToBounds = true
     }
 }
 extension JobListCell: ViewCodeProtocol {
