@@ -181,7 +181,7 @@ extension CloudKitManager {
         record["position"] = jobOffer.position.rawValue
         record["durationTime"] = jobOffer.durationTime
         record["startDate"] = jobOffer.startDate
-        record["creationDate"] = jobOffer.creationDate
+        record["jobCreationDate"] = jobOffer.creationDate
         record["location"] = jobOffer.location
         record["salary"] = jobOffer.salary as CKRecordValue
         record["description"] = jobOffer.description
@@ -195,13 +195,15 @@ extension CloudKitManager {
 // MARK: - JobOffer extension for init with CKRecord
 extension JobOffer {
     init?(record: CKRecord) {
-        guard let jobId = UUID(uuidString: record.recordID.recordName),
-              let companyId = UUID(uuidString: record.recordID.recordName),
+        guard
+            let jobId = UUID(uuidString: record.recordID.recordName),
+            let companyIdString = record["companyId"] as? String,
+            let companyId = UUID(uuidString: companyIdString),
             let positionRaw = record["position"] as? String,
             let position = JobPosition(rawValue: positionRaw),
             let durationTime = record["durationTime"] as? Int,
             let startDate = record["startDate"] as? Date,
-            let creationDate = record["creationDate"] as? Date,
+            let creationDate = record["jobCreationDate"] as? Date,
             let location = record["location"] as? String,
             let salaryNumber = record["salary"] as? NSNumber,
             let description = record["description"] as? String,
@@ -228,15 +230,16 @@ extension JobOffer {
 // MARK: - CompanyProfile extension for init with CKRecord
 extension CompanyProfile {
     init?(record: CKRecord) {
-        guard let uuid = UUID(uuidString: record.recordID.recordName),
-                let name = record["name"] as? String,
-                let establishmentTypeRaw = record["establishmentType"] as? String,
-                let establishmentType = EstablishmentType(rawValue: establishmentTypeRaw),
-                let cnpj = record["cnpj"] as? String,
-                let address = record["address"] as? String,
-                let description = record["description"] as? String,
-                let companySize = record["companySize"] as? String,
-                let whatsappNumber = record["whatsappNumber"] as? String
+        guard
+            let uuid = UUID(uuidString: record.recordID.recordName),
+            let name = record["name"] as? String,
+            let establishmentTypeRaw = record["establishmentType"] as? String,
+            let establishmentType = EstablishmentType(rawValue: establishmentTypeRaw),
+            let cnpj = record["cnpj"] as? String,
+            let address = record["address"] as? String,
+            let description = record["description"] as? String,
+            let companySize = record["companySize"] as? String,
+            let whatsappNumber = record["whatsappNumber"] as? String
         else {
             return nil
         }
