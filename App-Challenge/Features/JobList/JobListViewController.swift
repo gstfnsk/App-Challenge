@@ -15,7 +15,7 @@ class JobListViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createAllLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(CardCollectionViewCell.self, forCellWithReuseIdentifier: CardCollectionViewCell.identifier)
+        collectionView.register(BadgeLabelViewCell.self, forCellWithReuseIdentifier: BadgeLabelViewCell.identifier)
         collectionView.register(TitleJobListCell.self, forCellWithReuseIdentifier: TitleJobListCell.identifier)
         collectionView.register(JobListCell.self, forCellWithReuseIdentifier: JobListCell.identifier)
         collectionView.dataSource = self

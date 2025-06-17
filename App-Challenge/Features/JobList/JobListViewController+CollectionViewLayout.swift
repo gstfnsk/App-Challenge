@@ -9,7 +9,7 @@ import UIKit
 extension JobListViewController {
     func createSection0() -> Section {
         /// item
-        let itemSize = Size(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(28))
+        let itemSize = Size(widthDimension: .estimated(93), heightDimension: .absolute(28))
         let item = Item(layoutSize: itemSize)
         
         /// group
