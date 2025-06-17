@@ -12,8 +12,9 @@ extension JobListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        let jobPositions = JobPosition.allCases
         if section == 0 {
-            return 15
+            return jobPositions.count
         }
         if section == 1 {
             return 1
@@ -23,11 +24,13 @@ extension JobListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = indexPath.section
+        let jobPositions = JobPosition.allCases
         if section == 0 {
-            guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: CardCollectionViewCell.identifier, for: indexPath) as? CardCollectionViewCell else {
+            guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: BadgeLabelViewCell.identifier, for: indexPath) as? BadgeLabelViewCell else {
                 fatalError("Erro ao criar CardCollectionViewCell")
             }
-            cell.configure(title: "Título de um Card", bgColor: .black)
+            let job = jobPositions[indexPath.item]
+            cell.configure(title: job.rawValue.capitalized, imageName: job.iconName)
             return cell
         }
         if section == 1 {
