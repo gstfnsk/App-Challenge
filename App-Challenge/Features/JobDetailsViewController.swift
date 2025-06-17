@@ -16,22 +16,30 @@ class JobDetailsViewController: UIViewController {
         return view
     }()
     
-    private lazy var imageView: UIView = {
-        let view = UIView()
-        view.frame = CGRect(x: 0, y: 0, width: 361, height: 196)
-        let image0 = UIImage(named: "DefaultRestaurantPhoto")?.cgImage
-        let layer0 = CALayer()
-        layer0.contents = image0
-        layer0.transform = CATransform3DMakeAffineTransform(CGAffineTransform(a: 1, b: 0, c: 0, d: 1.23, tx: 0, ty: -0.11))
-        layer0.bounds = view.bounds
-        layer0.position = view.center
-        view.layer.addSublayer(layer0)
-        view.layer.cornerRadius = 4
-        var parent = self.view!
-        parent.addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
+    private lazy var imageContainerView: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.layer.cornerRadius = 4
+        container.clipsToBounds = true
+
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "TestFlightPhoto")
+        imageView.contentMode = .scaleAspectFill // Or .scaleAspectFit
+        imageView.clipsToBounds = true
+
+        container.addSubview(imageView)
+
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: container.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+        ])
+
+        return container
     }()
+
 
     
     private lazy var scrollView: UIScrollView = {
@@ -67,7 +75,7 @@ class JobDetailsViewController: UIViewController {
             var label = UILabel()
             label.numberOfLines = 0
             label.text = """
-                Estamos em busca de uma recepcionista para integrar nosso time e garantir uma experiência de excelência aos nossos clientes desde o primeiro contato. Se você tem atenção aos detalhes, postura profissional e paixão pela hospitalidade, esta vaga é para você.
+                Estamos buscando um(a) atendente para atuar em nosso bar, oferecendo um atendimento descontraído, ágil e de qualidade. Ideal para quem busca uma renda extra e gosta de trabalhar em ambientes animados e com contato direto com o público.
                 """
             label.translatesAutoresizingMaskIntoConstraints = false
             label.font = .systemFont(ofSize: 12)
@@ -93,13 +101,11 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.numberOfLines = 0
         label.text = """
-                    - Recepcionar os clientes com cordialidade, elegância e discrição.
-                    - Gerenciar reservas (presenciais, por telefone e plataformas digitais).
-                    - Organizar a fila de espera e coordenar a ocupação das mesas.
-                    - Comunicar-se com a equipe de salão e cozinha para garantir fluidez no atendimento.
-                    - Fornecer informações sobre o restaurante, o menu e o serviço, quando necessário.
-                    - Resolver imprevistos com empatia e profissionalismo.
-                    - Manter postura e apresentação impecáveis, alinhadas ao padrão da casa.
+                    - Receber e atender os clientes com simpatia
+                    - Anotar pedidos e servir bebidas e petiscos
+                    - Organizar mesas e balcão
+                    - Auxiliar na organização do espaço durante o turno
+                    - Manter o ambiente limpo e agradável
                     """
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
@@ -125,11 +131,11 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.numberOfLines = 0
         label.text = """
-            - Experiência em atendimento ou recepção em ambientes sofisticados (restaurantes, hotéis ou eventos).
-            - Boa comunicação verbal e escrita.
-            - Discrição, proatividade e organização.
-            - Fluência em português. Desejável conhecimento em francês e/ou inglês.
-            - Familiaridade com sistemas de reservas é um diferencial.
+            - Maior de 18 anos
+            - Experiência prévia em atendimento, bar ou eventos (desejável)
+            - Boa comunicação e proatividade
+            - Disponibilidade para trabalhar no período noturno e finais de semana
+            - Agilidade e organização
             """
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 12)
@@ -155,28 +161,28 @@ class JobDetailsViewController: UIViewController {
     private lazy var companyName: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Le Cochon Volant:"
+        label.text = "Sunset Drinks"
         return label
     }()
     
     private lazy var companyDescription: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Restaurante especializado"
+        label.text = "Bar"
         return label
     }()
     
     private lazy var companyAddress: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "R. Santo Inácio, 295 - Moinhos de Vento, Porto Alegre - RS"
+        label.text = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC"
         return label
     }()
     
     private lazy var companyNumberOfEmployees: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "20-50 funcionários" // tem componente pra isso
+        label.text = "10-20 funcionários" // tem componente pra isso
         return label
     }()
     
@@ -229,13 +235,14 @@ class JobDetailsViewController: UIViewController {
 
         setup()
         view.backgroundColor = .systemGray6
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-                title: "...",
-                style: .plain,
-                target: self,
-                action: #selector(didTapRightButton)
-            )
+    
+        // TODO: ellipsis button
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(
+//                image: UIImage(systemName: "ellipsis"),
+//                style: .plain,
+//                target: self,
+//                action: #selector(didTapRightButton)
+//            )
         
         configureViewWithData()
         // Do any additional setup after loading the view.
@@ -274,7 +281,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(imageView)
+        contentView.addSubview(imageContainerView)
         contentView.addSubview(mainStack)
         contentView.addSubview(buttonsStack)
     }
@@ -293,13 +300,12 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
 
-            imageView.widthAnchor.constraint(equalToConstant: 275),
-            imageView.heightAnchor.constraint(equalToConstant: 183),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 28),
+            imageContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imageContainerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            imageContainerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            imageContainerView.heightAnchor.constraint(equalTo: imageContainerView.widthAnchor, multiplier: 196.0 / 361.0),
             
-            mainStack.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
+            mainStack.topAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: 10),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
