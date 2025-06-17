@@ -6,6 +6,10 @@
 //
 import UIKit
 class JobListViewController: UIViewController {
+    let refreshControl = UIRefreshControl()
+    // will be populate with CK data
+    var jobOffer: [JobOffer] = []
+
     lazy var searchController: UISearchController = {
         var search = UISearchController.create()
         search.searchResultsUpdater = self
@@ -24,8 +28,44 @@ class JobListViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = true
         collectionView.delegate = self
+        
+        refreshControl.addTarget(self, action: #selector(refreshJobs), for: .valueChanged)
+                collectionView.refreshControl = refreshControl
         return collectionView
     }()
+    
+    //
+    func areJobsDifferent(oldJobs: [JobOffer], newJobs: [JobOffer]) -> Bool {
+        let oldIDs = Set(oldJobs.map(\.id))
+        let newIDs = Set(newJobs.map(\.id))
+        return oldIDs != newIDs
+    }
+    
+    @objc private func refreshJobs() {
+        Task {
+            do {
+                let newJobs = try await CloudKitManager.shared.fetchJobOffers()
+                
+                if areJobsDifferent(oldJobs: jobOffer, newJobs: newJobs) {
+                    jobOffer = newJobs
+                    print("There are new data.")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                        self.collectionView.reloadData()
+                        self.refreshControl.endRefreshing()
+                    }
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                        print("There is not new data.")
+                    }
+                }
+            } catch {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                    print("Erro ao buscar vagas: \(error)")
+                }
+            }
+            refreshControl.endRefreshing()
+        }
+    }
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -35,6 +75,7 @@ class JobListViewController: UIViewController {
         setup()
     }
 }
+
 extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         print("Degbug: \(searchController.searchBar.text ?? "")")
