@@ -80,18 +80,20 @@ extension JobListViewController: UICollectionViewDataSource {
 }
 
 extension JobListViewController {
-    func updateJobOfferList() {
+    func updateJobOfferList(afterCompletion completion: @escaping () -> Void = {}) {
         CloudKitManager.databaseQueue.async {
             Task {
                 do {
                     let jobOffers = try await CloudKitManager.shared.fetchJobOffers()
 
                     DispatchQueue.main.async {
+                        completion()
                         self.listedJobOffers = jobOffers
                         self.collectionView.reloadData()
                     }
                 } catch {
                     DispatchQueue.main.async {
+                        completion()
                         let alert = UIAlertController(
                             title: "Error",
                             message: "Could not fetch job offers.",

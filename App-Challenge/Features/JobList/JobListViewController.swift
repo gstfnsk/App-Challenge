@@ -42,7 +42,9 @@ class JobListViewController: UIViewController {
     }
     
     @objc private func refreshJobs() {
-        updateJobOfferList()
+        updateJobOfferList{
+            self.refreshControl.endRefreshing()
+        }
     }
     
     // MARK: Life Cycle
