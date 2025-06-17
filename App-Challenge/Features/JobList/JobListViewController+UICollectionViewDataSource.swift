@@ -84,7 +84,13 @@ extension JobListViewController {
         CloudKitManager.databaseQueue.async {
             Task {
                 do {
-                    let jobOffers = try await CloudKitManager.shared.fetchJobOffers()
+                    var jobOffers = try await CloudKitManager.shared.fetchJobOffers()
+                    
+                    
+                    // Order by creationData
+                    jobOffers.sort {
+                        $0.creationDate > $1.creationDate
+                    }
 
                     DispatchQueue.main.async {
                         self.listedJobOffers = jobOffers
