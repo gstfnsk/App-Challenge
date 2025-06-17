@@ -86,6 +86,8 @@ extension JobListViewController {
                 do {
                     var jobOffers = try await CloudKitManager.shared.fetchJobOffers()
                     
+                    // Sort by SelectedPositions
+                    jobOffers = SelectedPositions.applyFilter(to: jobOffers)
                     
                     // Order by creationData
                     jobOffers.sort {
