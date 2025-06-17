@@ -16,7 +16,7 @@ class JobListCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Recepcionista"
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .DesignSystem.title3
         label.textColor = .DesignSystem.terracota900
         return label
     }()
@@ -24,7 +24,7 @@ class JobListCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Restaurante"
-        label.font = .systemFont(ofSize: 13, weight: .regular)
+        label.font = .DesignSystem.footnote
         label.textColor = .secondaryLabel
         return label
     }()
