@@ -53,7 +53,6 @@ struct CloudKitManager: FreelaOnTapPersistence {
     }
 }
 
-
 // MARK: - CompanyProfile methods
 extension CloudKitManager {
     func fetchCompanies() async throws -> [CompanyProfile] {
