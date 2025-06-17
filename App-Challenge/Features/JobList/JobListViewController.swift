@@ -6,6 +6,7 @@
 //
 import UIKit
 class JobListViewController: UIViewController {
+    let refreshControl = UIRefreshControl()
     var listedJobOffers: [JobOffer] = []
     
     lazy var searchController: UISearchController = {
@@ -27,8 +28,24 @@ class JobListViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = true
         collectionView.delegate = self
+        
+        refreshControl.addTarget(self, action: #selector(refreshJobs), for: .valueChanged)
+                collectionView.refreshControl = refreshControl
         return collectionView
     }()
+    
+    //
+    func areJobsDifferent(oldJobs: [JobOffer], newJobs: [JobOffer]) -> Bool {
+        let oldIDs = Set(oldJobs.map(\.id))
+        let newIDs = Set(newJobs.map(\.id))
+        return oldIDs != newIDs
+    }
+    
+    @objc private func refreshJobs() {
+        updateJobOfferList{
+            self.refreshControl.endRefreshing()
+        }
+    }
     
     // MARK: Life Cycle
     override func viewDidLoad() {
@@ -40,6 +57,7 @@ class JobListViewController: UIViewController {
         updateJobOfferList()
     }
 }
+
 extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
         print("Degbug: \(searchController.searchBar.text ?? "")")
