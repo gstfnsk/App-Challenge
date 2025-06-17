@@ -31,6 +31,7 @@ class TitleJobListCell: UICollectionViewCell {
     private lazy var filterButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "slider.horizontal.3"), for: .normal)
+        button.isHidden = true
         return button
     }()
     

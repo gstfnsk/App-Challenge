@@ -10,6 +10,7 @@ class BadgeLabelViewCell: UICollectionViewCell {
     private lazy var baged: BadgeLabelWithIcon = {
         let baged = BadgeLabelWithIcon()
         baged.translatesAutoresizingMaskIntoConstraints = false
+        baged.backColor = .systemBackground
         return baged
     }()
     
@@ -22,15 +23,34 @@ class BadgeLabelViewCell: UICollectionViewCell {
         baged.text = title
     }
     
-    // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setupShadow()
+        setupContentView()
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        
+        setupShadow()
+        setupContentView()
+        setup()
+    }
+
+    private func setupShadow() {
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.15
+        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.shadowRadius = 8
+        layer.masksToBounds = false
+    }
+
+    private func setupContentView() {
+        contentView.backgroundColor = .systemBackground
+        contentView.layer.cornerRadius = 12
+        contentView.layer.masksToBounds = true
     }
 }
 

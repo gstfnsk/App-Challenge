@@ -16,8 +16,8 @@ class JobListCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Recepcionista"
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
-        label.textColor = .label
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .DesignSystem.terracota900
         return label
     }()
     
@@ -72,7 +72,7 @@ class JobListCell: UICollectionViewCell {
     private lazy var stack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [imageStack, badgeStack, iconStack])
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 13
         stackView.alignment = .leading
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
