@@ -22,10 +22,10 @@ struct CompanyProfile: Identifiable {
 }
 
 enum EstablishmentType: String {
-    case restaurant = "restaurante"
-    case bar = "bar"
-    case coffeeshop = "café"
-    case other = "outros"
+    case restaurant = "Restaurante"
+    case bar = "Bar"
+    case coffeeshop = "Cafeteria"
+    case other = "Outros"
 }
 
 // TODO: usar rawValue pra pegar quantidade de funcionários
