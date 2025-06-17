@@ -10,7 +10,14 @@ import UIKit
 extension JobListViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(collectionView)
-        navigationItem.searchController = searchController
+        
+        title = "Descobrir"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor = .white
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithDefaultBackground()
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.standardAppearance = appearance
     }
     
     func setupConstraints() {
@@ -18,7 +25,7 @@ extension JobListViewController: ViewCodeProtocol {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
 }

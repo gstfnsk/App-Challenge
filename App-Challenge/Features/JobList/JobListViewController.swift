@@ -8,12 +8,12 @@ import UIKit
 class JobListViewController: UIViewController {
     var listedJobOffers: [JobOffer] = []
     
-    lazy var searchController: UISearchController = {
-        var search = UISearchController.create()
-        search.searchResultsUpdater = self
-        search.searchBar.delegate = self
-        return search
-    }()
+//    lazy var searchController: UISearchController = {
+//        var search = UISearchController.create()
+//        search.searchResultsUpdater = self
+//        search.searchBar.delegate = self
+//        return search
+//    }()
     
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createAllLayout())
