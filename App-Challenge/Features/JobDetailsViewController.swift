@@ -217,31 +217,63 @@ class JobDetailsViewController: UIViewController {
         return button
     }()
     
+//    private lazy var blurredBackgroundView: UIView = {
+//        var backgroundView = UIView()
+//        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+////        backgroundView.backgroundColor = UIColor.systemBackground
+//        backgroundView.layer.cornerRadius = 16
+//        backgroundView.clipsToBounds = true
+//        
+//        // Create the blur effect view
+//        let blurEffect = UIBlurEffect(style: .light)
+//        let blurView = UIVisualEffectView(effect: blurEffect)
+//        blurView.translatesAutoresizingMaskIntoConstraints = false
+//
+//        backgroundView.addSubview(blurView)
+//        backgroundView.addSubview(overlayView)
+//        
+//        // Make the blur fill the entire backgroundView
+//        NSLayoutConstraint.activate([
+//            blurView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
+//            blurView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
+//            blurView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
+//            blurView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor)
+//        ])
+//        return backgroundView
+//    }()
+//    
+//    private lazy var overlayView: UIView = {
+//            let view = GradientOverlayView()
+//            view.translatesAutoresizingMaskIntoConstraints = false
+//            return view
+//    }()
+
+    
     private lazy var date: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "27/06"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
     private lazy var time: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "Horário: 18h"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
     private lazy var amount: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "R$ 120"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
     private lazy var duration: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "6h"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
@@ -321,12 +353,15 @@ class JobDetailsViewController: UIViewController {
 extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
+        view.addSubview(buttonsStack)
+//        blurredBackgroundView.addSubview(overlayView)
+//        blurredBackgroundView.addSubview(buttonsStack)
+
         scrollView.addSubview(contentView)
         contentView.addSubview(imageContainerView)
         contentView.addSubview(companyStack)
         contentView.addSubview(badgesStack)
         contentView.addSubview(mainStack)
-        contentView.addSubview(buttonsStack)
     }
     
     func setupConstraints() {
@@ -334,7 +369,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -342,7 +377,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-
+            
             imageContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
             imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             imageContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
@@ -356,16 +391,29 @@ extension JobDetailsViewController: ViewCodeProtocol {
             badgesStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             mainStack.topAnchor.constraint(equalTo: badgesStack.bottomAnchor, constant: 20),
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -70),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+//            blurredBackgroundView.heightAnchor.constraint(equalToConstant: 100),
+//            blurredBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+//            blurredBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+//            blurredBackgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+//            
+//            overlayView.topAnchor.constraint(equalTo: blurredBackgroundView.topAnchor),
+//            overlayView.bottomAnchor.constraint(equalTo: blurredBackgroundView.bottomAnchor),
+//            overlayView.leadingAnchor.constraint(equalTo: blurredBackgroundView.leadingAnchor),
+//            overlayView.trailingAnchor.constraint(equalTo: blurredBackgroundView.trailingAnchor),
 
             contactButton.widthAnchor.constraint(equalToConstant: 247),
             contactButton.heightAnchor.constraint(equalToConstant: 50),
 
             buttonsStack.heightAnchor.constraint(equalToConstant: 50),
-            buttonsStack.topAnchor.constraint(equalTo: requirementsStack.bottomAnchor, constant: 30),
-            buttonsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30)
+            buttonsStack.widthAnchor.constraint(equalToConstant: 247),
+
+            buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            buttonsStack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5)
             
 //            shareButton.heightAnchor.constraint(equalToConstant: 50),
 //            shareButton.widthAnchor.constraint(equalToConstant: 59)
