@@ -65,8 +65,8 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc func continueAction() {
-//        let onBoardViewController = UINavigationController(rootViewController: OnBoardingViewController2())
-//        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(onBoardViewController)
+        let onBoardViewController = UINavigationController(rootViewController: JobListViewController())
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(onBoardViewController)
     }
 }
 extension OnboardingViewController: ViewCodeProtocol{
