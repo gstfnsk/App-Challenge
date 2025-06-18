@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 class OnboardingViewController: UIViewController {
     lazy var circle: UIImageView = {
         var imageView = UIImageView()
@@ -15,6 +16,7 @@ class OnboardingViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    let animationView = LottieAnimationView(name: "Flow 3")
     
     lazy var logo: UIImageView = {
         var imageView = UIImageView()
@@ -61,6 +63,10 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.play()
         setup()
     }
     
@@ -71,7 +77,7 @@ class OnboardingViewController: UIViewController {
 }
 extension OnboardingViewController: ViewCodeProtocol{
     func addSubviews() {
-        view.addSubview(circle)
+        view.addSubview(animationView)
         view.addSubview(logo)
         view.addSubview(nameImage)
         view.addSubview(descriptionImage)
@@ -80,15 +86,15 @@ extension OnboardingViewController: ViewCodeProtocol{
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            circle.bottomAnchor.constraint(equalTo: nameImage.topAnchor, constant: -28),
-            circle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 69),
-            circle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -69),
-            circle.heightAnchor.constraint(equalToConstant: 264),
+            animationView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 34),
+            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
+            animationView.heightAnchor.constraint(equalToConstant: 400),
             
             logo.bottomAnchor.constraint(equalTo: nameImage.topAnchor, constant: -102),
             logo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 98),
             logo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -113),
-            logo.heightAnchor.constraint(equalToConstant: 137),
+            logo.heightAnchor.constraint(equalToConstant: 120),
             
             nameImage.bottomAnchor.constraint(equalTo: descriptionImage.topAnchor, constant: -66),
             nameImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
