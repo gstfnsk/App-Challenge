@@ -89,7 +89,7 @@ final class BadgeLabelWithIcon: UIView {
     // Declare your UI elements here (e.g., labels, images, buttons)
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .medium)
+        label.font = .DesignSystem.subheadline
         label.textColor = .label
         return label
     }()

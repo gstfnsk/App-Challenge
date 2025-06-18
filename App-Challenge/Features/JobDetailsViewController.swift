@@ -16,27 +16,35 @@ class JobDetailsViewController: UIViewController {
         return view
     }()
     
+    private lazy var imageContainerView: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.layer.cornerRadius = 4
+        container.clipsToBounds = true
+
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "TestFlightPhoto")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+
+        container.addSubview(imageView)
+
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: container.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+        ])
+
+        return container
+    }()
+    
     private lazy var scrollView: UIScrollView = {
                 let scrollView = UIScrollView()
                 scrollView.translatesAutoresizingMaskIntoConstraints = false
                 return scrollView
         }()
-    
-    private lazy var jobDetailsTitle: UILabel = {
-            var label = UILabel()
-            label.translatesAutoresizingMaskIntoConstraints = false
-            label.text = "Recepcionista"
-            label.font = UIFont(name: "SFProRounded-Bold", size: 30)
-            return label
-        }()
-    
-    private lazy var placeholderLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "[placeholder]"
-        label.textAlignment = .center
-        return label
-    }()
     
     private lazy var companyNameTitle: UILabel = {
             var label = UILabel()
@@ -50,6 +58,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Descrição da vaga:"
+        label.font = UIFont.DesignSystem.headline
         return label
     }()
     
@@ -57,10 +66,11 @@ class JobDetailsViewController: UIViewController {
             var label = UILabel()
             label.numberOfLines = 0
             label.text = """
-                Estamos em busca de uma recepcionista para integrar nosso time e garantir uma experiência de excelência aos nossos clientes desde o primeiro contato. Se você tem atenção aos detalhes, postura profissional e paixão pela hospitalidade, esta vaga é para você.
+                Estamos buscando um(a) atendente para atuar em nosso bar, oferecendo um atendimento descontraído, ágil e de qualidade. Ideal para quem busca uma renda extra e gosta de trabalhar em ambientes animados e com contato direto com o público.
                 """
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.font = .systemFont(ofSize: 12)
+            label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
+            label.font = UIFont.DesignSystem.body
             return label
         }()
     
@@ -76,6 +86,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Responsabilidades:"
+        label.font = UIFont.DesignSystem.headline
         return label
     }()
     
@@ -83,16 +94,15 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.numberOfLines = 0
         label.text = """
-                    - Recepcionar os clientes com cordialidade, elegância e discrição.
-                    - Gerenciar reservas (presenciais, por telefone e plataformas digitais).
-                    - Organizar a fila de espera e coordenar a ocupação das mesas.
-                    - Comunicar-se com a equipe de salão e cozinha para garantir fluidez no atendimento.
-                    - Fornecer informações sobre o restaurante, o menu e o serviço, quando necessário.
-                    - Resolver imprevistos com empatia e profissionalismo.
-                    - Manter postura e apresentação impecáveis, alinhadas ao padrão da casa.
+                    - Receber e atender os clientes com simpatia
+                    - Anotar pedidos e servir bebidas e petiscos
+                    - Organizar mesas e balcão
+                    - Auxiliar na organização do espaço durante o turno
+                    - Manter o ambiente limpo e agradável
                     """
+        label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = UIFont.DesignSystem.body
         return label
     }()
     
@@ -108,6 +118,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Requisitos:"
+        label.font = UIFont.DesignSystem.headline
         return label
     }()
     
@@ -115,14 +126,15 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.numberOfLines = 0
         label.text = """
-            - Experiência em atendimento ou recepção em ambientes sofisticados (restaurantes, hotéis ou eventos).
-            - Boa comunicação verbal e escrita.
-            - Discrição, proatividade e organização.
-            - Fluência em português. Desejável conhecimento em francês e/ou inglês.
-            - Familiaridade com sistemas de reservas é um diferencial.
+            - Maior de 18 anos
+            - Experiência prévia em atendimento, bar ou eventos (desejável)
+            - Boa comunicação e proatividade
+            - Disponibilidade para trabalhar no período noturno e finais de semana
+            - Agilidade e organização
             """
+        label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12)
+        label.font = UIFont.DesignSystem.body
         return label
     }()
     
@@ -135,10 +147,63 @@ class JobDetailsViewController: UIViewController {
     }()
     
     lazy var mainStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [placeholderLabel, descriptionStack, responsabilitiesStack, requirementsStack])
+        var stack = UIStackView(arrangedSubviews: [descriptionStack, responsabilitiesStack, requirementsStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 13
+        return stack
+    }()
+    
+    private lazy var companyName: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Sunset Drinks"
+        label.textColor = UIColor.DesignSystem.terracota900
+        label.font = UIFont.DesignSystem.title2Emphasized
+        return label
+    }()
+    
+    private lazy var companyDescription: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Bar"
+        label.font = UIFont.DesignSystem.body
+        label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
+        return label
+    }()
+    
+    private lazy var companyAddress: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.DesignSystem.footnote
+        label.textColor = UIColor.DesignSystem.terracota600
+        label.text = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC"
+        return label
+    }()
+    
+    
+    private lazy var companyNumberOfEmployees: LabelWithIconComponent = {
+        var label = LabelWithIconComponent()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "10-20 funcionários"
+        label.imageColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
+        label.image = UIImage(systemName: "person.3")
+        return label
+    }()
+    
+    private lazy var postedTime: LabelWithIconComponent = {
+        var label = LabelWithIconComponent()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "1h atrás"
+        label.image = UIImage(systemName: "clock.arrow.circlepath")
+        return label
+    }()
+    
+    lazy var companyStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [companyName, companyDescription, companyNumberOfEmployees, companyAddress, postedTime])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 6
         return stack
     }()
     
@@ -147,9 +212,44 @@ class JobDetailsViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Registrar interesse na vaga", for: .normal)
         button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor.systemBlue
+        button.backgroundColor = UIColor.DesignSystem.terracota500
         button.addTarget(self, action: #selector(openWhatsApp), for: .touchUpInside)
         return button
+    }()
+    
+    private lazy var date: BadgeLabelWithIcon = {
+        var badge = BadgeLabelWithIcon()
+        badge.text = "27/06"
+        badge.badgeSize = .small
+        return badge
+    }()
+    
+    private lazy var time: BadgeLabelWithIcon = {
+        var badge = BadgeLabelWithIcon()
+        badge.text = "Horário: 18h"
+        badge.badgeSize = .small
+        return badge
+    }()
+    
+    private lazy var amount: BadgeLabelWithIcon = {
+        var badge = BadgeLabelWithIcon()
+        badge.text = "R$ 120"
+        badge.badgeSize = .small
+        return badge
+    }()
+    
+    private lazy var duration: BadgeLabelWithIcon = {
+        var badge = BadgeLabelWithIcon()
+        badge.text = "6h"
+        badge.badgeSize = .small
+        return badge
+    }()
+    
+    lazy var badgesStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [date, time, amount, duration])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.spacing = 12
+        return stack
     }()
     
     private lazy var shareButton: UIButton = {
@@ -162,7 +262,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     private lazy var buttonsStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [contactButton, shareButton])
+        var stack = UIStackView(arrangedSubviews: [contactButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.spacing = 12
         return stack
@@ -171,14 +271,29 @@ class JobDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Recepcionista"
+
         setup()
         view.backgroundColor = .systemGray6
+    
+        // TODO: ellipsis button (MVP+)
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(
+//                image: UIImage(systemName: "ellipsis"),
+//                style: .plain,
+//                target: self,
+//                action: #selector(didTapRightButton)
+//            )
         
         configureViewWithData()
         // Do any additional setup after loading the view.
     }
     
     // MARK: Methods
+    
+    @objc private func didTapRightButton() {
+        // Open denunciar alert
+    }
     
     func configure(with jobOffer: JobOffer) {
         self.jobOffer = jobOffer
@@ -188,7 +303,7 @@ class JobDetailsViewController: UIViewController {
         guard let job = jobOffer else {
             return }
         
-        jobDetailsTitle.text = job.position.rawValue.capitalized
+//        navigationController?.title = job.position.rawValue.capitalized
         descriptionText.text = job.description
         requirementsText.text = job.requirements
         responsibilitiesText.text = job.responsibilities
@@ -207,7 +322,9 @@ extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
-        contentView.addSubview(jobDetailsTitle)
+        contentView.addSubview(imageContainerView)
+        contentView.addSubview(companyStack)
+        contentView.addSubview(badgesStack)
         contentView.addSubview(mainStack)
         contentView.addSubview(buttonsStack)
     }
@@ -217,7 +334,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
             contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor),
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -225,12 +342,20 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+
+            imageContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            imageContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            imageContainerView.heightAnchor.constraint(equalTo: imageContainerView.widthAnchor, multiplier: 196.0 / 361.0),
             
-            jobDetailsTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            jobDetailsTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            jobDetailsTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            companyStack.topAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: 16),
+            companyStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            companyStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            mainStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30),
+            badgesStack.topAnchor.constraint(equalTo: companyStack.bottomAnchor, constant: 16),
+            badgesStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            mainStack.topAnchor.constraint(equalTo: badgesStack.bottomAnchor, constant: 20),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
@@ -240,10 +365,10 @@ extension JobDetailsViewController: ViewCodeProtocol {
             buttonsStack.heightAnchor.constraint(equalToConstant: 50),
             buttonsStack.topAnchor.constraint(equalTo: requirementsStack.bottomAnchor, constant: 30),
             buttonsStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            buttonsStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30)
             
-            shareButton.heightAnchor.constraint(equalToConstant: 50),
-            shareButton.widthAnchor.constraint(equalToConstant: 59)
+//            shareButton.heightAnchor.constraint(equalToConstant: 50),
+//            shareButton.widthAnchor.constraint(equalToConstant: 59)
         ])
     }
 }

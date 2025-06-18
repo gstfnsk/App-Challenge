@@ -66,6 +66,9 @@ extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {
 
 extension JobListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let backItem = UIBarButtonItem()
+            backItem.title = "Voltar"
+            navigationItem.backBarButtonItem = backItem
         // let selectedJob = indexPath.item
         let vc = JobDetailsViewController()
         navigationController?.pushViewController(vc, animated: true)
