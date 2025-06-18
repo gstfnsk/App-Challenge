@@ -19,12 +19,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIBarButtonItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.DesignSystem.terracota600], for: .normal)
         UINavigationBar.appearance().tintColor = UIColor.DesignSystem.terracota600
 
-
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
         
         window = UIWindow(windowScene: windowScene)
+
+        
+        // Force light mode
+        window?.overrideUserInterfaceStyle = .light
+        
+        // Set window root contoller
 //        window?.rootViewController = UINavigationController(rootViewController: TabBarController())
         window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         window?.makeKeyAndVisible()

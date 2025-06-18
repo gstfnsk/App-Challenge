@@ -8,8 +8,12 @@ import UIKit
 class JobListCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(systemName: "chevron.right")
+        imageView.contentMode = .center
+        imageView.image = UIImage(named: "DefaultRestaurantPhoto")
+        
+        imageView.layer.cornerRadius = 4
+        imageView.clipsToBounds = true
+        
         return imageView
     }()
     
@@ -53,14 +57,11 @@ class JobListCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
+
+    let badges = [BadgeLabelWithIcon(), BadgeLabelWithIcon(), BadgeLabelWithIcon(), BadgeLabelWithIcon()]
     
     // TODO: Change placeholders with real data! Maybe use a collection view with flow layout
     private lazy var badgeStack: UIStackView = {
-        let badges = [BadgeLabelWithIcon(), BadgeLabelWithIcon(), BadgeLabelWithIcon(), BadgeLabelWithIcon()]
-        badges[0].text = "27/06"
-        badges[1].text = "Horário: 11h30"
-        badges[2].text = "R$ 80"
-        badges[3].text = "5h"
         
         let stack = UIStackView(arrangedSubviews: badges)
         stack.axis = .horizontal
@@ -98,12 +99,24 @@ class JobListCell: UICollectionViewCell {
     
     func configure(job: JobOffer) {
         // company = getAllCompany.last(where: { $0.id == job.companyId })
-        titleLabel.text = job.position.rawValue
+        titleLabel.text = job.position.rawValue.localizedCapitalized
         // descriptionLabel.text = company.Establishment.rawvalue
-        location.text = job.location
+        location.text = "Porto Alegre - RS"
 //        imageView.image = company.photo
+        time.text = "1h atrás"
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        badges[0].text = dateFormatter.string(from: job.startDate)
+
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        badges[1].text = "Horário: \(timeFormatter.string(from: job.startDate))"
+        
+        badges[2].text = "R$ \(job.salary)"
+        badges[3].text = "\(job.durationTime)h"
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -144,7 +157,10 @@ extension JobListCell: ViewCodeProtocol {
             stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             stack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             stack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            stack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            
+            imageView.heightAnchor.constraint(equalToConstant: 56),
+            imageView.widthAnchor.constraint(equalToConstant: 56)
         ])
     }
 }
