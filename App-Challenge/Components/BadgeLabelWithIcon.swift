@@ -43,6 +43,12 @@ final class BadgeLabelWithIcon: UIView {
         }
     }
 
+    var backColor: UIColor = .white {
+        didSet {
+            backgroundColor = backColor
+        }
+    }
+
     // MARK: - Initializers
 
     override init(frame: CGRect) {
@@ -138,7 +144,7 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
         textLabel.textColor = featureColor
         iconView.tintColor = featureColor
 
-        backgroundColor = UIColor.DesignSystem.terracota100
+        backgroundColor = .DesignSystem.terracota100
         
         setContentHuggingPriority(.defaultHigh, for: .vertical)
     }

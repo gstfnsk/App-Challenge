@@ -14,6 +14,7 @@ class LabelWithIconComponent: UIView {
         image.tintColor = UIColor.DesignSystem.terracota600
         image.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         image.setContentCompressionResistancePriority(.required, for: .horizontal)
+
         return image
     }()
     
@@ -76,7 +77,7 @@ extension LabelWithIconComponent: ViewCodeProtocol {
             labelWihIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             labelWihIcon.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             labelWihIcon.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            icon.heightAnchor.constraint(equalTo: label.heightAnchor)
+            icon.heightAnchor.constraint(equalToConstant: 16)
         ])
     }
 }
