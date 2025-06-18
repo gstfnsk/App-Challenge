@@ -186,6 +186,7 @@ class JobDetailsViewController: UIViewController {
         var label = LabelWithIconComponent()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "10-20 funcionários"
+        label.imageColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.image = UIImage(systemName: "person.3")
         return label
     }()
