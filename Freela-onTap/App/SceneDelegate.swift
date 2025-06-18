@@ -19,14 +19,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIBarButtonItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.DesignSystem.terracota600], for: .normal)
         UINavigationBar.appearance().tintColor = UIColor.DesignSystem.terracota600
 
-
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
         
         window = UIWindow(windowScene: windowScene)
+
+        
+        // Force light mode
+        window?.overrideUserInterfaceStyle = .light
+        
+        // Set window root contoller
 //        window?.rootViewController = UINavigationController(rootViewController: TabBarController())
-        window?.rootViewController = UINavigationController(rootViewController: JobListViewController())
+        window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         window?.makeKeyAndVisible()
     }
 
@@ -50,6 +55,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+    }
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            return
+        }
+        UIView.transition(with: window, duration: 0.4, options: .transitionCrossDissolve) {
+            window.rootViewController = vc
+        }
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
