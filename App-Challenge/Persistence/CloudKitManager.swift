@@ -7,14 +7,30 @@
 
 import CloudKit
 
-enum CloudKitError: Error {
+
+enum CloudKitError: Error, LocalizedError {
     case unknown
     case notImplemented
 
-    // iCloud account errors
+    // Erros de conta iCloud
     case accountRestricted
     case accountUnavailable
     case noAccount
+
+    var errorDescription: String? {
+        switch self {
+        case .unknown:
+            return "Ocorreu um erro desconhecido."
+        case .notImplemented:
+            return "Este recurso ainda não foi implementado."
+        case .accountRestricted:
+            return "Sua conta do iCloud está restrita."
+        case .accountUnavailable:
+            return "Sua conta do iCloud está indisponível no momento. Por favor, faça login no iCloud e tente novamente mais tarde."
+        case .noAccount:
+            return "Nenhuma conta do iCloud está configurada neste dispositivo. Por favor, faça login no iCloud e tente novamente mais tarde."
+        }
+    }
 }
 
 struct CloudKitManager: FreelaOnTapPersistence {
@@ -27,7 +43,7 @@ struct CloudKitManager: FreelaOnTapPersistence {
     private init() {}
 
     static let containerIdentifier = "iCloud.app.freela.OnTap"
-    // TODO: For production use: br.poa.academy.freelaOnTap
+    // TODO: For production use: iCloud.br.poa.academy.freelaOnTap
     private let publicDB = CKContainer(identifier: Self.containerIdentifier).publicCloudDatabase
     private let jobOfferRecordType = "JobOffer"
     private let companyProfileRecordType = "CompanyProfile"

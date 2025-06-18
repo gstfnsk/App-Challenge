@@ -107,6 +107,11 @@ extension JobListViewController {
                             message: "Could not fetch job offers.",
                             preferredStyle: .alert
                         )
+                        
+                        if let error = error as? CloudKitError {
+                            alert.message = error.localizedDescription
+                        }
+                       
                         alert.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alert, animated: true)
                     }
