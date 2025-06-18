@@ -87,20 +87,4 @@ extension LabelWithIconComponent: ViewCodeProtocol {
     blabel.text = "1h atrás"
     blabel.image = UIImage(systemName: "clock.arrow.circlepath")
     return blabel
-//    blabel.icon = UIImage(systemName: "figure.walk")
-//    blabel.badgeSize = .medium
-//    blabel.text = "Garçom"
-//    
-//    let blabel2 = BadgeLabelWithIcon()
-//    blabel2.text = "Medium"
-//    blabel2.badgeSize = .medium
-//    
-//    let blabel3 = BadgeLabelWithIcon()
-//
-//    let stack = UIStackView(arrangedSubviews: [blabel, blabel2, blabel3])
-//    stack.axis = .vertical
-//    stack.alignment = .center
-//    stack.spacing = 8
-//    
-//    return stack
 }
