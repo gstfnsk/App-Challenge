@@ -8,14 +8,6 @@
 import UIKit
 import Lottie
 class OnboardingViewController: UIViewController {
-    lazy var circle: UIImageView = {
-        var imageView = UIImageView()
-        imageView.image = UIImage(systemName: "circle.fill")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = .DesignSystem.terracota600
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
     let animationView = LottieAnimationView(name: "Flow 3")
     
     lazy var logo: UIImageView = {
@@ -29,6 +21,7 @@ class OnboardingViewController: UIViewController {
         var imageView = UIImageView()
         imageView.image = .freela
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -96,7 +89,8 @@ extension OnboardingViewController: ViewCodeProtocol{
             logo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -113),
             logo.heightAnchor.constraint(equalToConstant: 120),
             
-            nameImage.bottomAnchor.constraint(equalTo: descriptionImage.topAnchor, constant: -66),
+            nameImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 330),
+            nameImage.heightAnchor.constraint(equalToConstant: 93),
             nameImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
             nameImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -113),
             

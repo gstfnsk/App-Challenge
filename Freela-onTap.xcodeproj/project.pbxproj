@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EF0279562E034DFF0093CAD0 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EF0279552E034DFF0093CAD0 /* Lottie */; };
-		EF0279582E034DFF0093CAD0 /* Lottie-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = EF0279572E034DFF0093CAD0 /* Lottie-Dynamic */; };
+		EF2A4DF92E03517600BEB9E9 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EF2A4DF82E03517600BEB9E9 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF0279562E034DFF0093CAD0 /* Lottie in Frameworks */,
-				EF0279582E034DFF0093CAD0 /* Lottie-Dynamic in Frameworks */,
+				EF2A4DF92E03517600BEB9E9 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,8 +84,7 @@
 			);
 			name = "Freela-onTap";
 			packageProductDependencies = (
-				EF0279552E034DFF0093CAD0 /* Lottie */,
-				EF0279572E034DFF0093CAD0 /* Lottie-Dynamic */,
+				EF2A4DF82E03517600BEB9E9 /* Lottie */,
 			);
 			productName = "App-Challenge";
 			productReference = D826CE5F2DF77B5300A481F0 /* Freela-onTap.app */;
@@ -118,7 +115,7 @@
 			mainGroup = D826CE562DF77B5300A481F0;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				EF0279542E034DFF0093CAD0 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				EF2A4DF72E03517600BEB9E9 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D826CE602DF77B5300A481F0 /* Products */;
@@ -393,7 +390,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		EF0279542E034DFF0093CAD0 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+		EF2A4DF72E03517600BEB9E9 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
 			requirement = {
@@ -404,15 +401,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EF0279552E034DFF0093CAD0 /* Lottie */ = {
+		EF2A4DF82E03517600BEB9E9 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = EF0279542E034DFF0093CAD0 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			package = EF2A4DF72E03517600BEB9E9 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		EF0279572E034DFF0093CAD0 /* Lottie-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EF0279542E034DFF0093CAD0 /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = "Lottie-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
