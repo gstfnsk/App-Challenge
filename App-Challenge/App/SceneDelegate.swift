@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
 //        window?.rootViewController = UINavigationController(rootViewController: TabBarController())
-        window?.rootViewController = UINavigationController(rootViewController: JobListViewController())
+        window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         window?.makeKeyAndVisible()
     }
 
