@@ -62,7 +62,6 @@ class JobListCell: UICollectionViewCell {
     
     // TODO: Change placeholders with real data! Maybe use a collection view with flow layout
     private lazy var badgeStack: UIStackView = {
-        
         let stack = UIStackView(arrangedSubviews: badges)
         stack.axis = .horizontal
         stack.spacing = 8
@@ -98,12 +97,13 @@ class JobListCell: UICollectionViewCell {
     
     
     func configure(job: JobOffer) {
-        // company = getAllCompany.last(where: { $0.id == job.companyId })
-        titleLabel.text = job.position.rawValue.localizedCapitalized
-        // descriptionLabel.text = company.Establishment.rawvalue
-        location.text = "Porto Alegre - RS"
-//        imageView.image = company.photo
-        time.text = "1h atrás"
+        titleLabel.text = job.title.rawValue.localizedCapitalized
+        time.text = job.postedAt.timeAgoString()
+
+        // TODO: JobOffer company is allways nil, CloudKitManager should be fixed.
+        descriptionLabel.text = job.company?.establishmentType.rawValue.localizedCapitalized ?? "Restaurante*"
+        location.text = job.company?.address.cityAndState ?? "Porto Alegre/RS*"
+
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM"
@@ -113,8 +113,8 @@ class JobListCell: UICollectionViewCell {
         timeFormatter.dateFormat = "HH:mm"
         badges[1].text = "Horário: \(timeFormatter.string(from: job.startDate))"
         
-        badges[2].text = "R$ \(job.salary)"
-        badges[3].text = "\(job.durationTime)h"
+        badges[2].text = "R$ \(job.salaryBRL)"
+        badges[3].text = "\(job.durationInHours)h"
     }
     
     override init(frame: CGRect) {
