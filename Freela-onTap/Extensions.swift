@@ -24,3 +24,30 @@ extension UISearchController {
         return searchController
     }
 }
+
+
+// MARK: - Get Enum Case Name (String)
+extension RawRepresentable where Self: CaseIterable {
+    var caseName: String {
+        String(describing: self)
+    }
+}
+
+// MARK: - Create Enum Case from Case Name String
+extension CaseIterable where Self: RawRepresentable {
+    static func fromCaseName(_ caseName: String) -> Self? {
+        allCases.first { String(describing: $0) == caseName }
+    }
+}
+
+// MARK: - timeAgoString
+extension Date {
+    func timeAgoString() -> String {
+        let now = Date()
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = Locale(identifier: "pt_BR")
+        formatter.unitsStyle = .abbreviated
+                
+        return  formatter.localizedString(for: self, relativeTo: now)
+    }
+}
