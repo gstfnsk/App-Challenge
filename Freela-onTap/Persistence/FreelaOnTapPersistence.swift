@@ -7,25 +7,23 @@
 
 import UIKit
 
-protocol FOTPersistence:
-    FOTPersistence_JobOffer,
-    FOTPersistence_CompanyProfile
+protocol FreelaOnTapPersistence:
+    FreelaOnTapPersistence_CompanyProfile,
+    FreelaOnTapPersistence_JobOffer
 {}
 
-
-protocol FOTPersistence_CompanyProfile {
+protocol FreelaOnTapPersistence_CompanyProfile {
     func fetchAllCompanies() async throws -> [CompanyProfile]
     func fetchCompany(id: UUID) async throws -> CompanyProfile?
-    
+
     func saveCompany(_ company: CompanyProfile) async throws
     func deleteCompany(companyUUID id: UUID) async throws
 }
 
-protocol FOTPersistence_JobOffer {
+protocol FreelaOnTapPersistence_JobOffer {
     func fetchAllJobOffers() async throws -> [JobOffer]
     func fetchJobOffer(id: UUID) async throws -> JobOffer?
-    
-    
+
     func saveJobOffer(_ jobOffer: JobOffer) async throws
     func deleteJobOffer(jobOfferUUID id: UUID) async throws
 }

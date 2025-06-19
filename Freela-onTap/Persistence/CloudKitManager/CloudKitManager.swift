@@ -17,7 +17,7 @@ enum CloudKitError: Error {
     case noAccount
 }
 
-struct CloudKitManager: FOTPersistence {
+struct CloudKitManager: FreelaOnTapPersistence {
     // Shared singleton instance
     // swiftlint:disable:next prefer_self_in_static_references
     static let shared = CloudKitManager()

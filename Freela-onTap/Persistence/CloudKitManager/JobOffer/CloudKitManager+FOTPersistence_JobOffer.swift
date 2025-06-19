@@ -10,7 +10,7 @@ import CloudKit
 
 
 // MARK: - JobOffer methods
-extension CloudKitManager: FOTPersistence_JobOffer {
+extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
     func fetchAllJobOffers() async throws -> [JobOffer] {
         try await throwIfICloudNotAvailable()
 

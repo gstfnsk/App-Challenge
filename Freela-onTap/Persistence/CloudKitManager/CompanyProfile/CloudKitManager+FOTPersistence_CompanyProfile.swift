@@ -8,7 +8,7 @@
 import CloudKit
 
 // MARK: - CompanyProfile methods
-extension CloudKitManager: FOTPersistence_CompanyProfile {
+extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
     func fetchAllCompanies() async throws -> [CompanyProfile] {
         try await throwIfICloudNotAvailable()
 
