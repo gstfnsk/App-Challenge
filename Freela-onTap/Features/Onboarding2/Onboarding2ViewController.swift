@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Onboarding2: UIViewController {
+class Onboarding2ViewController: UIViewController {
     var currentIndex = 0
     
     lazy var onboardingCollectionView: UICollectionView = {
@@ -45,10 +45,10 @@ class Onboarding2: UIViewController {
             let indexPath = IndexPath(item: currentIndex, section: 0)
             onboardingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             swipeButton.setTitle("Começar Agora", for: .normal)
+        } else {
+            let jobListVC = UINavigationController(rootViewController: JobListViewController())
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
         }
-//        } else {
-//            //navegação
-//        }
     }
     
     override func viewDidLoad() {

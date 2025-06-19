@@ -31,8 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // Set window root contoller
 //        window?.rootViewController = UINavigationController(rootViewController: TabBarController())
-//        window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
-        window?.rootViewController = UINavigationController(rootViewController: Onboarding2())
+        window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+//        window?.rootViewController = UINavigationController(rootViewController: Onboarding2ViewController())
         window?.makeKeyAndVisible()
     }
 

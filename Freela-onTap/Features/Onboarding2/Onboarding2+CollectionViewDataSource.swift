@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension Onboarding2: UICollectionViewDataSource, UICollectionViewDelegate {
+extension Onboarding2ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }

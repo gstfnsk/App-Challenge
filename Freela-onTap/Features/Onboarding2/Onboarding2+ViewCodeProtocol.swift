@@ -6,7 +6,7 @@
 //
 import UIKit
 
-extension Onboarding2: ViewCodeProtocol {
+extension Onboarding2ViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(onboardingCollectionView)
         view.addSubview(swipeButton)
