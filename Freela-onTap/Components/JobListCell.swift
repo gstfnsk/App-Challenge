@@ -62,7 +62,6 @@ class JobListCell: UICollectionViewCell {
     
     // TODO: Change placeholders with real data! Maybe use a collection view with flow layout
     private lazy var badgeStack: UIStackView = {
-        
         let stack = UIStackView(arrangedSubviews: badges)
         stack.axis = .horizontal
         stack.spacing = 8
