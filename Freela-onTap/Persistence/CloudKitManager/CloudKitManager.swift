@@ -10,11 +10,26 @@ import CloudKit
 enum CloudKitError: Error {
     case unknown
     case notImplemented
-
+    
     // iCloud account errors
     case accountRestricted
     case accountUnavailable
     case noAccount
+    
+    var localizedDescription: String? {
+        switch self {
+        case .unknown:
+            return "Ocorreu um erro desconhecido."
+        case .notImplemented:
+            return "Este recurso ainda não foi implementado."
+        case .accountRestricted:
+            return "Sua conta do iCloud está restrita."
+        case .accountUnavailable:
+            return "Sua conta do iCloud está indisponível no momento. Por favor, faça login no iCloud e tente novamente mais tarde."
+        case .noAccount:
+            return "Nenhuma conta do iCloud está configurada neste dispositivo. Por favor, faça login no iCloud e tente novamente mais tarde."
+        }
+    }
 }
 
 struct CloudKitManager: FreelaOnTapPersistence {
