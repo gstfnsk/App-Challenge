@@ -43,6 +43,7 @@ class OnboardingViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     lazy var stackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [descriptionImage, continueButton])
         stackView.axis = .vertical
@@ -64,8 +65,8 @@ class OnboardingViewController: UIViewController {
     }
     
     @objc func continueAction() {
-        let onBoardViewController = UINavigationController(rootViewController: JobListViewController())
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(onBoardViewController)
+        let onboarding2VC = Onboarding2ViewController()
+        navigationController?.pushViewController(onboarding2VC, animated: true)
     }
 }
 extension OnboardingViewController: ViewCodeProtocol{

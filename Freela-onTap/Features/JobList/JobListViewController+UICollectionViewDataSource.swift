@@ -80,36 +80,39 @@ extension JobListViewController: UICollectionViewDataSource {
 }
 
 extension JobListViewController {
-    func updateJobOfferList(afterCompletion completion: @escaping () -> Void = {}) {
-        CloudKitManager.databaseQueue.async {
-            Task {
-                do {
-                    var jobOffers = try await CloudKitManager.shared.fetchJobOffers()
-                    
-                    // Sort by SelectedPositions
-                    jobOffers = SelectedPositions.applyFilter(to: jobOffers)
-                    
-                    // Order by creationData
-                    jobOffers.sort {
-                        $0.creationDate > $1.creationDate
-                    }
-
-                    DispatchQueue.main.async {
-                        completion()
-                        self.listedJobOffers = jobOffers
-                        self.collectionView.reloadData()
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion()
-                        let alert = UIAlertController(
+    func updateJobOfferList(
+        onSuccess: @escaping () -> Void = {},
+        onFailure: @escaping (_ error: Error) -> Void = { _ in },
+        finally: @escaping () -> Void = {}
+    ) {
+        Task {
+            do {
+                var jobOffers = try await CloudKitManager.shared.fetchAllJobOffers()
+                jobOffers = SelectedPositions.applyFilter(to: jobOffers)
+                jobOffers.sort { $0.postedAt > $1.postedAt }
+                
+                await MainActor.run {
+                    self.listedJobOffers = jobOffers
+                    self.collectionView.reloadData()
+                    onSuccess()
+                    finally()
+                }
+            } catch {
+                await MainActor.run {
+                    let alert = UIAlertController(
                             title: "Error",
                             message: "Could not fetch job offers.",
                             preferredStyle: .alert
                         )
+                        
+                        if let error = error as? CloudKitError {
+                            alert.message = error.localizedDescription
+                        }
+                       
                         alert.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alert, animated: true)
-                    }
+                    onFailure(error)
+                    finally()
                 }
             }
         }
