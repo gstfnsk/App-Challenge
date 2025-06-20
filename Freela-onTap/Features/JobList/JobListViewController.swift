@@ -9,6 +9,12 @@ class JobListViewController: UIViewController {
     let refreshControl = UIRefreshControl()
     var listedJobOffers: [JobOffer] = []
     
+    internal var numberOfSections = 3
+    internal var filterSectonId = 0
+    internal var titleSectionId = 1
+    internal var jobListingSectionId = 2
+
+    
 //    lazy var searchController: UISearchController = {
 //        var search = UISearchController.create()
 //        search.searchResultsUpdater = self
@@ -67,11 +73,15 @@ extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {
 
 extension JobListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let backItem = UIBarButtonItem()
-            backItem.title = "Voltar"
-            navigationItem.backBarButtonItem = backItem
-        // let selectedJob = indexPath.item
-        let vc = JobDetailsViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        if indexPath.section == jobListingSectionId {
+            let backItem = UIBarButtonItem()
+                backItem.title = "Voltar"
+                navigationItem.backBarButtonItem = backItem
+            let jobDetailsVC = JobDetailsViewController()
+            let selectedJobOffer = listedJobOffers[indexPath.row]
+            jobDetailsVC.configure(with: selectedJobOffer)
+            
+            navigationController?.pushViewController(jobDetailsVC, animated: true)
+        }
     }
 }

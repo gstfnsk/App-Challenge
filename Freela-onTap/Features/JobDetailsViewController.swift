@@ -90,7 +90,7 @@ class JobDetailsViewController: UIViewController {
         return label
     }()
     
-    private lazy var responsibilitiesText: UILabel = {
+    private lazy var dutiesText: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
         label.text = """
@@ -107,7 +107,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     private lazy var responsabilitiesStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [responsibilitiesLabel, responsibilitiesText])
+        var stack = UIStackView(arrangedSubviews: [responsibilitiesLabel, dutiesText])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 8
@@ -163,7 +163,7 @@ class JobDetailsViewController: UIViewController {
         return label
     }()
     
-    private lazy var companyDescription: UILabel = {
+    private lazy var establishmentType: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Bar"
@@ -200,7 +200,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     lazy var companyStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [companyName, companyDescription, companyNumberOfEmployees, companyAddress, postedTime])
+        var stack = UIStackView(arrangedSubviews: [companyName, establishmentType, companyNumberOfEmployees, companyAddress, postedTime])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 6
@@ -220,28 +220,28 @@ class JobDetailsViewController: UIViewController {
     private lazy var date: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "27/06"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
     private lazy var time: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "Horário: 18h"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
     private lazy var amount: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "R$ 120"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
     private lazy var duration: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         badge.text = "6h"
-        badge.badgeSize = .small
+        badge.badgeSize = .medium
         return badge
     }()
     
@@ -300,13 +300,35 @@ class JobDetailsViewController: UIViewController {
     }
     
     private func configureViewWithData() {
-        guard let job = jobOffer else {
-            return }
+        guard let jobOffer else {
+            return
+        }
+                
+        guard let company = jobOffer.company else {
+            print("error")
+            return
+        }
         
-//        navigationController?.title = job.position.rawValue.capitalized
-        descriptionText.text = job.description
-        requirementsText.text = job.qualifications
-        responsibilitiesText.text = job.duties
+        companyName.text = company.name
+        establishmentType.text = company.establishmentType.rawValue.localizedCapitalized
+        companyNumberOfEmployees.text = company.companySize.rawValue
+        
+        companyAddress.text = company.address.streetAndNumber + ", " + company.address.cityAndState + ", " + company.address.cityAndState
+        postedTime.text = jobOffer.postedAt.timeAgoString()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        date.text = dateFormatter.string(from: jobOffer.startDate)
+        
+        dateFormatter.dateFormat = "HH'h'mm"
+        time.text = "Horário: \(dateFormatter.string(from: jobOffer.startDate))"
+        
+        amount.text = "R$ \(jobOffer.salaryBRL)"
+        duration.text = "\(jobOffer.durationInHours)h"
+        
+        descriptionText.text = jobOffer.description
+        dutiesText.text = jobOffer.duties
+        requirementsText.text = jobOffer.qualifications
     }
     
     @objc private func openWhatsApp() {
