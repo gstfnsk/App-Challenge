@@ -15,29 +15,34 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         try await throwIfICloudNotAvailable()
 
         // Predicate for all JobOffers with an ID
-        let predicate = NSPredicate(format: "id != %@", "")
+        let predicate = CloudKitManager.allWithIdPredicate
 
         let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
 
         var offers: [JobOffer] = []
 
+        let cachedCompanies: [CompanyProfile] = (try? await CloudKitManager.shared.fetchAllCompanies()) ?? []
+        var companyProfileCache: [UUID: CompanyProfile] = [:]
+        for company in cachedCompanies {
+            companyProfileCache[company.id] = company
+        }
+        
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
                 if var jobOffer = JobOffer(record: record) {
-//                    let company = try? await CloudKitManager.shared.fetchCompany(id: jobOffer.companyId)
-//                    jobOffer.company = company
-                    
+                    jobOffer.company = companyProfileCache[jobOffer.companyId]
                     offers.append(jobOffer)
                 }
             case .failure(let error):
                 throw error
             }
         }
-
+        
         return offers
     }
+        
 
     func fetchJobOffer(id: UUID) async throws -> JobOffer? {
         try await throwIfICloudNotAvailable()

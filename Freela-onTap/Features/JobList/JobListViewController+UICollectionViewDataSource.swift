@@ -9,11 +9,6 @@ import UIKit
 
 // MARK: CollectionView DataSource
 extension JobListViewController: UICollectionViewDataSource {
-    private var numberOfSections: Int { 3 }
-    private var filterSectionId: Int { 0 }
-    private var titleSectionId: Int { 1 }
-    private var jobListingSectionId: Int { 2 }
-
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         numberOfSections
     }
