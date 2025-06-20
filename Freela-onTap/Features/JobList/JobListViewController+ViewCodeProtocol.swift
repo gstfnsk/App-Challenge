@@ -10,6 +10,8 @@ import UIKit
 extension JobListViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(collectionView)
+        view.addSubview(emptyView)
+//        emptyView.isHidden = true
         
         title = "Descobrir"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -25,7 +27,12 @@ extension JobListViewController: ViewCodeProtocol {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            
+            emptyView.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 60),
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
