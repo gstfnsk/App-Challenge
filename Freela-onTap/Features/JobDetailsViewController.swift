@@ -94,7 +94,7 @@ class JobDetailsViewController: UIViewController {
         return label
     }()
     
-    private lazy var responsibilitiesText: UILabel = {
+    private lazy var dutiesText: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
         label.text = """
@@ -111,7 +111,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     private lazy var responsabilitiesStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [responsibilitiesLabel, responsibilitiesText])
+        var stack = UIStackView(arrangedSubviews: [responsibilitiesLabel, dutiesText])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 8
@@ -167,7 +167,7 @@ class JobDetailsViewController: UIViewController {
         return label
     }()
     
-    private lazy var companyDescription: UILabel = {
+    private lazy var establishmentType: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Bar"
@@ -207,7 +207,7 @@ class JobDetailsViewController: UIViewController {
     }()
     
     lazy var companyStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [companyName, companyDescription, companyNumberOfEmployees, companyAddress, postedTime])
+        var stack = UIStackView(arrangedSubviews: [companyName, establishmentType, companyNumberOfEmployees, companyAddress, postedTime])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 6
@@ -327,8 +327,14 @@ class JobDetailsViewController: UIViewController {
     }
     
     private func configureViewWithData() {
-        guard let job = jobOffer else {
-            return }
+        guard let jobOffer else {
+            return
+        }
+                
+        guard let company = jobOffer.company else {
+            print("error")
+            return
+        }
         
         title = jobOffer.title.rawValue.localizedCapitalized
         
@@ -348,7 +354,7 @@ class JobDetailsViewController: UIViewController {
         
         amount.text = "R$ \(jobOffer.salaryBRL)"
         duration.text = "\(jobOffer.durationInHours)h"
-        
+                
         descriptionText.text = jobOffer.description
         dutiesText.text = jobOffer.duties
         requirementsText.text = jobOffer.qualifications

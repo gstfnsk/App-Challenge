@@ -22,10 +22,10 @@ struct CompanyProfile: Identifiable {
 }
 
 enum EstablishmentType: String, CaseIterable {
-    case restaurant
-    case bar
-    case coffeeshop
-    case other
+    case restaurant = "restaurante"
+    case bar = "bar"
+    case coffeeshop = "cafeteria"
+    case other = "outro"
 }
 
 enum CompanySize: String, CaseIterable {

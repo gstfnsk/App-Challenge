@@ -100,9 +100,8 @@ class JobListCell: UICollectionViewCell {
         titleLabel.text = job.title.rawValue.localizedCapitalized
         time.text = job.postedAt.timeAgoString()
 
-        // TODO: JobOffer company is allways nil, CloudKitManager should be fixed.
-        descriptionLabel.text = job.company?.establishmentType.rawValue.localizedCapitalized ?? "Restaurante*"
-        location.text = job.company?.address.cityAndState ?? "Porto Alegre/RS*"
+        descriptionLabel.text = job.company?.establishmentType.rawValue.localizedCapitalized ?? "Desconhecido"
+        location.text = job.company?.address.cityAndState ?? "Desconhecido"
 
         // TODO: In future, use real images
         imageView.image = UIImage(named: "companyPhotos/\(job.company?.name ?? "")")
@@ -113,7 +112,7 @@ class JobListCell: UICollectionViewCell {
         badges[0].text = dateFormatter.string(from: job.startDate)
 
         let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm"
+        timeFormatter.dateFormat = "HH'h'mm"
         badges[1].text = "Horário: \(timeFormatter.string(from: job.startDate))"
         
         badges[2].text = "R$ \(job.salaryBRL)"
