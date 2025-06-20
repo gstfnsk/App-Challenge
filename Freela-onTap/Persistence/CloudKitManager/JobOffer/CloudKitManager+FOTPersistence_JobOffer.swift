@@ -21,17 +21,23 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         let (matchResults, _) = try await publicDB.records(matching: query)
 
         var offers: [JobOffer] = []
+
+        let cachedCompanies: [CompanyProfile] = (try? await CloudKitManager.shared.fetchAllCompanies()) ?? []
+        var companyProfileCache: [UUID: CompanyProfile] = [:]
+        for company in cachedCompanies {
+            companyProfileCache[company.id] = company
+        }
         
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
                 if var jobOffer = JobOffer(record: record) {
+                    jobOffer.company = companyProfileCache[jobOffer.companyId]
                     offers.append(jobOffer)
                 }
             case .failure(let error):
                 throw error
             }
-        }
 
         return offers
     }
