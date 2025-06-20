@@ -9,7 +9,12 @@ import UIKit
 // MARK: ViewCodeProtocol
 extension JobListViewController: ViewCodeProtocol {
     func addSubviews() {
+        view.addSubview(errorEmptyState)
         view.addSubview(collectionView)
+        view.addSubview(refreshButton)
+        
+        errorEmptyState.isHidden = true
+        refreshButton.isHidden = true
         
         title = "Descobrir"
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -22,10 +27,23 @@ extension JobListViewController: ViewCodeProtocol {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            errorEmptyState.topAnchor.constraint(equalTo: view.topAnchor),
+            errorEmptyState.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorEmptyState.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            errorEmptyState.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            
+            refreshButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -265),
+            refreshButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            
         ])
+    }
+    
+    func setupAdditionalConfiguration() {
+
     }
 }

@@ -16,6 +16,33 @@ class JobListViewController: UIViewController {
 //        return search
 //    }()
     
+    lazy var errorEmptyState: ErrorEmptyState = {
+        let emptyState = ErrorEmptyState()
+        emptyState.translatesAutoresizingMaskIntoConstraints = false
+        return emptyState
+    }()
+    
+    lazy var refreshButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15, weight: .bold),
+            .foregroundColor: UIColor.DesignSystem.terracota600
+        ]
+        
+        let attributedTitle = NSAttributedString(string: "Recarregar", attributes: attributes)
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.addTarget(self, action: #selector(buttonRefresh), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    @objc func buttonRefresh() {
+        print("clicou")
+        self.updateJobOfferList()
+        self.collectionView.reloadData()
+    }
+    
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createAllLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
