@@ -178,9 +178,12 @@ class JobDetailsViewController: UIViewController {
         label.font = UIFont.DesignSystem.footnote
         label.textColor = UIColor.DesignSystem.terracota600
         label.text = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC"
+        label.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openInMaps))
+            label.addGestureRecognizer(tapGesture)
+
         return label
     }()
-    
     
     private lazy var companyNumberOfEmployees: LabelWithIconComponent = {
         var label = LabelWithIconComponent()
@@ -327,6 +330,15 @@ class JobDetailsViewController: UIViewController {
         descriptionText.text = job.description
         requirementsText.text = job.requirements
         responsibilitiesText.text = job.responsibilities
+    }
+    
+    @objc private func openInMaps() {
+        let address = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC" // change to actual value
+        let encodedAddress = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+
+        if let url = URL(string: "http://maps.apple.com/?q=\(encodedAddress)") {
+            UIApplication.shared.open(url)
+        }
     }
     
     @objc private func openWhatsApp() {
