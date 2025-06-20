@@ -68,6 +68,10 @@ class OnboardingViewController: UIViewController {
         let onboarding2VC = Onboarding2ViewController()
         navigationController?.pushViewController(onboarding2VC, animated: true)
     }
+    @objc func pularButtonTapped() {
+        let jobListViewController = JobListViewController()
+        navigationController?.setViewControllers([jobListViewController], animated: true)
+    }
 }
 extension OnboardingViewController: ViewCodeProtocol{
     func addSubviews() {
@@ -109,5 +113,11 @@ extension OnboardingViewController: ViewCodeProtocol{
     
     func setupAdditionalConfiguration() {
         view.backgroundColor = .DesignSystem.terracota0
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "Pular",
+                style: .plain,
+                target: self,
+                action: #selector(pularButtonTapped)
+            )
     }
 }

@@ -57,17 +57,9 @@ class JobListViewController: UIViewController {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        collectionView.backgroundColor = .DesignSystem.lavanda0
-
+        
         setup()
         updateJobOfferList()
-        DispatchQueue.main.async {
-            let indexPath = IndexPath(item: 0, section: 0)
-            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-            self.updateJobOfferList()
-            self.collectionView.reloadSections(IndexSet(integer: 0))
-        }
     }
 }
 

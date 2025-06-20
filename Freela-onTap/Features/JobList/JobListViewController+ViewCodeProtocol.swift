@@ -28,4 +28,8 @@ extension JobListViewController: ViewCodeProtocol {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
+    func adicionalSetup() {
+        navigationItem.hidesBackButton = true
+        collectionView.backgroundColor = .DesignSystem.lavanda0
+    }
 }
