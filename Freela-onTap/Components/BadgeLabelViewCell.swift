@@ -7,11 +7,11 @@
 import UIKit
 
 class BadgeLabelViewCell: UICollectionViewCell {
-    private lazy var baged: BadgeLabelWithIcon = {
-        let baged = BadgeLabelWithIcon()
-        baged.translatesAutoresizingMaskIntoConstraints = false
-        baged.backColor = .systemBackground
-        return baged
+    private lazy var badge: BadgeLabelWithIcon = {
+        let badge = BadgeLabelWithIcon()
+        badge.translatesAutoresizingMaskIntoConstraints = false
+        badge.backColor = .systemBackground
+        return badge
     }()
     
     // MARK: Properties
@@ -19,8 +19,13 @@ class BadgeLabelViewCell: UICollectionViewCell {
     
     // MARK: Functions
     func configure(title: String, imageName: String) {
-        baged.icon = UIImage(systemName: imageName)
-        baged.text = title
+        badge.icon = UIImage(systemName: imageName)
+        badge.text = title
+    }
+    
+    func cellJob() -> JobPosition {
+        let jobText = badge.text
+        return JobPosition(rawValue: jobText) ?? .other
     }
     
     override init(frame: CGRect) {
@@ -52,19 +57,27 @@ class BadgeLabelViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 12
         contentView.layer.masksToBounds = true
     }
+    func setSelectedStyle() {
+        badge.backColor = .DesignSystem.terracota600
+        badge.featureColor = .white
+    }
+    func setDeselectedStyle() {
+        badge.backColor = .systemBackground
+        badge.featureColor = .DesignSystem.terracota600
+    }
 }
 
 extension BadgeLabelViewCell: ViewCodeProtocol {
     func addSubviews() {
-        contentView.addSubview(baged)
+        contentView.addSubview(badge)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            baged.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            baged.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            baged.topAnchor.constraint(equalTo: contentView.topAnchor),
-            baged.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            badge.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            badge.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            badge.topAnchor.constraint(equalTo: contentView.topAnchor),
+            badge.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }

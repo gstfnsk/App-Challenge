@@ -28,7 +28,7 @@ class JobListViewController: UIViewController {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isDirectionalLockEnabled = true
         collectionView.delegate = self
-        
+        collectionView.allowsMultipleSelection = true
         refreshControl.addTarget(self, action: #selector(refreshJobs), for: .valueChanged)
                 collectionView.refreshControl = refreshControl
         return collectionView
@@ -56,6 +56,12 @@ class JobListViewController: UIViewController {
 
         setup()
         updateJobOfferList()
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(item: 0, section: 0)
+            self.collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            self.updateJobOfferList()
+            self.collectionView.reloadSections(IndexSet(integer: 0))
+        }
     }
 }
 
@@ -67,11 +73,40 @@ extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {
 
 extension JobListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let backItem = UIBarButtonItem()
-            backItem.title = "Voltar"
-            navigationItem.backBarButtonItem = backItem
-        // let selectedJob = indexPath.item
-        let vc = JobDetailsViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        let section = indexPath.section
+
+        if section == 0 {
+            if indexPath.item == 0 {
+                SelectedPositions.clearAll()
+            } else {
+                let jobPosition = JobPosition.allCases[indexPath.item - 1]
+                if SelectedPositions.getSelectedPositions().contains(jobPosition) {
+                        SelectedPositions.remove(position: jobPosition)
+                    } else {
+                        SelectedPositions.add(position: jobPosition)
+                    }
+            }
+            updateJobOfferList()
+            collectionView.reloadData()
+        } else if section == 2 {
+            let backItem = UIBarButtonItem()
+                backItem.title = "Voltar"
+                navigationItem.backBarButtonItem = backItem
+            // let selectedJob = indexPath.item
+            let vc = JobDetailsViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let section = indexPath.section
+
+        if section == 0 {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? BadgeLabelViewCell else {
+                return
+            }
+            SelectedPositions.remove(position: cell.cellJob())
+            updateJobOfferList()
+            collectionView.reloadData()
+        }
     }
 }

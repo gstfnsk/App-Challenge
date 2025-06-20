@@ -26,41 +26,50 @@ struct JobOffer: Identifiable {
 
 enum JobPosition: String, CaseIterable {
     case waiter = "garçom"
-    case bartender = "barman"
-    case chef = "chef"
-    case cook = "cozinheiro"
-    case hostess = "recepcionista"
-    case dishwasher = "lavador de louças"
+    case hostess = "atendente"
+    case cashier = "caixa"
     case busser = "auxiliar de garçom"
-    case barback = "auxiliar de bar"
-    case manager = "gerente de salão"
+    case bartender = "bartender"
+    case chef = "chef"
     case barista = "barista"
+    case buyer = "comprador"
+    case manager = "gerente geral"
+    case floorManager = "gerente de salão"
+    case dishwasher = "lavador de louças"
+    case cook = "cozinheiro"
+    case barback = "auxiliar de bar"
     case other = "outro"
     
     var iconName: String {
         switch self {
         case .waiter:
             return "figure.walk"
-        case .bartender:
-            return "wineglass"
-        case .chef:
-            return "takeoutbag.and.cup.and.straw"
-        case .cook:
-            return "flame"
         case .hostess:
-            return "dollarsign.circle"
-        case .dishwasher:
-            return "drop"
-        case .busser:
             return "person.2"
-        case .barback:
-            return "cube.box"
-        case .manager:
-            return "person.crop.rectangle"
+        case .cashier:
+            return "dollarsign.circle"
+        case .busser:
+            return "hand.raised.fill"
+        case .bartender:
+            return "wineglass.fill"
+        case .chef:
+            return "fork.knife.circle.fill"
         case .barista:
-            return "cup.and.saucer"
+            return "cup.and.saucer.fill"
+        case .buyer:
+            return "cart.badge.plus"
+        case .manager:
+            return "briefcase.fill"
+        case .floorManager:
+            return "person.2.wave.2.fill"
+        case .dishwasher:
+            return "drop.triangle.fill"
+        case .cook:
+            return "flame.fill"
+        case .barback:
+            return "tray.fill"
         case .other:
-            return "questionmark"
+            return "ellipsis.circle"
         }
     }
 }
