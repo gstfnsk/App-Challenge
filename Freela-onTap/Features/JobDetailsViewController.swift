@@ -16,25 +16,29 @@ class JobDetailsViewController: UIViewController {
         return view
     }()
     
+    private lazy var companyImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "TestFlightPhoto")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
+        return imageView
+    }()
+    
     private lazy var imageContainerView: UIView = {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.layer.cornerRadius = 4
         container.clipsToBounds = true
 
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "TestFlightPhoto")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-
-        container.addSubview(imageView)
+        container.addSubview(companyImageView)
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: container.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+            companyImageView.topAnchor.constraint(equalTo: container.topAnchor),
+            companyImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            companyImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ])
 
         return container
@@ -350,10 +354,13 @@ class JobDetailsViewController: UIViewController {
         
         amount.text = "R$ \(jobOffer.salaryBRL)"
         duration.text = "\(jobOffer.durationInHours)h"
-        
+                
         descriptionText.text = jobOffer.description
         dutiesText.text = jobOffer.duties
         requirementsText.text = jobOffer.qualifications
+        
+        // TODO: In future, use real images
+        companyImageView.image = UIImage(named: "companyPhotos/\(company.name)")
     }
     
     @objc private func openInMaps() {
