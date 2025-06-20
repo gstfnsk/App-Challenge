@@ -66,7 +66,8 @@ class OnboardingViewController: UIViewController {
     
     @objc func continueAction() {
         let onboarding2VC = Onboarding2ViewController()
-        navigationController?.pushViewController(onboarding2VC, animated: true)
+        self.navigationItem.backButtonTitle = "Voltar"
+        self.navigationController?.pushViewController(onboarding2VC, animated: true)
     }
 }
 extension OnboardingViewController: ViewCodeProtocol{

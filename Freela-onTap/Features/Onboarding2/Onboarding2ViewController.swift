@@ -55,6 +55,5 @@ class Onboarding2ViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        view.backgroundColor = .blue
     }
 }
