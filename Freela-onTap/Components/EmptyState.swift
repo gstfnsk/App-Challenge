@@ -52,6 +52,7 @@ class EmptyState: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        self.backgroundColor = .systemBackground
         setup()
     }
     
@@ -68,6 +69,7 @@ extension EmptyState: ViewCodeProtocol {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            self.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 50),
             imageView.bottomAnchor.constraint(equalTo: stack.topAnchor, constant: -15),
             imageView.heightAnchor.constraint(equalToConstant: 186),
             imageView.widthAnchor.constraint(equalToConstant: 393),

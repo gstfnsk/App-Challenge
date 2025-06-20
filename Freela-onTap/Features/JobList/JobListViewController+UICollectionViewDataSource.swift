@@ -26,6 +26,11 @@ extension JobListViewController: UICollectionViewDataSource {
             return 1
         }
         if section == jobListingSectionId {
+            if listedJobOffers.isEmpty {
+                emptyView.isHidden = false
+            } else {
+                emptyView.isHidden = true
+            }
             return listedJobOffers.count
         }
 
@@ -77,6 +82,16 @@ extension JobListViewController: UICollectionViewDataSource {
         cell.configure(job: listedJobOffers[indexPath.item])
         return cell
     }
+    
+    func showEmptyView() {
+        emptyView.isHidden = false
+        collectionView.isHidden = true
+    }
+
+    func hideEmptyView() {
+        emptyView.isHidden = true
+        collectionView.isHidden = false
+    }
 }
 
 extension JobListViewController {
@@ -94,6 +109,13 @@ extension JobListViewController {
                 await MainActor.run {
                     self.listedJobOffers = jobOffers
                     self.collectionView.reloadData()
+                    
+//                    if jobOffers.isEmpty {
+//                        self.showEmptyView()
+//                    } else {
+//                        self.hideEmptyView()
+//                    }
+                    
                     onSuccess()
                     finally()
                 }
