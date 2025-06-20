@@ -217,36 +217,24 @@ class JobDetailsViewController: UIViewController {
         return button
     }()
     
-//    private lazy var blurredBackgroundView: UIView = {
-//        var backgroundView = UIView()
-//        backgroundView.translatesAutoresizingMaskIntoConstraints = false
-////        backgroundView.backgroundColor = UIColor.systemBackground
-//        backgroundView.layer.cornerRadius = 16
-//        backgroundView.clipsToBounds = true
-//        
-//        // Create the blur effect view
-//        let blurEffect = UIBlurEffect(style: .light)
-//        let blurView = UIVisualEffectView(effect: blurEffect)
-//        blurView.translatesAutoresizingMaskIntoConstraints = false
-//
-//        backgroundView.addSubview(blurView)
-//        backgroundView.addSubview(overlayView)
-//        
-//        // Make the blur fill the entire backgroundView
-//        NSLayoutConstraint.activate([
-//            blurView.topAnchor.constraint(equalTo: backgroundView.topAnchor),
-//            blurView.bottomAnchor.constraint(equalTo: backgroundView.bottomAnchor),
-//            blurView.leadingAnchor.constraint(equalTo: backgroundView.leadingAnchor),
-//            blurView.trailingAnchor.constraint(equalTo: backgroundView.trailingAnchor)
-//        ])
-//        return backgroundView
-//    }()
-//    
-//    private lazy var overlayView: UIView = {
-//            let view = GradientOverlayView()
-//            view.translatesAutoresizingMaskIntoConstraints = false
-//            return view
-//    }()
+    private lazy var blurredBackgroundView: UIView = {
+        var backgroundView = UIView()
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+//        backgroundView.backgroundColor = UIColor.systemBackground
+        backgroundView.layer.cornerRadius = 16
+        backgroundView.clipsToBounds = true
+
+        backgroundView.addSubview(overlayView)
+        
+
+        return backgroundView
+    }()
+    
+    private lazy var overlayView: UIView = {
+            let view = GradientOverlayView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+    }()
 
     
     private lazy var date: BadgeLabelWithIcon = {
@@ -342,10 +330,43 @@ class JobDetailsViewController: UIViewController {
     }
     
     @objc private func openWhatsApp() {
-        let alert = UIAlertController(title: "Register Interest", message: "Obrigado por se candidatar, seu perfil já está com o contratante. Agora é só dar o próximo passo.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Entrar em contato", style: .default) { _ in if let url = URL(string: "https://wa.me/+5551997645781?text=Oi%2C%20vi%20o%20an%C3%BAncio%20da%20vaga%20no%20%2AFreela%20onTap%2A%20e%20gostaria%20de%20me%20candidatar.") {  UIApplication.shared.open(url, options: [:], completionHandler: nil)}
-        })
-        alert.addAction(UIAlertAction(title: "Talvez mais tarde", style: .default))
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+
+        // Title: bold + terracota600
+        let attributedTitle = NSAttributedString(
+            string: "Interesse Registrado!",
+            attributes: [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.DesignSystem.bodyEmphasized
+            ]
+        )
+        alert.setValue(attributedTitle, forKey: "attributedTitle")
+
+        // Message: regular + terracota600
+        let attributedMessage = NSAttributedString(
+            string: "Obrigado por se candidatar, seu perfil já está com o contratante. Agora é só dar o próximo passo.",
+            attributes: [
+                .foregroundColor: UIColor.black,
+                .font: UIFont.DesignSystem.body
+            ]
+        )
+        alert.setValue(attributedMessage, forKey: "attributedMessage")
+
+        // Actions
+        
+        let contactAction = UIAlertAction(title: "Entrar em contato", style: .default) { _ in
+            if let url = URL(string: "https://wa.me/+5551997645781?text=Oi%2C%20vi%20o%20an%C3%BAncio%20da%20vaga%20no%20%2AFreela%20onTap%2A%20e%20gostaria%20de%20me%20candidatar.") {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        contactAction.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
+
+        let laterAction = UIAlertAction(title: "Talvez mais tarde", style: .default)
+        laterAction.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
+
+        alert.addAction(contactAction)
+        alert.addAction(laterAction)
+
         present(alert, animated: true)
     }
 }
@@ -354,8 +375,8 @@ extension JobDetailsViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
         view.addSubview(buttonsStack)
-//        blurredBackgroundView.addSubview(overlayView)
-//        blurredBackgroundView.addSubview(buttonsStack)
+        view.addSubview(overlayView)
+        overlayView.addSubview(buttonsStack)
 
         scrollView.addSubview(contentView)
         contentView.addSubview(imageContainerView)
@@ -378,7 +399,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            imageContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 20),
+            imageContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 27),
             imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             imageContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             imageContainerView.heightAnchor.constraint(equalTo: imageContainerView.widthAnchor, multiplier: 196.0 / 361.0),
@@ -391,29 +412,25 @@ extension JobDetailsViewController: ViewCodeProtocol {
             badgesStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             
             mainStack.topAnchor.constraint(equalTo: badgesStack.bottomAnchor, constant: 20),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -70),
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -110),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-//            blurredBackgroundView.heightAnchor.constraint(equalToConstant: 100),
-//            blurredBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//            blurredBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-//            blurredBackgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-//            
-//            overlayView.topAnchor.constraint(equalTo: blurredBackgroundView.topAnchor),
-//            overlayView.bottomAnchor.constraint(equalTo: blurredBackgroundView.bottomAnchor),
-//            overlayView.leadingAnchor.constraint(equalTo: blurredBackgroundView.leadingAnchor),
-//            overlayView.trailingAnchor.constraint(equalTo: blurredBackgroundView.trailingAnchor),
+            overlayView.heightAnchor.constraint(equalToConstant: 113),
+            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
 
-            contactButton.widthAnchor.constraint(equalToConstant: 247),
+            contactButton.widthAnchor.constraint(equalToConstant: 321),
             contactButton.heightAnchor.constraint(equalToConstant: 50),
 
             buttonsStack.heightAnchor.constraint(equalToConstant: 50),
-            buttonsStack.widthAnchor.constraint(equalToConstant: 247),
+            buttonsStack.widthAnchor.constraint(equalToConstant: 321),
 
             buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            buttonsStack.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5)
+            buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
+
             
 //            shareButton.heightAnchor.constraint(equalToConstant: 50),
 //            shareButton.widthAnchor.constraint(equalToConstant: 59)
