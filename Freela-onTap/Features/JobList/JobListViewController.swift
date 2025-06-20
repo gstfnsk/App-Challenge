@@ -21,6 +21,13 @@ class JobListViewController: UIViewController {
     //        search.searchBar.delegate = self
     //        return search
     //    }()
+    
+    lazy var emptyView: EmptyState = {
+        let emptyView = EmptyState()
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        emptyView.isHidden = true
+        return emptyView
+    }()
 
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createAllLayout())
