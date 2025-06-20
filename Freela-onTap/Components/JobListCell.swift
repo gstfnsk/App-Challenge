@@ -104,7 +104,7 @@ class JobListCell: UICollectionViewCell {
         location.text = job.company?.address.cityAndState ?? "Desconhecido"
 
         // TODO: In future, use real images
-        imageView.image = UIImage(named: "companyPhotos/\(job.company?.name ?? "")")
+        imageView.image = UIImage(named: "companyPhotos/\((job.company?.name ?? "").replacingOccurrences(of: "é", with: "e").replacingOccurrences(of: "ô", with: "o"))")
 
         
         let dateFormatter = DateFormatter()
