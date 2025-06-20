@@ -11,7 +11,7 @@ import SwiftUI
 class EmptyState: UIView {
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
-        label.font = UIFont.DesignSystem.title3
+        label.font = UIFont.DesignSystem.title3Emphasized
         label.textAlignment = .center
         label.textColor = UIColor.black
         label.text = "Nenhuma vaga no radar"
@@ -36,7 +36,7 @@ class EmptyState: UIView {
         var stack = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 16
+        stack.spacing = 3
         return stack
     }()
     
