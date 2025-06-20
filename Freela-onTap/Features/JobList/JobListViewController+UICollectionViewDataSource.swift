@@ -100,12 +100,17 @@ extension JobListViewController {
             } catch {
                 await MainActor.run {
                     let alert = UIAlertController(
-                        title: "Error",
-                        message: "Could not fetch job offers.",
-                        preferredStyle: .alert
-                    )
-                    alert.addAction(UIAlertAction(title: "OK", style: .default))
-                    self.present(alert, animated: true)
+                            title: "Error",
+                            message: "Could not fetch job offers.",
+                            preferredStyle: .alert
+                        )
+                        
+                        if let error = error as? CloudKitError {
+                            alert.message = error.localizedDescription
+                        }
+                       
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        self.present(alert, animated: true)
                     onFailure(error)
                     finally()
                 }
