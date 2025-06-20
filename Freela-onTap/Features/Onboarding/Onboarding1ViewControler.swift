@@ -47,9 +47,8 @@ class OnboardingViewController: UIViewController {
     lazy var stackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [descriptionImage, continueButton])
         stackView.axis = .vertical
-        stackView.spacing = 81
+        stackView.spacing = 65
         stackView.alignment = .center
-        stackView.layer.cornerRadius = 28
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -98,8 +97,6 @@ extension OnboardingViewController: ViewCodeProtocol{
             nameImage.heightAnchor.constraint(equalToConstant: 93),
             nameImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
             nameImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -113),
-            
-            descriptionImage.widthAnchor.constraint(equalToConstant: 353),
             
             continueButton.heightAnchor.constraint(equalToConstant: 50),
             continueButton.widthAnchor.constraint(equalToConstant: 361),
