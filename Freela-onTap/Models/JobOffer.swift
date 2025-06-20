@@ -21,17 +21,17 @@ struct JobOffer: Identifiable {
 }
 
 enum JobPosition: String, CaseIterable {
-    case waiter = "Garçom"
-    case hostess = "Atendente"
-    case cashier = "Caixa"
-    case busser = "Auxiliar de Garçom"
-    case bartender = "Bartender"
-    case chef = "Chef"
-    case commis = "Auxiliar de Cozinha"
-    case buyer = "Comprador"
-    case generalManager = "Gerente Geral"
-    case floorManager = "Gerente de Salão"
-    case other = "Outro"
+    case waiter = "garçom"
+    case hostess = "atendente"
+    case cashier = "caixa"
+    case busser = "auxiliar de garçom"
+    case bartender = "bartender"
+    case chef = "chef"
+    case commis = "auxiliar de cozinha"
+    case buyer = "comprador"
+    case generalManager = "gerente geral"
+    case floorManager = "gerente de salão"
+    case other = "outro"
     
     var iconName: String {
         switch self {
