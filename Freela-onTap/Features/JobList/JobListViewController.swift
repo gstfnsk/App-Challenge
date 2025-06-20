@@ -85,6 +85,7 @@ extension JobListViewController: UICollectionViewDelegate {
                         SelectedPositions.add(position: jobPosition)
                     }
             }
+            updateJobOfferList()
             collectionView.reloadData()
         } else if section == 2 {
             let backItem = UIBarButtonItem()
@@ -103,6 +104,7 @@ extension JobListViewController: UICollectionViewDelegate {
                 return
             }
             SelectedPositions.remove(position: cell.cellJob())
+            updateJobOfferList()
             collectionView.reloadData()
         }
     }

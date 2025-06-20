@@ -27,10 +27,13 @@ enum JobPosition: String, CaseIterable {
     case busser = "auxiliar de garçom"
     case bartender = "bartender"
     case chef = "chef"
-    case commis = "auxiliar de cozinha"
+    case barista = "barista"
     case buyer = "comprador"
-    case generalManager = "gerente geral"
+    case manager = "gerente geral"
     case floorManager = "gerente de salão"
+    case dishwasher = "lavador de louças"
+    case cook = "cozinheiro"
+    case barback = "auxiliar de bar"
     case other = "outro"
     
     var iconName: String {
@@ -39,22 +42,28 @@ enum JobPosition: String, CaseIterable {
             return "figure.walk"
         case .hostess:
             return "person.2"
-        case .busser:
-            return "hand.raised.fill"
         case .cashier:
             return "dollarsign.circle"
+        case .busser:
+            return "hand.raised.fill"
         case .bartender:
             return "wineglass.fill"
         case .chef:
             return "fork.knife.circle.fill"
-        case .commis:
-            return "square.grid.2x2.fill"
+        case .barista:
+            return "cup.and.saucer.fill"
         case .buyer:
             return "cart.badge.plus"
-        case .generalManager:
+        case .manager:
             return "briefcase.fill"
         case .floorManager:
             return "person.2.wave.2.fill"
+        case .dishwasher:
+            return "drop.triangle.fill"
+        case .cook:
+            return "flame.fill"
+        case .barback:
+            return "tray.fill"
         case .other:
             return "ellipsis.circle"
         }
