@@ -30,9 +30,6 @@ struct CloudKitManager: FreelaOnTapPersistence {
     internal let jobOfferRecordType = "JobOffer"
     internal let companyProfileRecordType = "CompanyProfile"
     
-    
-    static let databaseQueue = DispatchQueue(label: "com.freelaontap.databaseQueue")
-    
     static var companyProfileCache: [CKRecord.ID: CompanyProfile] = [:]
    
 
