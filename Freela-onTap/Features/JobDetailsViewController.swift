@@ -360,7 +360,7 @@ class JobDetailsViewController: UIViewController {
         requirementsText.text = jobOffer.qualifications
         
         // TODO: In future, use real images
-        companyImageView.image = UIImage(named: "companyPhotos/\(company.name)")
+        companyImageView.image = UIImage(named: "companyPhotos/\((jobOffer.company?.name ?? "").replacingOccurrences(of: "é", with: "e").replacingOccurrences(of: "ô", with: "o"))")
     }
     
     @objc private func openInMaps() {
