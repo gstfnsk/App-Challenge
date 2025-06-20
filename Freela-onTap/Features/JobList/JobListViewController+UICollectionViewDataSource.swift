@@ -28,22 +28,34 @@ extension JobListViewController: UICollectionViewDataSource {
         if section == jobListingSectionId {
             return listedJobOffers.count
         }
-
-        // If none of the sectios were matched, return 0
+        
         return 0
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = indexPath.section
         if section == filterSectonId {
-            guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: BadgeLabelViewCell.identifier, for: indexPath) as? BadgeLabelViewCell else {
-                fatalError("Erro ao criar CardCollectionViewCell")
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BadgeLabelViewCell.identifier,
+                for: indexPath
+            ) as? BadgeLabelViewCell else {
+                fatalError("Erro ao criar BadgeCollectionViewCell")
             }
-            let jobPostion = JobPosition.allCases[indexPath.item]
-            cell.configure(title: jobPostion.rawValue.capitalized, imageName: jobPostion.iconName)
+
+            let jobPosition = JobPosition.allCases[indexPath.item]
+
+            cell.configure(title: jobPosition.rawValue.capitalized, imageName: jobPosition.iconName)
+
+            let selectedJobPositions: Set<JobPosition> = SelectedPositions.getSelectedPositions()
+
+            cell.setDeselectedStyle()
+            
+            if selectedJobPositions.contains(jobPosition) {
+                cell.setSelectedStyle()
+            }
             return cell
         }
+
 
         // Page title
         if section == titleSectionId {

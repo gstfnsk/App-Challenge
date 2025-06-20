@@ -21,42 +21,45 @@ struct JobOffer: Identifiable {
 }
 
 enum JobPosition: String, CaseIterable {
-    case waiter = "garçom"
-    case bartender = "barman"
-    case chef = "chef"
-    case cook = "cozinheiro"
-    case hostess = "recepcionista"
-    case dishwasher = "lavador de roupa"
-    case busser = "auxiliar de garçom"
-    case barback = "auxiliar de bar"
-    case manager = "gerente"
-    case barista = "barista"
-    case other = "outro"
+    case alljob = "Todos"
+    case waiter = "Garçom"
+    case hostess = "Atendente"
+    case cashier = "Caixa"
+    case busser = "Auxiliar de Garçom"
+    case bartender = "Bartender"
+    case chef = "Chef"
+    case commis = "Auxiliar de Cozinha"
+    case buyer = "Comprador"
+    case generalManager = "Gerente Geral"
+    case floorManager = "Gerente de Salão"
+    case other = "Outro"
     
     var iconName: String {
         switch self {
+        case .alljob:
+            return "checklist.checked"
         case .waiter:
             return "figure.walk"
-        case .bartender:
-            return "wineglass"
-        case .chef:
-            return "takeoutbag.and.cup.and.straw"
-        case .cook:
-            return "flame"
         case .hostess:
-            return "dollarsign.circle"
-        case .dishwasher:
-            return "drop"
-        case .busser:
             return "person.2"
-        case .barback:
-            return "cube.box"
-        case .manager:
-            return "person.crop.rectangle"
-        case .barista:
-            return "cup.and.saucer"
+        case .busser:
+            return "hand.raised.fill"
+        case .cashier:
+            return "dollarsign.circle"
+        case .bartender:
+            return "wineglass.fill"
+        case .chef:
+            return "fork.knife.circle.fill"
+        case .commis:
+            return "square.grid.2x2.fill"
+        case .buyer:
+            return "cart.badge.plus"
+        case .generalManager:
+            return "briefcase.fill"
+        case .floorManager:
+            return "person.2.wave.2.fill"
         case .other:
-            return "questionmark"
+            return "ellipsis.circle"
         }
     }
 }

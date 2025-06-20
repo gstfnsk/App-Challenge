@@ -23,6 +23,11 @@ class BadgeLabelViewCell: UICollectionViewCell {
         baged.text = title
     }
     
+    func cellJob() -> JobPosition {
+        let jobText = baged.text
+        return JobPosition(rawValue: jobText) ?? .other
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -51,6 +56,14 @@ class BadgeLabelViewCell: UICollectionViewCell {
         contentView.backgroundColor = .systemBackground
         contentView.layer.cornerRadius = 12
         contentView.layer.masksToBounds = true
+    }
+    func setSelectedStyle() {
+        baged.backColor = .DesignSystem.terracota600
+        baged.featureColor = .white
+    }
+    func setDeselectedStyle() {
+        baged.backColor = .systemBackground
+        baged.featureColor = .DesignSystem.terracota600
     }
 }
 
