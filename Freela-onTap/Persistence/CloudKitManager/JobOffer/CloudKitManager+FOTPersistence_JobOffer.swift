@@ -15,20 +15,17 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         try await throwIfICloudNotAvailable()
 
         // Predicate for all JobOffers with an ID
-        let predicate = NSPredicate(format: "id != %@", "")
+        let predicate = CloudKitManager.ALL_WITH_ID_PREDICATE
 
         let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
 
         var offers: [JobOffer] = []
-
+        
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
                 if var jobOffer = JobOffer(record: record) {
-//                    let company = try? await CloudKitManager.shared.fetchCompany(id: jobOffer.companyId)
-//                    jobOffer.company = company
-                    
                     offers.append(jobOffer)
                 }
             case .failure(let error):

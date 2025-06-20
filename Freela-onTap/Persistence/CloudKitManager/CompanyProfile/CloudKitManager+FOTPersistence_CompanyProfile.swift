@@ -13,13 +13,12 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
         try await throwIfICloudNotAvailable()
 
         // Predicate for all JobOffers with an ID
-        let predicate = NSPredicate(format: "id == %@", "")
+        let predicate = CloudKitManager.ALL_WITH_ID_PREDICATE
 
         let query = CKQuery(recordType: companyProfileRecordType, predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
 
         var companies: [CompanyProfile] = []
-
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
