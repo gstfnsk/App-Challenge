@@ -16,25 +16,29 @@ class JobDetailsViewController: UIViewController {
         return view
     }()
     
+    private lazy var companyImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "TestFlightPhoto")
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        
+        return imageView
+    }()
+    
     private lazy var imageContainerView: UIView = {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
         container.layer.cornerRadius = 4
         container.clipsToBounds = true
 
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "TestFlightPhoto")
-        imageView.contentMode = .scaleAspectFill
-        imageView.clipsToBounds = true
-
-        container.addSubview(imageView)
+        container.addSubview(companyImageView)
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: container.topAnchor),
-            imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+            companyImageView.topAnchor.constraint(equalTo: container.topAnchor),
+            companyImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            companyImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ])
 
         return container
@@ -326,10 +330,31 @@ class JobDetailsViewController: UIViewController {
         guard let job = jobOffer else {
             return }
         
-//        navigationController?.title = job.position.rawValue.capitalized
-        descriptionText.text = job.description
-        requirementsText.text = job.qualifications
-        responsibilitiesText.text = job.duties
+        title = jobOffer.title.rawValue.localizedCapitalized
+        
+        companyName.text = company.name
+        establishmentType.text = company.establishmentType.rawValue.localizedCapitalized
+        companyNumberOfEmployees.text = company.companySize.rawValue
+        
+        companyAddress.text = company.address.streetAndNumber + ", " + company.address.cityAndState + ", " + company.address.cityAndState
+        postedTime.text = jobOffer.postedAt.timeAgoString()
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM"
+        date.text = dateFormatter.string(from: jobOffer.startDate)
+        
+        dateFormatter.dateFormat = "HH'h'mm"
+        time.text = "Horário: \(dateFormatter.string(from: jobOffer.startDate))"
+        
+        amount.text = "R$ \(jobOffer.salaryBRL)"
+        duration.text = "\(jobOffer.durationInHours)h"
+        
+        descriptionText.text = jobOffer.description
+        dutiesText.text = jobOffer.duties
+        requirementsText.text = jobOffer.qualifications
+        
+        // TODO: In future, use real images
+        companyImageView.image = UIImage(named: "companyPhotos/\(company.name)")
     }
     
     @objc private func openInMaps() {

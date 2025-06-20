@@ -8,7 +8,7 @@ import UIKit
 class JobListCell: UICollectionViewCell {
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .center
+        imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(named: "DefaultRestaurantPhoto")
         
         imageView.layer.cornerRadius = 4
@@ -103,6 +103,9 @@ class JobListCell: UICollectionViewCell {
         // TODO: JobOffer company is allways nil, CloudKitManager should be fixed.
         descriptionLabel.text = job.company?.establishmentType.rawValue.localizedCapitalized ?? "Restaurante*"
         location.text = job.company?.address.cityAndState ?? "Porto Alegre/RS*"
+
+        // TODO: In future, use real images
+        imageView.image = UIImage(named: "companyPhotos/\(job.company?.name ?? "")")
 
         
         let dateFormatter = DateFormatter()
