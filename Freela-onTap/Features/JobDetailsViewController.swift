@@ -443,8 +443,8 @@ extension JobDetailsViewController: ViewCodeProtocol {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             imageContainerView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 27),
-            imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            imageContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            imageContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            imageContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             imageContainerView.heightAnchor.constraint(equalTo: imageContainerView.widthAnchor, multiplier: 196.0 / 361.0),
             
             companyStack.topAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: 16),
