@@ -42,9 +42,10 @@ class JobListViewController: UIViewController {
     }
     
     @objc private func refreshJobs() {
-        updateJobOfferList{
+        // swiftlint:disable:next trailing_closure
+        updateJobOfferList(finally: {
             self.refreshControl.endRefreshing()
-        }
+        })
     }
     
     // MARK: Life Cycle

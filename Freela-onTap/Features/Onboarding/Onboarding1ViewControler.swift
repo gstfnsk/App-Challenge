@@ -6,15 +6,9 @@
 //
 
 import UIKit
+import Lottie
 class OnboardingViewController: UIViewController {
-    lazy var circle: UIImageView = {
-        var imageView = UIImageView()
-        imageView.image = UIImage(systemName: "circle.fill")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.tintColor = .DesignSystem.terracota600
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    let animationView = LottieAnimationView(name: "Flow 3")
     
     lazy var logo: UIImageView = {
         var imageView = UIImageView()
@@ -27,6 +21,7 @@ class OnboardingViewController: UIViewController {
         var imageView = UIImageView()
         imageView.image = .freela
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -48,6 +43,7 @@ class OnboardingViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     lazy var stackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [descriptionImage, continueButton])
         stackView.axis = .vertical
@@ -61,17 +57,21 @@ class OnboardingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .loop
+        animationView.play()
         setup()
     }
     
     @objc func continueAction() {
-        let onBoardViewController = UINavigationController(rootViewController: JobListViewController())
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(onBoardViewController)
+        let onboarding2VC = Onboarding2ViewController()
+        navigationController?.pushViewController(onboarding2VC, animated: true)
     }
 }
 extension OnboardingViewController: ViewCodeProtocol{
     func addSubviews() {
-        view.addSubview(circle)
+        view.addSubview(animationView)
         view.addSubview(logo)
         view.addSubview(nameImage)
         view.addSubview(descriptionImage)
@@ -80,17 +80,18 @@ extension OnboardingViewController: ViewCodeProtocol{
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            circle.bottomAnchor.constraint(equalTo: nameImage.topAnchor, constant: -28),
-            circle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 69),
-            circle.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -69),
-            circle.heightAnchor.constraint(equalToConstant: 264),
+            animationView.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 34),
+            animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -35),
+            animationView.heightAnchor.constraint(equalToConstant: 400),
             
             logo.bottomAnchor.constraint(equalTo: nameImage.topAnchor, constant: -102),
             logo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 98),
             logo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -113),
-            logo.heightAnchor.constraint(equalToConstant: 137),
+            logo.heightAnchor.constraint(equalToConstant: 120),
             
-            nameImage.bottomAnchor.constraint(equalTo: descriptionImage.topAnchor, constant: -66),
+            nameImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 330),
+            nameImage.heightAnchor.constraint(equalToConstant: 93),
             nameImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
             nameImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -113),
             

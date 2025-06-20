@@ -305,8 +305,8 @@ class JobDetailsViewController: UIViewController {
         
 //        navigationController?.title = job.position.rawValue.capitalized
         descriptionText.text = job.description
-        requirementsText.text = job.requirements
-        responsibilitiesText.text = job.responsibilities
+        requirementsText.text = job.qualifications
+        responsibilitiesText.text = job.duties
     }
     
     @objc private func openWhatsApp() {

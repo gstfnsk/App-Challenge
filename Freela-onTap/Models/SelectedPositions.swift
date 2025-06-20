@@ -17,7 +17,7 @@ struct SelectedPositions {
     static func applyFilter(to offers: [JobOffer]) -> [JobOffer] {
         guard !selectedPositions.isEmpty else {
             return offers }
-        return offers.filter { selectedPositions.contains($0.position) }
+        return offers.filter { selectedPositions.contains($0.title) }
     }
 
     static func getSelectedPositions() -> Set<JobPosition> {

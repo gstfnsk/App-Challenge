@@ -9,15 +9,19 @@ import Foundation
 struct JobOffer: Identifiable {
     var id: UUID
     var companyId: UUID
-    var position: JobPosition
-    var durationTime: Int
-    var startDate: Date
-    let creationDate: Date // imutable
-    var location: String
-    var salary: Decimal
-    var description: String
-    var requirements: String
-    var responsibilities: String
+    var company: CompanyProfile?
+    
+    let postedAt: Date // Data de publicação da vaga
+    
+    var title: JobPosition // Cargo ou título da vaga
+    var titleOther: String? 
+    var durationInHours: Int // Duração total da oportunidade (em horas)
+    var startDate: Date // Data de início do trabalho
+    
+    var salaryBRL: Int // Salário ofertado (em Reais)
+    var description: String // Detalhes sobre a vaga
+    var qualifications: String // Requisitos necessários para o candidato
+    var duties: String // Principais responsabilidades da função
 }
 
 enum JobPosition: String, CaseIterable {
