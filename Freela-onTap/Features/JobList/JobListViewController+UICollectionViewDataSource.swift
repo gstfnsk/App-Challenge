@@ -121,6 +121,10 @@ extension JobListViewController {
     ) {
         Task {
             do {
+                collectionView.isHidden = false
+                refreshButton.isHidden = true
+                errorEmptyState.isHidden = true
+                navigationController?.setNavigationBarHidden(false, animated: true)
                 var jobOffers = try await CloudKitManager.shared.fetchAllJobOffers()
                 jobOffers = SelectedPositions.applyFilter(to: jobOffers)
                 jobOffers.sort { $0.postedAt > $1.postedAt }
@@ -152,6 +156,13 @@ extension JobListViewController {
                        
                         alert.addAction(UIAlertAction(title: "OK", style: .default))
                         self.present(alert, animated: true)
+                    
+                    // emptystate
+                    collectionView.isHidden = true
+                    refreshButton.isHidden = false
+                    errorEmptyState.isHidden = false
+                    navigationController?.setNavigationBarHidden(true, animated: true)
+                        
                     onFailure(error)
                     finally()
                 }
