@@ -309,6 +309,8 @@ class JobDetailsViewController: UIViewController {
             return
         }
         
+        title = jobOffer.title.rawValue.localizedCapitalized
+        
         companyName.text = company.name
         establishmentType.text = company.establishmentType.rawValue.localizedCapitalized
         companyNumberOfEmployees.text = company.companySize.rawValue
