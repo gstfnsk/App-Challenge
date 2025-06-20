@@ -36,7 +36,7 @@ struct CloudKitManager: FreelaOnTapPersistence {
     // Shared singleton instance
     // swiftlint:disable:next prefer_self_in_static_references
     static let shared = CloudKitManager()
-    static let ALL_WITH_ID_PREDICATE = NSPredicate(format: "id != %@", "")
+    static let allWithIdPredicate = NSPredicate(format: "id != %@", "")
     // Prevent external instantiation
     private init() {}
     
