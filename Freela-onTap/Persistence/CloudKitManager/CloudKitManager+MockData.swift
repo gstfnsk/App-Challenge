@@ -9,6 +9,17 @@ import CloudKit
 import Foundation
 
 extension CloudKitManager {
+    
+    func createMockDataIfNeeded() async {
+        let companyList = try? await fetchAllCompanies()
+        
+        guard let _ = companyList?.first else {
+            try? await addMockCompaniesAndJobs()
+            print("Mock data added successfully!")
+            return
+        }
+    }
+    
     func deleteAllMockData() async throws {
         try await throwIfICloudNotAvailable()
         
