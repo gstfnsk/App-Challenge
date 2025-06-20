@@ -20,7 +20,7 @@ extension JobListViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == filterSectonId {
-            return JobPosition.allCases.count
+            return JobPosition.allCases.count + 1
         }
         if section == titleSectionId {
             return 1
@@ -41,18 +41,28 @@ extension JobListViewController: UICollectionViewDataSource {
             ) as? BadgeLabelViewCell else {
                 fatalError("Erro ao criar BadgeCollectionViewCell")
             }
-
-            let jobPosition = JobPosition.allCases[indexPath.item]
-
-            cell.configure(title: jobPosition.rawValue.capitalized, imageName: jobPosition.iconName)
-
-            let selectedJobPositions: Set<JobPosition> = SelectedPositions.getSelectedPositions()
-
-            cell.setDeselectedStyle()
             
-            if selectedJobPositions.contains(jobPosition) {
-                cell.setSelectedStyle()
+            let selectedJobPositions: Set<JobPosition> = SelectedPositions.getSelectedPositions()
+            
+            if indexPath.item == 0 {
+                cell.configure(title: "Todos", imageName: "checklist.checked")
+                if selectedJobPositions.isEmpty {
+                    cell.setSelectedStyle()
+                }
+            } else {
+                let jobPosition = JobPosition.allCases[indexPath.item - 1]
+                cell.configure(title: jobPosition.rawValue.capitalized, imageName: jobPosition.iconName)
+                
+                
+                if selectedJobPositions.contains(jobPosition) {
+                    cell.setSelectedStyle()
+                } else {
+                    cell.setDeselectedStyle()
+                }
             }
+
+            
+            
             return cell
         }
 

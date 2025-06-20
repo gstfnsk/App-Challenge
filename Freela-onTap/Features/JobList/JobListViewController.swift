@@ -75,14 +75,17 @@ extension JobListViewController: UICollectionViewDelegate {
         let section = indexPath.section
 
         if section == 0 {
-            let jobPosition = JobPosition.allCases[indexPath.item]
-            if SelectedPositions.getSelectedPositions().contains(jobPosition) {
-                    SelectedPositions.remove(position: jobPosition)
-                } else {
-                    SelectedPositions.add(position: jobPosition)
-                }
-                collectionView.reloadData()
-            
+            if indexPath.item == 0 {
+                SelectedPositions.clearAll()
+            } else {
+                let jobPosition = JobPosition.allCases[indexPath.item - 1]
+                if SelectedPositions.getSelectedPositions().contains(jobPosition) {
+                        SelectedPositions.remove(position: jobPosition)
+                    } else {
+                        SelectedPositions.add(position: jobPosition)
+                    }
+            }
+            collectionView.reloadData()
         } else if section == 2 {
             let backItem = UIBarButtonItem()
                 backItem.title = "Voltar"

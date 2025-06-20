@@ -21,7 +21,6 @@ struct JobOffer: Identifiable {
 }
 
 enum JobPosition: String, CaseIterable {
-    case alljob = "Todos"
     case waiter = "Garçom"
     case hostess = "Atendente"
     case cashier = "Caixa"
@@ -36,8 +35,6 @@ enum JobPosition: String, CaseIterable {
     
     var iconName: String {
         switch self {
-        case .alljob:
-            return "checklist.checked"
         case .waiter:
             return "figure.walk"
         case .hostess:
