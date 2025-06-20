@@ -9,18 +9,13 @@ import UIKit
 
 // MARK: CollectionView DataSource
 extension JobListViewController: UICollectionViewDataSource {
-    private var numberOfSections: Int { 3 }
-    private var filterSectonId: Int { 0 }
-    private var titleSectionId: Int { 1 }
-    private var jobListingSectionId: Int { 2 }
-
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         numberOfSections
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if section == filterSectonId {
-            return JobPosition.allCases.count
+        if section == filterSectionId {
+            return JobPosition.allCases.count + 1
         }
         if section == titleSectionId {
             return 1
@@ -33,22 +28,46 @@ extension JobListViewController: UICollectionViewDataSource {
             }
             return listedJobOffers.count
         }
-
-        // If none of the sectios were matched, return 0
+        
         return 0
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
-    {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = indexPath.section
-        if section == filterSectonId {
-            guard let cell = collectionView.dequeueReusableCell( withReuseIdentifier: BadgeLabelViewCell.identifier, for: indexPath) as? BadgeLabelViewCell else {
-                fatalError("Erro ao criar CardCollectionViewCell")
+        if section == filterSectionId {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BadgeLabelViewCell.identifier,
+                for: indexPath
+            ) as? BadgeLabelViewCell else {
+                fatalError("Erro ao criar BadgeCollectionViewCell")
             }
-            let jobPostion = JobPosition.allCases[indexPath.item]
-            cell.configure(title: jobPostion.rawValue.capitalized, imageName: jobPostion.iconName)
+            
+            let selectedJobPositions: Set<JobPosition> = SelectedPositions.getSelectedPositions()
+            
+            if indexPath.item == 0 {
+                cell.configure(title: "Todos", imageName: "checklist.checked")
+                if selectedJobPositions.isEmpty {
+                    cell.setSelectedStyle()
+                } else {
+                    cell.setDeselectedStyle()
+                }
+            } else {
+                let jobPosition = JobPosition.allCases[indexPath.item - 1]
+                cell.configure(title: jobPosition.rawValue.capitalized, imageName: jobPosition.iconName)
+                
+                
+                if selectedJobPositions.contains(jobPosition) {
+                    cell.setSelectedStyle()
+                } else {
+                    cell.setDeselectedStyle()
+                }
+            }
+
+            
+            
             return cell
         }
+
 
         // Page title
         if section == titleSectionId {
