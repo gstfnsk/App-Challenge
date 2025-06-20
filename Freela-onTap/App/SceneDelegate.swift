@@ -23,16 +23,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
+        Task {
+            await CloudKitManager.shared.createMockDataIfNeeded()
+        }
+        
         window = UIWindow(windowScene: windowScene)
-
         
         // Force light mode
         window?.overrideUserInterfaceStyle = .light
         
         // Set window root contoller
-//        window?.rootViewController = UINavigationController(rootViewController: TabBarController())
         window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
-//        window?.rootViewController = UINavigationController(rootViewController: Onboarding2ViewController())
         window?.makeKeyAndVisible()
     }
 

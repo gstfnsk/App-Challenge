@@ -16,6 +16,9 @@ extension JobListViewController: ViewCodeProtocol {
         errorEmptyState.isHidden = true
         refreshButton.isHidden = true
         
+        view.addSubview(emptyView)
+        //        emptyView.isHidden = true
+        
         title = "Descobrir"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
@@ -38,12 +41,18 @@ extension JobListViewController: ViewCodeProtocol {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
             refreshButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -265),
-            refreshButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            refreshButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
+            emptyView.topAnchor.constraint(equalTo: collectionView.topAnchor, constant: 60),
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
-    func setupAdditionalConfiguration() {
-
+    
+    func adicionalSetup() {
+        navigationItem.hidesBackButton = true
+        
     }
 }

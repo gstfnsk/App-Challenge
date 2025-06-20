@@ -47,9 +47,8 @@ class OnboardingViewController: UIViewController {
     lazy var stackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [descriptionImage, continueButton])
         stackView.axis = .vertical
-        stackView.spacing = 81
+        stackView.spacing = 65
         stackView.alignment = .center
-        stackView.layer.cornerRadius = 28
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -66,7 +65,12 @@ class OnboardingViewController: UIViewController {
     
     @objc func continueAction() {
         let onboarding2VC = Onboarding2ViewController()
-        navigationController?.pushViewController(onboarding2VC, animated: true)
+        self.navigationItem.backButtonTitle = "Voltar"
+        self.navigationController?.pushViewController(onboarding2VC, animated: true)
+    }
+    @objc func pularButtonTapped() {
+        let jobListViewController = JobListViewController()
+        navigationController?.setViewControllers([jobListViewController], animated: true)
     }
 }
 extension OnboardingViewController: ViewCodeProtocol{
@@ -95,8 +99,6 @@ extension OnboardingViewController: ViewCodeProtocol{
             nameImage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 90),
             nameImage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -113),
             
-            descriptionImage.widthAnchor.constraint(equalToConstant: 353),
-            
             continueButton.heightAnchor.constraint(equalToConstant: 50),
             continueButton.widthAnchor.constraint(equalToConstant: 361),
             
@@ -109,5 +111,11 @@ extension OnboardingViewController: ViewCodeProtocol{
     
     func setupAdditionalConfiguration() {
         view.backgroundColor = .DesignSystem.terracota0
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+                title: "Pular",
+                style: .plain,
+                target: self,
+                action: #selector(pularButtonTapped)
+            )
     }
 }
