@@ -15,7 +15,7 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         try await throwIfICloudNotAvailable()
 
         // Predicate for all JobOffers with an ID
-        let predicate = CloudKitManager.ALL_WITH_ID_PREDICATE
+        let predicate = CloudKitManager.allWithIdPredicate
 
         let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
@@ -38,9 +38,11 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
             case .failure(let error):
                 throw error
             }
-
+        }
+        
         return offers
     }
+        
 
     func fetchJobOffer(id: UUID) async throws -> JobOffer? {
         try await throwIfICloudNotAvailable()
