@@ -60,6 +60,8 @@ class JobListViewController: UIViewController {
         
         setup()
         updateJobOfferList()
+        
+        collectionView.backgroundColor = .DesignSystem.lavanda0
     }
 }
 
