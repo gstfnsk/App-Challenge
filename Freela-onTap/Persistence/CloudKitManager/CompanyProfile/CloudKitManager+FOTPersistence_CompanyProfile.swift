@@ -11,36 +11,23 @@ import CloudKit
 extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
     func fetchAllCompanies() async throws -> [CompanyProfile] {
         try await throwIfICloudNotAvailable()
-
-        // Predicate for all JobOffers with an ID
-        let predicate = CloudKitManager.allWithIdPredicate
-
-        let query = CKQuery(recordType: companyProfileRecordType, predicate: predicate)
+        let query = CKQuery(recordType: companyProfileRecordType, predicate: CloudKitManager.allWithIdPredicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
-
-        var companies: [CompanyProfile] = []
-        for (_, result) in matchResults {
+        return matchResults.compactMap { (_, result) in
             switch result {
             case .success(let record):
-                if let companyProfile = CompanyProfile(record: record) {
-                    companies.append(companyProfile)
-                }
-            case .failure(let error):
-                throw error
+                return CompanyProfile(record: record)
+            case .failure:
+                return nil
             }
         }
-
-        return companies
     }
 
     func fetchCompany(id: UUID) async throws -> CompanyProfile? {
         try await throwIfICloudNotAvailable()
-
-        let predicate = NSPredicate(format: "id != %@", id.uuidString)
-
+        let predicate = NSPredicate(format: "id == %@", id.uuidString)
         let query = CKQuery(recordType: companyProfileRecordType, predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
-        
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
@@ -49,18 +36,14 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
                 throw error
             }
         }
-
         return nil
     }
 
     // MARK: - Save CompanyProfile to CloudKit
-
     func saveCompany(_ company: CompanyProfile) async throws {
         try await throwIfICloudNotAvailable()
-
         let recordID = CKRecord.ID(recordName: company.id.uuidString)
         let record = CKRecord(recordType: companyProfileRecordType, recordID: recordID)
-
         record["id"] = company.id.uuidString
         record["name"] = company.name
         record["establishmentType"] = company.establishmentType.rawValue
@@ -68,25 +51,19 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
         record["whatsappNumber"] = company.whatsappNumber
         record["description"] = company.description
         record["companySize"] = company.companySize.rawValue
-
-        // Save address parts separately
         record["address_streetAndNumber"] = company.address.streetAndNumber
         record["address_neighborhood"] = company.address.neighborhood
         record["address_cityAndState"] = company.address.cityAndState
-
         try await publicDB.save(record)
     }
     
     // MARK: - Delete Company
     func deleteCompany(_ company: CompanyProfile) async throws {
-        try await throwIfICloudNotAvailable()
-        
         try await deleteCompany(companyUUID: company.id)
     }
     
     func deleteCompany(companyUUID id: UUID) async throws {
         try await throwIfICloudNotAvailable()
-
         let recordID = CKRecord.ID(recordName: id.uuidString)
         try await publicDB.deleteRecord(withID: recordID)
     }

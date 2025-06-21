@@ -142,7 +142,7 @@ extension JobListViewController {
                 await MainActor.run {
                     let alert = UIAlertController(
                             title: "Error",
-                            message: "Could not fetch job offers.",
+                            message: "Could not fetch job offers." + error.localizedDescription,
                             preferredStyle: .alert
                         )
                         

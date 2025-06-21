@@ -5,20 +5,23 @@
 //  Created by Ana Carolina Palhares Poletto on 10/06/25.
 //
 
-import UIKit
+import Foundation
 
 struct CompanyProfile: Identifiable {
-    var id: UUID
-    
+    let id: UUID
     var name: String
     var cnpj: String
     var whatsappNumber: String
-    
     var establishmentType: EstablishmentType
     var companySize: CompanySize
-    
-    var address: (streetAndNumber: String, neighborhood: String, cityAndState: String)
+    var address: Address
     var description: String
+}
+
+struct Address {
+    var streetAndNumber: String
+    var neighborhood: String
+    var cityAndState: String
 }
 
 enum EstablishmentType: String, CaseIterable {
