@@ -377,7 +377,7 @@ class JobDetailsViewController: UIViewController {
 
         // Title: bold + terracota600
         let attributedTitle = NSAttributedString(
-            string: "Interesse Registrado!",
+            string: "Agora é com você!!",
             attributes: [
                 .foregroundColor: UIColor.black,
                 .font: UIFont.DesignSystem.bodyEmphasized
@@ -387,7 +387,7 @@ class JobDetailsViewController: UIViewController {
 
         // Message: regular + terracota600
         let attributedMessage = NSAttributedString(
-            string: "Obrigado por se candidatar, seu perfil já está com o contratante. Agora é só dar o próximo passo.",
+            string: "Fale direto com quem tá contratando e garanta seu freela",
             attributes: [
                 .foregroundColor: UIColor.black,
                 .font: UIFont.DesignSystem.body
