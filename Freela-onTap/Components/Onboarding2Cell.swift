@@ -33,6 +33,7 @@ final class Onboarding2Cell: UICollectionViewCell {
     private lazy var phoneImage: UIImageView = {
        let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
     
@@ -67,12 +68,12 @@ extension Onboarding2Cell: ViewCodeProtocol {
     // MARK: - Setup Constraints
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: 115),
-            mainTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 37),
-            mainTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -36),
+            mainTitle.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: -175),
+            mainTitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
+            mainTitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             
             subtitle.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 41),
-            subtitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 37),
+            subtitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 32),
             subtitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -164),
             
             phoneImage.topAnchor.constraint(equalTo: self.topAnchor),

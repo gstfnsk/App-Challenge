@@ -21,7 +21,7 @@ extension Onboarding2ViewController: UICollectionViewDataSource, UICollectionVie
             let text1 = NSAttributedString(
                 string: "Encontre ",
                 attributes: [
-                    .font: UIFont.systemFont(ofSize: 40, weight: .medium)
+                    .font: UIFont.systemFont(ofSize: 40, weight: .regular)
                 ]
             )
             
@@ -35,7 +35,7 @@ extension Onboarding2ViewController: UICollectionViewDataSource, UICollectionVie
             let text3 = NSAttributedString(
                 string: "beeeeeem perto de você!",
                 attributes: [
-                    .font: UIFont.systemFont(ofSize: 40, weight: .medium)
+                    .font: UIFont.systemFont(ofSize: 40, weight: .regular)
                 ]
             )
             fullText.append(text1)
@@ -47,7 +47,7 @@ extension Onboarding2ViewController: UICollectionViewDataSource, UICollectionVie
             let text1 = NSAttributedString(
                 string: "Monte a escala do seu time com ",
                 attributes: [
-                    .font: UIFont.systemFont(ofSize: 40, weight: .medium)
+                    .font: UIFont.systemFont(ofSize: 40, weight: .regular)
                 ]
             )
 
