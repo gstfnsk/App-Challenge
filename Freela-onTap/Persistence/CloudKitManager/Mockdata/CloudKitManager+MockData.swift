@@ -13,7 +13,8 @@ extension CloudKitManager {
     func createMockDataIfNeeded() async {
         let companyList = try? await fetchAllCompanies()
         
-        guard let _ = companyList?.first else {
+        guard companyList?.first != nil else {
+            try? await deleteAllMockData()
             try? await addMockCompaniesAndJobs()
             print("Mock data added successfully!")
             return
@@ -23,16 +24,28 @@ extension CloudKitManager {
     func deleteAllMockData() async throws {
         try await throwIfICloudNotAvailable()
         
-        let companies = try await CloudKitManager.shared.fetchAllCompanies()
-        
-        for company in companies {
-            try await CloudKitManager.shared.deleteCompany(company)
+        var query = CKQuery(recordType: companyProfileRecordType, predicate: CloudKitManager.allWithIdPredicate)
+        var (matchResults, _) = try await publicDB.records(matching: query)
+
+        for (_, result) in matchResults {
+            switch result {
+            case .success(let record):
+                try await CloudKitManager.shared.deleteCompany(companyUUID: UUID(uuidString: record["id"] as! String)!)
+            case .failure(let error):
+                throw error
+            }
         }
         
-        let jobs = try await CloudKitManager.shared.fetchAllJobOffers()
-        
-        for job in jobs {
-            try await CloudKitManager.shared.deleteJobOffer(job)
+        query = CKQuery(recordType: jobOfferRecordType, predicate: CloudKitManager.allWithIdPredicate)
+        (matchResults, _) = try await publicDB.records(matching: query)
+
+        for (_, result) in matchResults {
+            switch result {
+            case .success(let record):
+                try await CloudKitManager.shared.deleteJobOffer(jobOfferUUID: UUID(uuidString: record["id"] as! String)!)
+            case .failure(let error):
+                throw error
+            }
         }
     }
     
@@ -179,15 +192,16 @@ extension CloudKitManager {
                     "Cafeteria elegante próxima a pontos históricos, oferecendo ambiente tranquilo para refeições no local e cafés especiais.",
             )
         ]
+        
         let jobOffers: [JobOffer] = [
             JobOffer(
                 id: UUID(),
                 companyId: companies[0].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 25, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 25, hour: 14))!,
                 title: .waiter,
                 titleOther: nil,
                 durationInHours: 6,
-                startDate: DateComponents(year: 2025, month: 6, day: 27, hour: 18).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 27, hour: 18))!,
                 salaryBRL: 150,
                 description: "O Black Falcon Gastrobar busca um garçom com perfil dinâmico para atendimento em período noturno.",
                 qualifications: """
@@ -204,11 +218,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[1].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 26, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 26, hour: 14))!,
                 title: .cook,
                 titleOther: nil,
                 durationInHours: 4,
-                startDate: DateComponents(year: 2025, month: 6, day: 27, hour: 17).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 27, hour: 17))!,
                 salaryBRL: 120,
                 description: "O Red Koi Sushi Bar está procurando um cozinheiro para auxiliar na preparação de pratos frios e quentes da cozinha japonesa.",
                 qualifications: """
@@ -221,11 +235,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[2].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 25, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 25, hour: 14))!,
                 title: .hostess,
                 titleOther: nil,
                 durationInHours: 6,
-                startDate: DateComponents(year: 2025, month: 6, day: 28, hour: 18).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 28, hour: 18))!,
                 salaryBRL: 130,
                 description: "Estamos em busca de uma recepcionista para o El Cactus Mexican Grill. Ambiente movimentado, com foco em atendimento de alto padrão.",
                 qualifications: """
@@ -242,11 +256,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[3].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 26, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 26, hour: 14))!,
                 title: .bartender,
                 titleOther: nil,
                 durationInHours: 6,
-                startDate: DateComponents(year: 2025, month: 6, day: 29, hour: 19).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 29, hour: 19))!,
                 salaryBRL: 160,
                 description: "O JUSSO está contratando bartender para o turno noturno. Ambiente descontraído e com grande volume de pedidos.",
                 qualifications: """
@@ -263,11 +277,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[4].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 25, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 25, hour: 14))!,
                 title: .dishwasher,
                 titleOther: nil,
                 durationInHours: 4,
-                startDate: DateComponents(year: 2025, month: 6, day: 30, hour: 17).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 30, hour: 17))!,
                 salaryBRL: 100,
                 description: "O El Avante Lounge precisa de um lavador de louças para turno da noite. Vaga temporária com possibilidade de efetivação.",
                 qualifications: """
@@ -282,11 +296,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[5].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 26, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 26, hour: 14))!,
                 title: .barista,
                 titleOther: nil,
                 durationInHours: 4,
-                startDate: DateComponents(year: 2025, month: 6, day: 27, hour: 17).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 27, hour: 17))!,
                 salaryBRL: 110,
                 description: "O Doce Amargo Café busca um barista apaixonado por café para atendimento no período da tarde.",
                 qualifications: """
@@ -303,11 +317,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[6].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 25, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 25, hour: 14))!,
                 title: .busser,
                 titleOther: nil,
                 durationInHours: 6,
-                startDate: DateComponents(year: 2025, month: 6, day: 28, hour: 18).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 28, hour: 18))!,
                 salaryBRL: 110,
                 description: "A equipe do Cobre Café & Bistrô está buscando um auxiliar de garçom para dar suporte ao atendimento no salão.",
                 qualifications: """
@@ -322,11 +336,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[7].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 26, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 26, hour: 14))!,
                 title: .cook,
                 titleOther: nil,
                 durationInHours: 8,
-                startDate: DateComponents(year: 2025, month: 6, day: 27, hour: 17).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 27, hour: 17))!,
                 salaryBRL: 180,
                 description: "O Café Sombra precisa de um cozinheiro para o turno da noite, com foco em pratos rápidos e lanches.",
                 qualifications: """
@@ -343,11 +357,11 @@ extension CloudKitManager {
             JobOffer(
                 id: UUID(),
                 companyId: companies[8].id,
-                postedAt: DateComponents(year: 2025, month: 6, day: 25, hour: 14).date!,
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 25, hour: 14))!,
                 title: .hostess,
                 titleOther: nil,
                 durationInHours: 6,
-                startDate: DateComponents(year: 2025, month: 6, day: 29, hour: 18).date!,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 29, hour: 18))!,
                 salaryBRL: 140,
                 description: "O Café Sanctus está contratando recepcionista para atender clientes durante o período da noite em ambiente sofisticado.",
                 qualifications: """
@@ -363,12 +377,24 @@ extension CloudKitManager {
             )
         ]
         
+        print("There will be added \(companies.count) companies and \(jobOffers.count) job offers.")
+        
         for company in companies {
-            try await CloudKitManager.shared.saveCompany(company)
+            do {
+                try await CloudKitManager.shared.saveCompany(company)
+            } catch {
+                print("Erro ao salvar empresa '\(company.name)': \(error.localizedDescription)")
+            }
+        }
+
+        for jobOffer in jobOffers {
+            do {
+                try await CloudKitManager.shared.saveJobOffer(jobOffer)
+            } catch {
+                print("Erro ao salvar vaga '\(jobOffer.title.rawValue)': \(error.localizedDescription)")
+            }
         }
         
-        for jobOffer in jobOffers {
-            try await CloudKitManager.shared.saveJobOffer(jobOffer)
-        }
+        print("All data as added!")
     }
 }

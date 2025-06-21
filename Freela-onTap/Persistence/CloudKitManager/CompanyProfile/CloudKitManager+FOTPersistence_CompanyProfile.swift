@@ -24,6 +24,8 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
             case .success(let record):
                 if let companyProfile = CompanyProfile(record: record) {
                     companies.append(companyProfile)
+                } else {
+                    print("Could not initialize CompanyProfile from record.")
                 }
             case .failure(let error):
                 throw error
@@ -63,7 +65,7 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
 
         record["id"] = company.id.uuidString
         record["name"] = company.name
-        record["establishmentType"] = company.establishmentType.rawValue
+        record["establishmentType"] = company.establishmentType.caseName
         record["cnpj"] = company.cnpj
         record["whatsappNumber"] = company.whatsappNumber
         record["description"] = company.description
