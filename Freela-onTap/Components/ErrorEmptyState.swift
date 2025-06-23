@@ -73,12 +73,11 @@ extension ErrorEmptyState: ViewCodeProtocol {
             subtitle.topAnchor.constraint(equalTo: mainTitle.bottomAnchor, constant: 3),
             subtitle.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 43.5),
             subtitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -43.5)
-            
         ])
     }
     
     
     func setupAdditionalConfiguration() {
-        backgroundColor = .clear
+        backgroundColor = .DesignSystem.lavanda0
     }
 }
