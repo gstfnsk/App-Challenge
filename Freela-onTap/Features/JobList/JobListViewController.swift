@@ -94,7 +94,7 @@ class JobListViewController: UIViewController {
         
         setup()
         updateJobOfferList()
-        addMockDataTrigger()
+//        addMockDataTrigger()
         
         collectionView.backgroundColor = .DesignSystem.lavanda0
     }
