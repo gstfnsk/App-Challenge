@@ -140,18 +140,18 @@ extension TextInput: ViewCodeProtocol {
 
 
 #Preview {
-    var normalTextInput = TextInput()
+    let normalTextInput = TextInput()
 
-    var errorTextInput = TextInput()
+    let errorTextInput = TextInput()
     errorTextInput.state = .error
     
-    var filledTextInput = TextInput()
+    let filledTextInput = TextInput()
     filledTextInput.text = "Some text"
     
-    var disabledTextInput = TextInput()
+    let disabledTextInput = TextInput()
     disabledTextInput.state = .disabled
     
-    var stacked: UIStackView = {
+    let stacked: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [normalTextInput, errorTextInput, filledTextInput, disabledTextInput])
         stack.axis = .vertical
         stack.spacing = 16
