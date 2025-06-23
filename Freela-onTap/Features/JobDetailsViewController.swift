@@ -38,7 +38,7 @@ class JobDetailsViewController: UIViewController {
             companyImageView.topAnchor.constraint(equalTo: container.topAnchor),
             companyImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             companyImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ])
 
         return container
@@ -393,7 +393,7 @@ class JobDetailsViewController: UIViewController {
             string: "Agora é com você!!",
             attributes: [
                 .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.bodyEmphasized,
+                .font: UIFont.DesignSystem.bodyEmphasized
             ]
         )
         alert.setValue(attributedTitle, forKey: "attributedTitle")
@@ -403,7 +403,7 @@ class JobDetailsViewController: UIViewController {
             string: "Fale direto com quem tá contratando e garanta seu freela",
             attributes: [
                 .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.body,
+                .font: UIFont.DesignSystem.body
             ]
         )
         alert.setValue(attributedMessage, forKey: "attributedMessage")
@@ -491,7 +491,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
 
             buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5),
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
 
             //            shareButton.heightAnchor.constraint(equalToConstant: 50),
             //            shareButton.widthAnchor.constraint(equalToConstant: 59)
