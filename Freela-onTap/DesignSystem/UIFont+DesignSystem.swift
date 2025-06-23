@@ -16,6 +16,7 @@ extension UIFont {
         static let title2 = UIFont.systemFont(ofSize: 22, weight: .regular)
         static let title2Emphasized = UIFont.systemFont(ofSize: 22, weight: .bold)
         static let title3 = UIFont.systemFont(ofSize: 20, weight: .regular)
+        static let title3SemiBold = UIFont.systemFont(ofSize: 20, weight: .semibold)
         static let title3Emphasized = UIFont.systemFont(ofSize: 20, weight: .bold)
         static let body = UIFont.systemFont(ofSize: 17, weight: .regular)
         static let bodyEmphasized = UIFont.systemFont(ofSize: 17, weight: .bold)
