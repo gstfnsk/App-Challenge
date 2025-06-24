@@ -67,9 +67,9 @@ final class MockdataHoldButton: UIButton {
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: "Restore", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Restore", style: .default) { _ in
             self.onConfirmRestore()
-        }))
+        })
         
         parentViewController?.present(alert, animated: true)
     }
