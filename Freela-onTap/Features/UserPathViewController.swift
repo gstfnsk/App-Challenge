@@ -89,6 +89,7 @@ class UserPathViewController: UIViewController {
     
     @objc func companyAction() {
         let registerCompany = FirstScreenViewController()
+        self.navigationItem.backButtonTitle = "Voltar"
         self.navigationController?.pushViewController(registerCompany, animated: true)
     }
 }
@@ -124,7 +125,7 @@ extension UserPathViewController: ViewCodeProtocol {
             
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83),
             buttonsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            buttonsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            buttonsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
 }

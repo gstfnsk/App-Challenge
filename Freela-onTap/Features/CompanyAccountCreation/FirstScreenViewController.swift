@@ -22,6 +22,7 @@ class FirstScreenViewController: UIViewController {
     lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         label.text = "Cadastre sua empresa e comece a divulgar oportunidades de forma prática e rápida."
         label.textAlignment = .center
         label.textColor = UIColor.secondaryLabel
@@ -80,7 +81,6 @@ class FirstScreenViewController: UIViewController {
         return input
     }()
     
-    // 5 input fields
     
     lazy var continueButton: UIButton = {
         let button = UIButton()
@@ -96,6 +96,9 @@ class FirstScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
+        title = "Cadastro de conta"
         
         view.backgroundColor = UIColor.DesignSystem.terracota0
         setup()
