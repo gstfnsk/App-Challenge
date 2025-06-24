@@ -62,7 +62,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Descrição da vaga:"
-        label.font = UIFont.DesignSystem.headline
+        label.applyDynamicFont(UIFont.DesignSystem.headline)
         return label
     }()
 
@@ -74,7 +74,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         return label
     }()
 
@@ -90,7 +90,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Responsabilidades:"
-        label.font = UIFont.DesignSystem.headline
+        label.applyDynamicFont(UIFont.DesignSystem.headline)
         return label
     }()
 
@@ -106,7 +106,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         return label
     }()
 
@@ -122,7 +122,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Requisitos:"
-        label.font = UIFont.DesignSystem.headline
+        label.applyDynamicFont(UIFont.DesignSystem.headline)
         return label
     }()
 
@@ -138,7 +138,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         return label
     }()
 
@@ -163,7 +163,7 @@ class JobDetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Sunset Drinks"
         label.textColor = UIColor.DesignSystem.terracota900
-        label.font = UIFont.DesignSystem.title2Emphasized
+        label.applyDynamicFont(UIFont.DesignSystem.title2Emphasized)
         return label
     }()
 
@@ -171,7 +171,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Bar"
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         return label
     }()
@@ -179,7 +179,7 @@ class JobDetailsViewController: UIViewController {
     private lazy var companyAddress: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.DesignSystem.footnote
+        label.applyDynamicFont(UIFont.DesignSystem.footnote)
         label.textColor = UIColor.DesignSystem.terracota600
         label.text = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC"
         label.isUserInteractionEnabled = true
