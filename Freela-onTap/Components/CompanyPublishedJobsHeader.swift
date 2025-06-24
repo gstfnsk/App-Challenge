@@ -77,7 +77,7 @@ class CompanyPublishedJobsHeader: UICollectionViewCell {
     private lazy var bottomBorder: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .separator  // Ou qualquer cor que queira
+        view.backgroundColor = .separator
         return view
     }()
 }
@@ -104,7 +104,7 @@ extension CompanyPublishedJobsHeader: ViewCodeProtocol {
             bottomBorder.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             bottomBorder.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomBorder.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            bottomBorder.heightAnchor.constraint(equalToConstant: 1)
+            bottomBorder.heightAnchor.constraint(equalToConstant: 0.5)
         ])
     }
 }
