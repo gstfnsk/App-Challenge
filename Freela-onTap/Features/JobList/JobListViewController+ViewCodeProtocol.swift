@@ -9,16 +9,14 @@ import UIKit
 // MARK: ViewCodeProtocol
 extension JobListViewController: ViewCodeProtocol {
     func addSubviews() {
-        view.addSubview(errorEmptyState)
         view.addSubview(collectionView)
+        view.addSubview(emptyView)
+        view.addSubview(errorEmptyState)
         view.addSubview(refreshButton)
         
         errorEmptyState.isHidden = true
         refreshButton.isHidden = true
-        
-        view.addSubview(emptyView)
-        //        emptyView.isHidden = true
-        
+                
         title = "Descobrir"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
@@ -53,6 +51,5 @@ extension JobListViewController: ViewCodeProtocol {
     
     func adicionalSetup() {
         navigationItem.hidesBackButton = true
-        
     }
 }

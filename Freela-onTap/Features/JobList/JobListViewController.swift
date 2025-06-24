@@ -94,6 +94,7 @@ class JobListViewController: UIViewController {
         
         setup()
         updateJobOfferList()
+//        addMockDataTrigger()
         
         collectionView.backgroundColor = .DesignSystem.lavanda0
     }
@@ -144,5 +145,44 @@ extension JobListViewController: UICollectionViewDelegate {
             updateJobOfferList()
             collectionView.reloadData()
         }
+    }
+
+    private func addMockDataTrigger(){
+        let mockButton = MockdataHoldButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
+    mockButton.parentViewController = self
+    mockButton.onConfirmRestore = {
+        Task {
+            do {
+                try await CloudKitManager.shared.deleteAllMockData()
+                try await CloudKitManager.shared.addMockCompaniesAndJobs()
+
+                await MainActor.run {
+                    self.updateJobOfferList()
+                    self.collectionView.reloadData()
+
+                    let alert = UIAlertController(
+                        title: "Mock Data Restored",
+                        message: "The mock job offers were restored.\n\nIt may take a few minutes for CloudKit to propagate the changes.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            } catch {
+                await MainActor.run {
+                    let errorAlert = UIAlertController(
+                        title: "Error",
+                        message: "Failed to restore mock data: \(error.localizedDescription)",
+                        preferredStyle: .alert
+                    )
+                    errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(errorAlert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+
+    let barButtonItem = UIBarButtonItem(customView: mockButton)
+    navigationItem.rightBarButtonItem = barButtonItem
     }
 }

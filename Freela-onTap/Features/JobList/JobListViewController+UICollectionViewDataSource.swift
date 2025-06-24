@@ -28,7 +28,6 @@ extension JobListViewController: UICollectionViewDataSource {
             }
             return listedJobOffers.count
         }
-        
         return 0
     }
 
@@ -62,9 +61,6 @@ extension JobListViewController: UICollectionViewDataSource {
                     cell.setDeselectedStyle()
                 }
             }
-
-            
-            
             return cell
         }
 
@@ -146,7 +142,7 @@ extension JobListViewController {
                 await MainActor.run {
                     let alert = UIAlertController(
                             title: "Error",
-                            message: "Could not fetch job offers.",
+                            message: "Could not fetch job offers." + error.localizedDescription,
                             preferredStyle: .alert
                         )
                         
