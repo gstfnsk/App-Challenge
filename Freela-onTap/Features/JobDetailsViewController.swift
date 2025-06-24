@@ -324,8 +324,8 @@ class JobDetailsViewController: UIViewController {
     }
     
     @objc private func shareButtonTapped() {
-        let texto = "Olha essa vaga que encontrei no Freela onTap"
-        let activityVC = UIActivityViewController(activityItems: [texto,"www.google.com"], applicationActivities: nil)
+        let texto = "Eaii! vi uma vaga de \(jobOffer?.title.rawValue.localizedCapitalized ?? "") no Freela onTap que combina com teu perfil! acessa no link"
+        let activityVC = UIActivityViewController(activityItems: [texto, "https://testflight.apple.com/join/fhWYxupt"], applicationActivities: nil)
         present(activityVC, animated: true)
     }
 
