@@ -37,6 +37,49 @@ class FirstScreenViewController: UIViewController {
         return stack
     }()
     
+    lazy var inputsStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [name, cnpj, companySize, typeOfCompany, whatsapp])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 20
+        return stack
+    }()
+    
+    lazy var name: TextInput = {
+       let input = TextInput()
+        input.labelText = "Nome fantasia:"
+        input.placeholderText = "Sunset Drinks"
+        return input
+    }()
+    
+    lazy var cnpj: TextInput = {
+       let input = TextInput()
+        input.labelText = "CNPJ:"
+        input.placeholderText = "12.345.678.0001-23"
+        return input
+    }()
+    
+    lazy var companySize: TextInput = {
+       let input = TextInput()
+        input.labelText = "Tamanho da empresa:"
+        input.placeholderText = "Selecionar"
+        return input
+    }()
+    
+    lazy var typeOfCompany: TextInput = {
+       let input = TextInput()
+        input.labelText = "Tipo de estabelecimento:"
+        input.placeholderText = "Selecionar"
+        return input
+    }()
+    
+    lazy var whatsapp: TextInput = {
+       let input = TextInput()
+        input.labelText = "Whatsapp:"
+        input.placeholderText = "+55 51 98765-4321"
+        return input
+    }()
+    
     // 5 input fields
     
     lazy var continueButton: UIButton = {
@@ -66,14 +109,25 @@ extension FirstScreenViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(titleStack)
         view.addSubview(continueButton)
+        view.addSubview(inputsStack)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            titleStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 149),
+            titleStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            titleStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
+            
+            
             continueButton.heightAnchor.constraint(equalToConstant: 50),
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -44)
+            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -44),
+            
+            inputsStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 237),
+            inputsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
         ])
     }
 }
