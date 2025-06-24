@@ -138,7 +138,11 @@ extension CompanyPublishedJobsViewController {
                 jobOffers.sort { $0.postedAt > $1.postedAt }
 
                 await MainActor.run {
-                    self.openJobs = jobOffers
+                    // TODO: Apply the correct filters
+                    self.openJobs = Array(jobOffers.prefix(3))
+                    self.filledJobs = Array(jobOffers.dropFirst(3).prefix(2))
+                    self.closedJobs = Array(jobOffers.dropFirst(5).prefix(2))
+                    
                     self.collectionView.reloadData()
 
                     onSuccess()

@@ -18,7 +18,7 @@ class CompanyPublishedJobsViewController: UIViewController {
     internal var openJobsListSectionId: Int {openJobsTitleSectionId + 1}
     internal var filledJobsTitleSectionId = 3
     internal var filledJobsListSectionId: Int {filledJobsTitleSectionId + 1}
-    internal var closedJobsTitleSectionId = 3
+    internal var closedJobsTitleSectionId = 5
     internal var closedJobsListSectionId: Int {closedJobsTitleSectionId + 1}
 
     lazy var collectionView: UICollectionView = {
