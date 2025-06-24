@@ -498,7 +498,7 @@ extension JobDetailsViewController: ViewCodeProtocol {
 
             buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5),
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
 
             shareButton.heightAnchor.constraint(equalToConstant: 50),
             shareButton.widthAnchor.constraint(equalToConstant: 59)
