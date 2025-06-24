@@ -69,8 +69,8 @@ class OnboardingViewController: UIViewController {
         self.navigationController?.pushViewController(onboarding2VC, animated: true)
     }
     @objc func pularButtonTapped() {
-        let jobListViewController = JobListViewController()
-        navigationController?.setViewControllers([jobListViewController], animated: true)
+        let userPath = UserPathViewController()
+        navigationController?.setViewControllers([userPath], animated: true)
     }
 }
 extension OnboardingViewController: ViewCodeProtocol{

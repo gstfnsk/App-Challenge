@@ -50,7 +50,7 @@ class UserPathViewController: UIViewController {
         button.setTitleColor(.DesignSystem.terracota0, for: .normal)
         button.backgroundColor = .DesignSystem.terracota600
         button.layer.cornerRadius = 12
-//        button.addTarget(self, action: #selector(freelaAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(freelaAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -62,7 +62,7 @@ class UserPathViewController: UIViewController {
         button.setTitleColor(.DesignSystem.terracota0, for: .normal)
         button.backgroundColor = .DesignSystem.terracota600
         button.layer.cornerRadius = 12
-//        button.addTarget(self, action: #selector(companyAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(companyAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -75,13 +75,21 @@ class UserPathViewController: UIViewController {
         return stack
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.DesignSystem.terracota0
         setup()
+    }
+    @objc func freelaAction() {
+        let jobList = JobListViewController()
+//        self.navigationItem.backButtonTitle = "Voltar"
+        self.navigationController?.pushViewController(jobList, animated: true)
+    }
+    
+    @objc func companyAction() {
+        let registerCompany = FirstScreenViewController()
+        self.navigationController?.pushViewController(registerCompany, animated: true)
     }
 }
 
