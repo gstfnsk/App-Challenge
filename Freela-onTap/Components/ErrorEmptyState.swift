@@ -22,7 +22,7 @@ final class ErrorEmptyState: UIView {
         label.text = "Opa, rolou um erro aqui"
         label.textColor = UIColor.labelsPrimary
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.applyDynamicFont(.DesignSystem.title3Emphasized)
         return label
     }()
     
@@ -32,12 +32,9 @@ final class ErrorEmptyState: UIView {
         label.text = "Tente recarregar ou volte daqui a pouco."
         label.textColor = UIColor.labelsSecondary
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.applyDynamicFont(.DesignSystem.subheadline)
         return label
     }()
-    
- 
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)

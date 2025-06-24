@@ -54,7 +54,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Le Cochon Volant"
-        label.font = UIFont(name: "SFProRounded-Bold", size: 30)
+        label.applyDynamicFont(.DesignSystem.title2Emphasized)
         return label
     }()
 
