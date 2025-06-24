@@ -96,9 +96,8 @@ final class BadgeLabelWithIcon: UIView {
 
     private lazy var iconView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
         return imageView
     }()
 
