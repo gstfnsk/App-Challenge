@@ -35,7 +35,7 @@ extension UIFont {
     }
     
     /// Returns a system font scaled for Dynamic Type based on the given text style and weight.
-    private static func dynamic(_ textStyle: UIFont.TextStyle, weight: UIFont.Weight) -> UIFont {
+    public static func dynamic(_ textStyle: UIFont.TextStyle, weight: UIFont.Weight) -> UIFont {
         let baseSize = UIFont.preferredFont(forTextStyle: textStyle).pointSize
         let baseFont = UIFont.systemFont(ofSize: baseSize, weight: weight)
         return UIFontMetrics(forTextStyle: textStyle).scaledFont(for: baseFont)
@@ -43,7 +43,7 @@ extension UIFont {
     
     /// Returns a scaled custom font that supports Dynamic Type, mapped to the provided text style.
     /// Falls back to system font if the custom font fails to load.
-    private static func dynamicCustom(name: String, size: CGFloat, textStyle: UIFont.TextStyle) -> UIFont {
+    public static func dynamicCustom(name: String, size: CGFloat, textStyle: UIFont.TextStyle) -> UIFont {
         guard let customFont = UIFont(name: name, size: size) else {
             assertionFailure("Failed to load font: \(name)")
             return UIFont.systemFont(ofSize: size)
