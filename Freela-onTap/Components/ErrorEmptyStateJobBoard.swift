@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ErrorEmptyState: UIView {
+final class ErrorEmptyStateJobBoard: UIView {
     private lazy var image: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "brokedGlass")
@@ -52,7 +52,7 @@ final class ErrorEmptyState: UIView {
     }
 }
 
-extension ErrorEmptyState: ViewCodeProtocol {
+extension ErrorEmptyStateJobBoard: ViewCodeProtocol {
     func addSubviews() {
         addSubview(image)
         addSubview(mainTitle)
