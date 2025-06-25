@@ -11,7 +11,7 @@ import SwiftUI
 class EmptyStateJobBoard: UIView {
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
-        label.font = UIFont.DesignSystem.title3Emphasized
+        label.applyDynamicFont(UIFont.DesignSystem.title3Emphasized)
         label.textAlignment = .center
         label.textColor = UIColor.black
         label.text = "Nenhuma vaga no radar"
@@ -20,7 +20,7 @@ class EmptyStateJobBoard: UIView {
     
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
-        label.font = UIFont.DesignSystem.subheadline
+        label.applyDynamicFont(UIFont.DesignSystem.subheadline)
         label.textAlignment = .center
         label.textColor = UIColor.secondaryLabel
         label.numberOfLines = 0

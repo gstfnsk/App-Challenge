@@ -25,49 +25,46 @@ struct JobOffer: Identifiable {
 }
 
 enum JobPosition: String, CaseIterable {
-    case waiter = "garçom"
+    case receptionist = "recepcionista"
     case hostess = "atendente"
+    case waiter = "garçom"
+    case runner = "runner"
     case cashier = "caixa"
-    case busser = "auxiliar de garçom"
     case bartender = "bartender"
-    case chef = "chef"
-    case barista = "barista"
-    case buyer = "comprador"
-    case manager = "gerente geral"
-    case floorManager = "gerente de salão"
-    case dishwasher = "lavador de louças"
+    case barback = "barback"
+    case sommelier = "sommelier"
     case cook = "cozinheiro"
-    case barback = "auxiliar de bar"
+    case busser = "auxiliar de cozinha"
+    case dishwasher = "auxiliar de limpeza"
+    case barista = "barista"
     case other = "outro"
     
     var iconName: String {
         switch self {
+        case .receptionist:
+            return "coat"
+        case .hostess:
+            return "person.2.fill"
         case .waiter:
             return "figure.walk"
-        case .hostess:
-            return "person.2"
+        case .runner:
+            return "hand.raised"
         case .cashier:
             return "dollarsign.circle"
-        case .busser:
-            return "hand.raised.fill"
         case .bartender:
             return "wineglass.fill"
-        case .chef:
-            return "fork.knife.circle.fill"
-        case .barista:
-            return "cup.and.saucer.fill"
-        case .buyer:
-            return "cart.badge.plus"
-        case .manager:
-            return "briefcase.fill"
-        case .floorManager:
-            return "person.2.wave.2.fill"
-        case .dishwasher:
-            return "drop.triangle.fill"
-        case .cook:
-            return "flame.fill"
         case .barback:
-            return "tray.fill"
+            return "takeoutbag.and.cup.and.straw"
+        case .sommelier:
+            return "wineglass"
+        case .cook:
+            return "fork.knife"
+        case .busser:
+            return "flame"
+        case .dishwasher:
+            return "bubbles.and.sparkles"
+        case .barista:
+            return "cup.and.saucer"
         case .other:
             return "ellipsis.circle"
         }

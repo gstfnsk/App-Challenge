@@ -89,16 +89,15 @@ final class BadgeLabelWithIcon: UIView {
     // Declare your UI elements here (e.g., labels, images, buttons)
     private lazy var textLabel: UILabel = {
         let label = UILabel()
-        label.font = .DesignSystem.subheadline
+        label.applyDynamicFont(.DesignSystem.subheadline)
         label.textColor = .label
         return label
     }()
 
     private lazy var iconView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
         return imageView
     }()
 
