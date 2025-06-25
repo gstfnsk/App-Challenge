@@ -102,23 +102,32 @@ extension CompanyPublishedJobsViewController: UICollectionViewDataSource {
         }
 
         if isJobListSection(section) {
-            return jobCellForItem(at: indexPath)
+            guard
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: JobOfferCollectionViewCell.identifier,
+                    for: indexPath
+                )
+                    as? JobOfferCollectionViewCell
+            else {
+                fatalError("Erro ao criar CardCollectionViewCell")
+            }
+
+            switch section {
+            case openJobsListSectionId:
+                cell.state = .open
+            case filledJobsListSectionId:
+                cell.state = .filled
+            case closedJobsListSectionId:
+                cell.state = .disabled
+            default:
+                break
+            }
+
+            return cell
         }
 
         // If none of the sectios were matched, return an empty cell
         return UICollectionViewCell()
-    }
-
-    private func jobCellForItem(at indexPath: IndexPath) -> JobListCell {
-        guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListCell.identifier, for: indexPath)
-                as? JobListCell
-        else {
-            fatalError("Erro ao criar CardCollectionViewCell")
-        }
-
-        //        cell.configure(job: listedJobOffers[indexPath.item])
-        return cell
     }
 }
 
@@ -142,7 +151,7 @@ extension CompanyPublishedJobsViewController {
                     self.openJobs = Array(jobOffers.prefix(3))
                     self.filledJobs = Array(jobOffers.dropFirst(3).prefix(2))
                     self.closedJobs = Array(jobOffers.dropFirst(5).prefix(2))
-                    
+
                     self.collectionView.reloadData()
 
                     onSuccess()

@@ -45,15 +45,17 @@ extension CompanyPublishedJobsViewController {
         // item
         let itemSize = Size(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(174)
+            heightDimension: .fractionalHeight(1.0)
         )
         let item = Item(layoutSize: itemSize)
+        
         // group
         let groupSize = Size(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(174)
+            heightDimension: .estimated(140.0)
         )
         let group = Group.vertical(layoutSize: groupSize, subitems: [item])
+        
         // section
         let section = Section(group: group)
         section.interGroupSpacing = 10.0

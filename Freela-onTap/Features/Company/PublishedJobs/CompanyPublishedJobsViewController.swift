@@ -28,7 +28,7 @@ class CompanyPublishedJobsViewController: UIViewController {
         
         collectionView.register(BadgeLabelViewCell.self, forCellWithReuseIdentifier: BadgeLabelViewCell.identifier)
         collectionView.register(CompanyPublishedJobsHeader.self, forCellWithReuseIdentifier: CompanyPublishedJobsHeader.identifier)
-        collectionView.register(JobListCell.self, forCellWithReuseIdentifier: JobListCell.identifier)
+        collectionView.register(JobOfferCollectionViewCell.self, forCellWithReuseIdentifier: JobOfferCollectionViewCell.identifier)
        
         collectionView.dataSource = self
         collectionView.delegate = self
