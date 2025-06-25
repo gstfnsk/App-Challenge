@@ -20,6 +20,9 @@ class BadgeLabelViewCell: UICollectionViewCell {
     // MARK: Functions
     func configure(title: String, imageName: String) {
         badge.icon = UIImage(systemName: imageName)
+//        if imageName == "bartender"{
+//            badge.icon = .bartender
+//        }
         badge.text = title
     }
     

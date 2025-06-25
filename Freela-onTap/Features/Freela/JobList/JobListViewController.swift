@@ -22,15 +22,15 @@ class JobListViewController: UIViewController {
     //        return search
     //    }()
     
-    lazy var emptyView: EmptyState = {
-        let emptyView = EmptyState()
+    lazy var emptyView: EmptyStateJobBoard = {
+        let emptyView = EmptyStateJobBoard()
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         emptyView.isHidden = true
         return emptyView
     }()
     
-    lazy var errorEmptyState: ErrorEmptyState = {
-        let emptyState = ErrorEmptyState()
+    lazy var errorEmptyState: ErrorEmptyStateJobBoard = {
+        let emptyState = ErrorEmptyStateJobBoard()
         emptyState.translatesAutoresizingMaskIntoConstraints = false
         return emptyState
     }()

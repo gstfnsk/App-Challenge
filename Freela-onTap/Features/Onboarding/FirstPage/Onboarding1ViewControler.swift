@@ -12,7 +12,7 @@ class OnboardingViewController: UIViewController {
     
     lazy var logo: UIImageView = {
         var imageView = UIImageView()
-        imageView.image = .sino
+        imageView.image = .bellIcon
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView

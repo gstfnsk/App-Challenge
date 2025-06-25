@@ -20,7 +20,7 @@ class LabelWithIconComponent: UIView {
     
     private lazy var label: UILabel = {
         var label = UILabel()
-        label.font = UIFont.DesignSystem.footnote
+        label.applyDynamicFont(UIFont.DesignSystem.footnote)
         label.text = "1h atrás"
         label.textAlignment = .left
         label.textColor = .secondaryLabel
