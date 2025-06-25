@@ -15,7 +15,7 @@ class SecondScreenViewController: UIViewController {
         label.textColor = UIColor.labelsPrimary
         label.text = "Onde fica seu negócio?"
         label.textAlignment = .center
-        label.font = UIFont.DesignSystem.title3SemiBold
+        label.applyDynamicFont(UIFont.DesignSystem.title3SemiBold)
         return label
     }()
     
@@ -32,7 +32,7 @@ class SecondScreenViewController: UIViewController {
         label.text = "Informe seu endereço para que freelancers vejam onde será o trabalho."
         label.textAlignment = .center
         label.textColor = UIColor.secondaryLabel
-        label.font = UIFont.DesignSystem.subheadline
+        label.applyDynamicFont(UIFont.DesignSystem.subheadline)
         return label
     }()
     

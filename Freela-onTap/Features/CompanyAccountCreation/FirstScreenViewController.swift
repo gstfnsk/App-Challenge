@@ -15,7 +15,7 @@ class FirstScreenViewController: UIViewController {
         label.textColor = UIColor.labelsPrimary
         label.text = "Sua equipe começa aqui"
         label.textAlignment = .center
-        label.font = UIFont.DesignSystem.title3SemiBold
+        label.applyDynamicFont(UIFont.DesignSystem.title3SemiBold)
         return label
     }()
     
@@ -26,7 +26,7 @@ class FirstScreenViewController: UIViewController {
         label.text = "Cadastre sua empresa e comece a divulgar oportunidades de forma prática e rápida."
         label.textAlignment = .center
         label.textColor = UIColor.secondaryLabel
-        label.font = UIFont.DesignSystem.subheadline
+        label.applyDynamicFont(UIFont.DesignSystem.subheadline)
         return label
     }()
     

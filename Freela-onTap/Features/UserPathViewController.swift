@@ -14,7 +14,7 @@ class UserPathViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "O que você está buscando hoje?"
         label.textAlignment = .center
-        label.font = UIFont.DesignSystem.title3SemiBold
+        label.applyDynamicFont(UIFont.DesignSystem.title3SemiBold)
         label.textColor = UIColor.labelsSecondary
         return label
     }()
