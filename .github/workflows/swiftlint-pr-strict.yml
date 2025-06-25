@@ -1,0 +1,25 @@
+# Handles ONLY pull requests that target the `main` branch.
+# This is your main quality gate, performing a strict, full-project scan.
+name: SwiftLint (PR to main - Strict)
+
+on:
+  pull_request:
+    # The `branches` filter ensures this workflow ONLY runs for PRs targeting `main`.
+    branches:
+      - 'main' # Or 'master'
+
+jobs:
+  lint-full-project-strict:
+    name: Run Strict Full Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        # No `fetch-depth` needed here because we are not diffing.
+
+      - name: Run SwiftLint in strict mode on all files
+        uses: norio-nomura/action-swiftlint@3.2.1
+        with:
+          # `strict: true` will treat any warnings as errors, failing the check.
+          strict: true
+          # No `DIFF_BASE` here, so it scans the entire project.
