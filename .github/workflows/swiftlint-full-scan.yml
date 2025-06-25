@@ -1,0 +1,27 @@
+# This workflow is dedicated to manual or scheduled full-project scans.
+name: SwiftLint
+
+on:
+  # This trigger adds the "Run workflow" button to the GitHub Actions UI.
+  workflow_dispatch:
+
+  # You can uncomment the `schedule` block below if you also want a
+  # routine weekly health check of your main branch.
+  # schedule:
+  #   - cron: '0 8 * * 0' # Runs at 08:00 UTC on Sundays
+
+jobs:
+  # This job always runs a strict, full-project scan.
+  lint-entire-project:
+    name: Strict Full Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run SwiftLint on the whole project
+        uses: norio-nomura/action-swiftlint@3.2.1
+        with:
+          cache: true
+          # The manual scan should be strict to catch all potential issues.
+          strict: true

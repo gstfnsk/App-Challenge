@@ -1,0 +1,44 @@
+# A single, unified workflow that intelligently lints pull requests.
+# The job's title will change dynamically to show which scan is running.
+name: SwiftLint
+
+on:
+  pull_request:
+
+jobs:
+  # This single job handles all PR linting scenarios.
+  lint-pr:
+    # DYNAMIC NAME: This is the key to clarity. The title of the job shown in
+    # GitHub's UI will change based on the PR's target branch.
+    name: ${{ github.base_ref == 'main' ? 'Strict Full Scan (PR to main)' : 'Changed Files Scan' }}
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository with full history.
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch all git history so SwiftLint can accurately diff the changes.
+          fetch-depth: 0
+
+      # Step 2: Run a STRICT, FULL scan for PRs targeting `main`.
+      # This step only runs if the PR's base branch is `main`.
+      - name: Run SwiftLint in strict mode on all files
+        if: github.base_ref == 'main'
+        uses: norio-nomura/action-swiftlint@v7 # Using the modern version
+        with:
+          cache: true
+          # `strict: true` fails the check for any warning.
+          strict: true
+          # No `DIFF_BASE` = full project scan.
+
+      # Step 3: Run a REGULAR, DIFF-ONLY scan for PRs targeting other branches.
+      # This step only runs if the PR's base branch is NOT `main`.
+      - name: Run SwiftLint on changed files
+        if: github.base_ref != 'main'
+        uses: norio-nomura/action-swiftlint@v7 # Using the modern version
+        with:
+          cache: true
+          # No `strict` mode here.
+        env:
+          # `DIFF_BASE` ensures only changed files are linted.
+          DIFF_BASE: ${{ github.base_ref }}
