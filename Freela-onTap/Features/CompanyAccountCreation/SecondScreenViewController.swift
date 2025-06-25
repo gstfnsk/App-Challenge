@@ -132,7 +132,7 @@ class SecondScreenViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         title = "Cadastro de conta"
         
-        view.backgroundColor = UIColor.DesignSystem.terracota0
+        view.backgroundColor = UIColor.DesignSystem.lavanda0
         
         progressBar.currentState = .second
 
@@ -147,11 +147,12 @@ class SecondScreenViewController: UIViewController {
 
 extension SecondScreenViewController: ViewCodeProtocol {
     func addSubviews() {
-        view.addSubview(progressBar)
-        view.addSubview(label)
-        view.addSubview(titleStack)
-        view.addSubview(continueButton)
-        view.addSubview(inputsStack)
+        view.addSubview(scrollView)
+        scrollView.addSubview(progressBar)
+        scrollView.addSubview(label)
+        scrollView.addSubview(titleStack)
+        scrollView.addSubview(continueButton)
+        scrollView.addSubview(inputsStack)
     }
     
     func setupConstraints() {
@@ -161,21 +162,27 @@ extension SecondScreenViewController: ViewCodeProtocol {
             progressBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 4),
             
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
             label.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 12),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             titleStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 149),
             titleStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
-            continueButton.heightAnchor.constraint(equalToConstant: 50),
-            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -44),
-            
+                    
             inputsStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 237),
             inputsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
+            continueButton.heightAnchor.constraint(equalToConstant: 50),
+            continueButton.topAnchor.constraint(equalTo: inputsStack.bottomAnchor, constant: 50),
+            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+
         ])
     }
 }
