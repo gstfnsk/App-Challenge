@@ -8,7 +8,7 @@
 import UIKit
 import SwiftUI
 
-class EmptyState: UIView {
+class EmptyStateJobBoard: UIView {
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
         label.applyDynamicFont(UIFont.DesignSystem.title3Emphasized)
@@ -61,7 +61,7 @@ class EmptyState: UIView {
     }
 }
 
-extension EmptyState: ViewCodeProtocol {
+extension EmptyStateJobBoard: ViewCodeProtocol {
     func addSubviews() {
         addSubview(imageView)
         addSubview(stack)

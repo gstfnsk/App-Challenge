@@ -9,7 +9,6 @@ import CloudKit
 import Foundation
 
 extension CloudKitManager {
-
     func createMockDataIfNeeded() async {
         let companyList = try? await fetchAllCompanies()
 
@@ -192,7 +191,7 @@ extension CloudKitManager {
                 ),
                 description:
                     "Cafeteria elegante próxima a pontos históricos, oferecendo ambiente tranquilo para refeições no local e cafés especiais.",
-            ),
+            )
         ]
 
         let jobOffers: [JobOffer] = [
@@ -525,71 +524,74 @@ extension CloudKitManager {
                     """
             ),
             // 1. Barista for Café Sombra (Morning Shift)
-              JobOffer(
-                  id: UUID(),
-                  companyId: companies[7].id, // Café Sombra
-                  postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 21, hour: 17))!,
-                  title: .barista,
-                  titleOther: nil,
-                  durationInHours: 7,
-                  startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 28, hour: 8))!, // 08:00 AM start
-                  salaryBRL: 140,
-                  description: "O Café Sombra está contratando um barista para o turno da manhã, focado em preparar cafés especiais e atender nossa clientela matutina.",
-                  qualifications: """
-                  - Experiência prévia como barista.
-                  - Paixão por café e habilidade em latte art é um diferencial.
-                  - Pontualidade e disposição para trabalhar em horários matutinos.
-                  """,
-                  duties: """
-                  - Abrir a cafeteria e preparar os equipamentos.
-                  - Preparar e servir bebidas à base de café.
-                  - Manter a limpeza e organização da estação de trabalho.
-                  """
-              ),
-              // 2. Cook for Black Falcon Gastrobar (Prep Shift)
-              JobOffer(
-                  id: UUID(),
-                  companyId: companies[0].id, // Black Falcon Gastrobar
-                  postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 21, hour: 17))!,
-                  title: .cook,
-                  titleOther: nil,
-                  durationInHours: 8,
-                  startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 30, hour: 9))!, // 09:00 AM start
-                  salaryBRL: 200,
-                  description: "Vaga para cozinheiro no Black Falcon Gastrobar para o turno de preparação (mise en place), garantindo que todos os insumos estejam prontos para os serviços de almoço e jantar.",
-                  qualifications: """
-                  - Experiência em preparação de alimentos (mise en place).
-                  - Agilidade e organização para seguir as fichas técnicas.
-                  - Capacidade de trabalhar de forma independente.
-                  """,
-                  duties: """
-                  - Preparar vegetais, carnes e molhos conforme o cardápio.
-                  - Manter o controle de validade e a organização do estoque.
-                  - Garantir a higiene e limpeza da área de preparação.
-                  """
-              ),
-              // 3. Busser for Doce Amargo Café (Morning/Lunch Rush)
-              JobOffer(
-                  id: UUID(),
-                  companyId: companies[5].id, // Doce Amargo Café
-                  postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 21, hour: 17))!,
-                  title: .busser,
-                  titleOther: nil,
-                  durationInHours: 6,
-                  startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 1, hour: 10))!, // 10:00 AM start
-                  salaryBRL: 90,
-                  description: "O Doce Amargo Café busca um auxiliar de salão para dar suporte durante o movimento da manhã e almoço.",
-                  qualifications: """
-                  - Proatividade e boa disposição física.
-                  - Não é necessário ter experiência prévia.
-                  - Bom trabalho em equipe.
-                  """,
-                  duties: """
-                  - Limpar e montar as mesas rapidamente.
-                  - Levar louça suja para a copa.
-                  - Auxiliar os garçons e baristas quando necessário.
-                  """
-              )
+            JobOffer(
+                id: UUID(),
+                companyId: companies[7].id,  // Café Sombra
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 21, hour: 17))!,
+                title: .barista,
+                titleOther: nil,
+                durationInHours: 7,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 28, hour: 8))!,  // 08:00 AM start
+                salaryBRL: 140,
+                description:
+                    "O Café Sombra está contratando um barista para o turno da manhã, focado em preparar cafés especiais e atender nossa clientela matutina.",
+                qualifications: """
+                    - Experiência prévia como barista.
+                    - Paixão por café e habilidade em latte art é um diferencial.
+                    - Pontualidade e disposição para trabalhar em horários matutinos.
+                    """,
+                duties: """
+                    - Abrir a cafeteria e preparar os equipamentos.
+                    - Preparar e servir bebidas à base de café.
+                    - Manter a limpeza e organização da estação de trabalho.
+                    """
+            ),
+            // 2. Cook for Black Falcon Gastrobar (Prep Shift)
+            JobOffer(
+                id: UUID(),
+                companyId: companies[0].id,  // Black Falcon Gastrobar
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 21, hour: 17))!,
+                title: .cook,
+                titleOther: nil,
+                durationInHours: 8,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 30, hour: 9))!,  // 09:00 AM start
+                salaryBRL: 200,
+                description:
+                    "Vaga para cozinheiro no Black Falcon Gastrobar para o turno de preparação (mise en place), garantindo que todos os insumos estejam prontos para os serviços de almoço e jantar.",
+                qualifications: """
+                    - Experiência em preparação de alimentos (mise en place).
+                    - Agilidade e organização para seguir as fichas técnicas.
+                    - Capacidade de trabalhar de forma independente.
+                    """,
+                duties: """
+                    - Preparar vegetais, carnes e molhos conforme o cardápio.
+                    - Manter o controle de validade e a organização do estoque.
+                    - Garantir a higiene e limpeza da área de preparação.
+                    """
+            ),
+            // 3. Busser for Doce Amargo Café (Morning/Lunch Rush)
+            JobOffer(
+                id: UUID(),
+                companyId: companies[5].id,  // Doce Amargo Café
+                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 21, hour: 17))!,
+                title: .busser,
+                titleOther: nil,
+                durationInHours: 6,
+                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 1, hour: 10))!,  // 10:00 AM start
+                salaryBRL: 90,
+                description:
+                    "O Doce Amargo Café busca um auxiliar de salão para dar suporte durante o movimento da manhã e almoço.",
+                qualifications: """
+                    - Proatividade e boa disposição física.
+                    - Não é necessário ter experiência prévia.
+                    - Bom trabalho em equipe.
+                    """,
+                duties: """
+                    - Limpar e montar as mesas rapidamente.
+                    - Levar louça suja para a copa.
+                    - Auxiliar os garçons e baristas quando necessário.
+                    """
+            )
         ]
 
         print("There will be added \(companies.count) companies and \(jobOffers.count) job offers.")

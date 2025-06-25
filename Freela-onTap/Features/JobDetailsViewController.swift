@@ -38,9 +38,8 @@ class JobDetailsViewController: UIViewController {
             companyImageView.topAnchor.constraint(equalTo: container.topAnchor),
             companyImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             companyImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ])
-
         return container
     }()
 
@@ -283,13 +282,15 @@ class JobDetailsViewController: UIViewController {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = UIColor.DesignSystem.terracota200
         button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor.systemGray5
+        button.addTarget(self.jobOffer, action: #selector(shareButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private lazy var buttonsStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [contactButton])
+        var stack = UIStackView(arrangedSubviews: [contactButton, shareButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.spacing = 12
         return stack
@@ -320,6 +321,12 @@ class JobDetailsViewController: UIViewController {
 
     @objc private func didTapRightButton() {
         // Open denunciar alert
+    }
+    
+    @objc private func shareButtonTapped() {
+        let texto = "“Vi que estão buscando \(jobOffer?.title.rawValue.localizedCapitalized ?? "") no Freela onTap! Pode ser uma boa pra você."
+        let activityVC = UIActivityViewController(activityItems: [texto, "https://testflight.apple.com/join/fhWYxupt"], applicationActivities: nil)
+        present(activityVC, animated: true)
     }
 
     func configure(with jobOffer: JobOffer) {
@@ -393,7 +400,7 @@ class JobDetailsViewController: UIViewController {
             string: "Agora é com você!!",
             attributes: [
                 .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.bodyEmphasized,
+                .font: UIFont.DesignSystem.bodyEmphasized
             ]
         )
         alert.setValue(attributedTitle, forKey: "attributedTitle")
@@ -403,7 +410,7 @@ class JobDetailsViewController: UIViewController {
             string: "Fale direto com quem tá contratando e garanta seu freela",
             attributes: [
                 .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.body,
+                .font: UIFont.DesignSystem.body
             ]
         )
         alert.setValue(attributedMessage, forKey: "attributedMessage")
@@ -491,10 +498,10 @@ extension JobDetailsViewController: ViewCodeProtocol {
 
             buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5),
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
 
-            //            shareButton.heightAnchor.constraint(equalToConstant: 50),
-            //            shareButton.widthAnchor.constraint(equalToConstant: 59)
+            shareButton.heightAnchor.constraint(equalToConstant: 50),
+            shareButton.widthAnchor.constraint(equalToConstant: 59)
         ])
     }
 }
