@@ -331,7 +331,7 @@ extension CloudKitManager {
                 startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 28, hour: 18))!,
                 salaryBRL: 110,
                 description:
-                    "A equipe do Cobre Café & Bistrô está buscando um auxiliar de garçom para dar suporte ao atendimento no salão.",
+                    "A equipe do Cobre Café & Bistrô está buscando um auxiliar de cozinha para dar suporte ao atendimento no salão.",
                 qualifications: """
                     Proatividade, disposição física e vontade de aprender.
                     """,
@@ -385,99 +385,99 @@ extension CloudKitManager {
                     - Coordenar a ocupação das mesas.
                     """
             ),
-            // 1. Manager for Black Falcon Gastrobar
-            JobOffer(
-                id: UUID(),
-                companyId: companies[0].id,
-                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 22, hour: 10))!,
-                title: .manager,
-                titleOther: nil,
-                durationInHours: 8,
-                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 1, hour: 16))!,
-                salaryBRL: 320,
-                description:
-                    "O Black Falcon Gastrobar busca um Gerente Geral para liderar a equipe e supervisionar todas as operações do restaurante.",
-                qualifications: """
-                    - Experiência comprovada em gestão de restaurantes.
-                    - Excelentes habilidades de liderança e comunicação.
-                    - Conhecimento em gestão financeira e de estoque.
-                    """,
-                duties: """
-                    - Gerenciar a equipe de salão e cozinha.
-                    - Garantir a satisfação do cliente e a qualidade do serviço.
-                    - Controlar custos operacionais e otimizar a lucratividade.
-                    """
-            ),
+//            // 1. Manager for Black Falcon Gastrobar
+//            JobOffer(
+//                id: UUID(),
+//                companyId: companies[0].id,
+//                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 22, hour: 10))!,
+//                title: .manager,
+//                titleOther: nil,
+//                durationInHours: 8,
+//                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 1, hour: 16))!,
+//                salaryBRL: 320,
+//                description:
+//                    "O Black Falcon Gastrobar busca um Gerente Geral para liderar a equipe e supervisionar todas as operações do restaurante.",
+//                qualifications: """
+//                    - Experiência comprovada em gestão de restaurantes.
+//                    - Excelentes habilidades de liderança e comunicação.
+//                    - Conhecimento em gestão financeira e de estoque.
+//                    """,
+//                duties: """
+//                    - Gerenciar a equipe de salão e cozinha.
+//                    - Garantir a satisfação do cliente e a qualidade do serviço.
+//                    - Controlar custos operacionais e otimizar a lucratividade.
+//                    """
+//            ),
             // 2. Chef for Red Koi Sushi Bar
-            JobOffer(
-                id: UUID(),
-                companyId: companies[1].id,
-                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 23, hour: 11))!,
-                title: .chef,
-                titleOther: nil,
-                durationInHours: 8,
-                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 2, hour: 17))!,
-                salaryBRL: 300,
-                description:
-                    "Procuramos um Chef de Cozinha com especialização em culinária japonesa para inovar nosso cardápio no Red Koi Sushi Bar.",
-                qualifications: """
-                    - Vasta experiência como Chef, preferencialmente em restaurantes japoneses.
-                    - Criatividade para desenvolvimento de novos pratos.
-                    - Capacidade de liderar a equipe de cozinha.
-                    """,
-                duties: """
-                    - Comandar a preparação de todos os pratos.
-                    - Realizar o controle de qualidade dos insumos e preparos.
-                    - Treinar e supervisionar os cozinheiros e auxiliares.
-                    """
-            ),
-            // 3. Buyer for El Cactus Mexican Grill
-            JobOffer(
-                id: UUID(),
-                companyId: companies[2].id,
-                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 24, hour: 9))!,
-                title: .buyer,
-                titleOther: nil,
-                durationInHours: 6,
-                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 30, hour: 10))!,
-                salaryBRL: 180,
-                description:
-                    "Vaga para Comprador no El Cactus Mexican Grill, responsável pela aquisição de todos os insumos e negociação com fornecedores.",
-                qualifications: """
-                    - Experiência em compras para o setor de alimentos e bebidas.
-                    - Habilidade de negociação e relacionamento com fornecedores.
-                    - Organização e controle de planilhas.
-                    """,
-                duties: """
-                    - Realizar cotações e efetuar a compra de produtos.
-                    - Controlar os níveis de estoque para evitar rupturas ou excessos.
-                    - Buscar novos fornecedores e otimizar custos.
-                    """
-            ),
-            // 4. Floor Manager for JUSSO
-            JobOffer(
-                id: UUID(),
-                companyId: companies[3].id,
-                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 23, hour: 15))!,
-                title: .floorManager,
-                titleOther: nil,
-                durationInHours: 7,
-                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 3, hour: 18))!,
-                salaryBRL: 200,
-                description:
-                    "O bar JUSSO contrata Gerente de Salão para coordenar o serviço noturno e garantir uma experiência excelente aos clientes.",
-                qualifications: """
-                    - Experiência na liderança de equipes de atendimento em bares ou restaurantes.
-                    - Postura proativa e habilidade para resolver conflitos.
-                    - Excelente comunicação interpessoal.
-                    """,
-                duties: """
-                    - Supervisionar o trabalho de garçons, bussers e bartenders.
-                    - Gerenciar o fluxo de clientes e a organização do salão.
-                    - Assegurar a qualidade do atendimento e dos produtos servidos.
-                    """
-            ),
-            // 5. Barback for El Avante Lounge
+//            JobOffer(
+//                id: UUID(),
+//                companyId: companies[1].id,
+//                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 23, hour: 11))!,
+//                title: .chef,
+//                titleOther: nil,
+//                durationInHours: 8,
+//                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 2, hour: 17))!,
+//                salaryBRL: 300,
+//                description:
+//                    "Procuramos um Chef de Cozinha com especialização em culinária japonesa para inovar nosso cardápio no Red Koi Sushi Bar.",
+//                qualifications: """
+//                    - Vasta experiência como Chef, preferencialmente em restaurantes japoneses.
+//                    - Criatividade para desenvolvimento de novos pratos.
+//                    - Capacidade de liderar a equipe de cozinha.
+//                    """,
+//                duties: """
+//                    - Comandar a preparação de todos os pratos.
+//                    - Realizar o controle de qualidade dos insumos e preparos.
+//                    - Treinar e supervisionar os cozinheiros e auxiliares.
+//                    """
+//            ),
+//            // 3. Buyer for El Cactus Mexican Grill
+//            JobOffer(
+//                id: UUID(),
+//                companyId: companies[2].id,
+//                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 24, hour: 9))!,
+//                title: .buyer,
+//                titleOther: nil,
+//                durationInHours: 6,
+//                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 30, hour: 10))!,
+//                salaryBRL: 180,
+//                description:
+//                    "Vaga para Comprador no El Cactus Mexican Grill, responsável pela aquisição de todos os insumos e negociação com fornecedores.",
+//                qualifications: """
+//                    - Experiência em compras para o setor de alimentos e bebidas.
+//                    - Habilidade de negociação e relacionamento com fornecedores.
+//                    - Organização e controle de planilhas.
+//                    """,
+//                duties: """
+//                    - Realizar cotações e efetuar a compra de produtos.
+//                    - Controlar os níveis de estoque para evitar rupturas ou excessos.
+//                    - Buscar novos fornecedores e otimizar custos.
+//                    """
+//            ),
+//            // 4. Floor Manager for JUSSO
+//            JobOffer(
+//                id: UUID(),
+//                companyId: companies[3].id,
+//                postedAt: Calendar.current.date(from: DateComponents(year: 2025, month: 6, day: 23, hour: 15))!,
+//                title: .floorManager,
+//                titleOther: nil,
+//                durationInHours: 7,
+//                startDate: Calendar.current.date(from: DateComponents(year: 2025, month: 7, day: 3, hour: 18))!,
+//                salaryBRL: 200,
+//                description:
+//                    "O bar JUSSO contrata Gerente de Salão para coordenar o serviço noturno e garantir uma experiência excelente aos clientes.",
+//                qualifications: """
+//                    - Experiência na liderança de equipes de atendimento em bares ou restaurantes.
+//                    - Postura proativa e habilidade para resolver conflitos.
+//                    - Excelente comunicação interpessoal.
+//                    """,
+//                duties: """
+//                    - Supervisionar o trabalho de garçons, bussers e bartenders.
+//                    - Gerenciar o fluxo de clientes e a organização do salão.
+//                    - Assegurar a qualidade do atendimento e dos produtos servidos.
+//                    """
+//            ),
+//            // 5. Barback for El Avante Lounge
             JobOffer(
                 id: UUID(),
                 companyId: companies[4].id,

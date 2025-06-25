@@ -1,15 +1,16 @@
 //
-//  JobDetailsViewController.swift
-//  App-Challenge
+//  JobRegistration2.swift
+//  Freela-onTap
 //
-//  Created by Giulia Stefainski on 10/06/25.
+//  Created by Gustavo Ferreira bassani on 25/06/25.
 //
 
 import UIKit
 
-class JobDetailsViewController: UIViewController {
-    private var jobOffer: JobOffer?
-
+class JobRegister2ViewController: UIViewController {
+    // receive a job offer from
+    let jobOffer: JobOffer? = nil
+    
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +54,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Le Cochon Volant"
-        label.applyDynamicFont(.DesignSystem.title2Emphasized)
+        label.font = UIFont(name: "SFProRounded-Bold", size: 30)
         return label
     }()
 
@@ -61,7 +62,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Descrição da vaga:"
-        label.applyDynamicFont(UIFont.DesignSystem.headline)
+        label.font = UIFont.DesignSystem.headline
         return label
     }()
 
@@ -73,7 +74,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
-        label.applyDynamicFont(UIFont.DesignSystem.body)
+        label.font = UIFont.DesignSystem.body
         return label
     }()
 
@@ -89,7 +90,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Responsabilidades:"
-        label.applyDynamicFont(UIFont.DesignSystem.headline)
+        label.font = UIFont.DesignSystem.headline
         return label
     }()
 
@@ -105,7 +106,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.applyDynamicFont(UIFont.DesignSystem.body)
+        label.font = UIFont.DesignSystem.body
         return label
     }()
 
@@ -121,7 +122,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Requisitos:"
-        label.applyDynamicFont(UIFont.DesignSystem.headline)
+        label.font = UIFont.DesignSystem.headline
         return label
     }()
 
@@ -137,7 +138,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.applyDynamicFont(UIFont.DesignSystem.body)
+        label.font = UIFont.DesignSystem.body
         return label
     }()
 
@@ -162,15 +163,15 @@ class JobDetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Sunset Drinks"
         label.textColor = UIColor.DesignSystem.terracota900
-        label.applyDynamicFont(UIFont.DesignSystem.title2Emphasized)
+        label.font = UIFont.DesignSystem.title2Emphasized
         return label
     }()
 
     private lazy var establishmentType: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Bar"
-        label.applyDynamicFont(UIFont.DesignSystem.body)
+        label.text = "Restaurante"
+        label.font = UIFont.DesignSystem.body
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         return label
     }()
@@ -178,7 +179,7 @@ class JobDetailsViewController: UIViewController {
     private lazy var companyAddress: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.applyDynamicFont(UIFont.DesignSystem.footnote)
+        label.font = UIFont.DesignSystem.footnote
         label.textColor = UIColor.DesignSystem.terracota600
         label.text = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC"
         label.isUserInteractionEnabled = true
@@ -187,11 +188,12 @@ class JobDetailsViewController: UIViewController {
 
         return label
     }()
+    
 
     private lazy var companyNumberOfEmployees: LabelWithIconComponent = {
         var label = LabelWithIconComponent()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "10-20 funcionários"
+        label.text = "20-50 funcionários"
         label.imageColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.image = UIImage(systemName: "person.3")
         return label
@@ -215,23 +217,11 @@ class JobDetailsViewController: UIViewController {
         return stack
     }()
 
-    private lazy var contactButton: UIButton = {
-        var button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Registrar interesse na vaga", for: .normal)
-        button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor.DesignSystem.terracota500
-        button.addTarget(self, action: #selector(openWhatsApp), for: .touchUpInside)
-        return button
-    }()
-
     private lazy var blurredBackgroundView: UIView = {
         var backgroundView = UIView()
         backgroundView.translatesAutoresizingMaskIntoConstraints = false
-        //        backgroundView.backgroundColor = UIColor.systemBackground
         backgroundView.layer.cornerRadius = 16
         backgroundView.clipsToBounds = true
-
         backgroundView.addSubview(overlayView)
 
         return backgroundView
@@ -278,166 +268,72 @@ class JobDetailsViewController: UIViewController {
         return stack
     }()
 
-    private lazy var shareButton: UIButton = {
+    private lazy var publishButton: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = UIColor.DesignSystem.terracota200
+        button.setTitle("Publicar", for: .normal)
         button.layer.cornerRadius = 12
-        button.addTarget(self.jobOffer, action: #selector(shareButtonTapped), for: .touchUpInside)
+        button.backgroundColor = UIColor.DesignSystem.terracota500
+        button.addTarget(self, action: #selector(saveDataAtCloudKit), for: .touchUpInside)
         return button
     }()
-
+    
+    private lazy var returnButton: UIButton = {
+        var button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Retornar e ajustar", for: .normal)
+        button.setTitleColor(UIColor.DesignSystem.terracota600, for: .normal)
+        button.layer.cornerRadius = 12
+        button.backgroundColor = UIColor.DesignSystem.terracota0
+        button.addTarget(self, action: #selector(saveDataAtCloudKit), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var buttonsStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [contactButton, shareButton])
+        var stack = UIStackView(arrangedSubviews: [publishButton, returnButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.spacing = 12
+        stack.axis = .vertical
         return stack
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Recepcionista"
-
         setup()
-        view.backgroundColor = .systemGray6
-
-        // TODO: ellipsis button (MVP+)
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(
-        //                image: UIImage(systemName: "ellipsis"),
-        //                style: .plain,
-        //                target: self,
-        //                action: #selector(didTapRightButton)
-        //            )
-
-        configureViewWithData()
-        // Do any additional setup after loading the view.
     }
 
     // MARK: Methods
-
-    @objc private func didTapRightButton() {
-        // Open denunciar alert
-    }
-    
-    @objc private func shareButtonTapped() {
-        let texto = "“Vi que estão buscando \(jobOffer?.title.rawValue.localizedCapitalized ?? "") no Freela onTap! Pode ser uma boa pra você."
-        let activityVC = UIActivityViewController(activityItems: [texto, "https://testflight.apple.com/join/fhWYxupt"], applicationActivities: nil)
-        present(activityVC, animated: true)
-    }
-
-    func configure(with jobOffer: JobOffer) {
-        self.jobOffer = jobOffer
-    }
-
-    private func configureViewWithData() {
-        guard let jobOffer else {
-            self.navigationController?.popViewController(animated: true)
-            return
+    @objc func returnAction() { /* logic to return to registrationViewController */  }
+    @objc func saveDataAtCloudKit() {
+        /* logic to save data at cloudKit */
+        let alert = UIAlertController(title: "Vaga publicada!", message: "tudo certo com o anúncio. Agora é só acompanhar as candidaturas!", preferredStyle: .alert)
+        let alertActionOne = UIAlertAction(title: "ver vagas publicadas", style: .default) {_ in
+            /* go to MyJobs */
         }
-
-        guard let company = jobOffer.company else {
-            let errorAlert = UIAlertController(
-                title: "Erro",
-                message: "Não foi possivel carregar os dados da oferta. Por favor, tente novamente mais tarde.",
-                preferredStyle: .alert
-            )
-            errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(errorAlert, animated: true, completion: nil)
-            self.navigationController?.popViewController(animated: true)
-            return
+        alertActionOne.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
+        let alertActionTwo = UIAlertAction(title: "Publicar outra vaga", style: .default) {_ in
+            /* go to JobsRegister */
         }
+        alertActionTwo.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
 
-        title = jobOffer.title.rawValue.localizedCapitalized
-
-        companyName.text = company.name
-        establishmentType.text = company.establishmentType.rawValue.localizedCapitalized
-        companyNumberOfEmployees.text = company.companySize.rawValue
-
-        companyAddress.text =
-            company.address.streetAndNumber + ", " + company.address.cityAndState + ", " + company.address.cityAndState
-        postedTime.text = jobOffer.postedAt.timeAgoString()
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM"
-        date.text = dateFormatter.string(from: jobOffer.startDate)
-
-        dateFormatter.dateFormat = "HH'h'mm"
-        time.text = "Horário: \(dateFormatter.string(from: jobOffer.startDate))"
-
-        amount.text = "R$ \(jobOffer.salaryBRL)"
-        duration.text = "\(jobOffer.durationInHours)h"
-
-        descriptionText.text = jobOffer.description
-        dutiesText.text = jobOffer.duties
-        requirementsText.text = jobOffer.qualifications
-
-        // TODO: In future, use real images
-        companyImageView.image = UIImage(
-            named:
-                "companyPhotos/\((jobOffer.company?.name ?? "").replacingOccurrences(of: "é", with: "e").replacingOccurrences(of: "ô", with: "o"))"
-        )
+        alert.addAction(alertActionOne)
+        alert.addAction(alertActionTwo)
+        present(alert, animated: true)
     }
-
     @objc private func openInMaps() {
         let address = companyAddress.text ?? ""
         
         let encodedAddress = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-
+        
         if let url = URL(string: "http://maps.apple.com/?q=\(encodedAddress)") {
             UIApplication.shared.open(url)
         }
     }
-
-    @objc private func openWhatsApp() {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-
-        // Title: bold + terracota600
-        let attributedTitle = NSAttributedString(
-            string: "Agora é com você!!",
-            attributes: [
-                .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.bodyEmphasized
-            ]
-        )
-        alert.setValue(attributedTitle, forKey: "attributedTitle")
-
-        // Message: regular + terracota600
-        let attributedMessage = NSAttributedString(
-            string: "Fale direto com quem tá contratando e garanta seu freela",
-            attributes: [
-                .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.body
-            ]
-        )
-        alert.setValue(attributedMessage, forKey: "attributedMessage")
-
-        // Actions
-
-        let contactAction = UIAlertAction(title: "Entrar em contato", style: .default) { _ in
-            if let url = URL(
-                string:
-                    "https://wa.me/+5551997645781?text=Oi%2C%20vi%20o%20an%C3%BAncio%20da%20vaga%20no%20%2AFreela%20onTap%2A%20e%20gostaria%20de%20me%20candidatar."
-            ) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-        contactAction.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
-
-        let laterAction = UIAlertAction(title: "Talvez mais tarde", style: .default)
-        laterAction.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
-
-        alert.addAction(contactAction)
-        alert.addAction(laterAction)
-
-        present(alert, animated: true)
     }
-}
 
-extension JobDetailsViewController: ViewCodeProtocol {
+
+extension JobRegister2ViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
         view.addSubview(buttonsStack)
@@ -490,18 +386,23 @@ extension JobDetailsViewController: ViewCodeProtocol {
             overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
 
-            contactButton.widthAnchor.constraint(equalToConstant: 321),
-            contactButton.heightAnchor.constraint(equalToConstant: 50),
+            publishButton.widthAnchor.constraint(equalToConstant: 321),
+            publishButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            returnButton.widthAnchor.constraint(equalToConstant: 321),
+            returnButton.heightAnchor.constraint(equalToConstant: 50),
 
-            buttonsStack.heightAnchor.constraint(equalToConstant: 50),
+            buttonsStack.heightAnchor.constraint(equalToConstant: 112),
             buttonsStack.widthAnchor.constraint(equalToConstant: 321),
 
             buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5),
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
-
-            shareButton.heightAnchor.constraint(equalToConstant: 50),
-            shareButton.widthAnchor.constraint(equalToConstant: 59)
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
         ])
+    }
+    
+    func setupAdditionalConfiguration() {
+        title = "cadastro de vagas"
+        view.backgroundColor = .systemGray6
     }
 }

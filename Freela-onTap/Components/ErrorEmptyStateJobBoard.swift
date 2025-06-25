@@ -8,6 +8,13 @@
 import UIKit
 
 final class ErrorEmptyStateJobBoard: UIView {
+    private lazy var backgroundView: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .red
+        return view
+    }()
+    
     private lazy var image: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "brokedGlass")
@@ -22,7 +29,7 @@ final class ErrorEmptyStateJobBoard: UIView {
         label.text = "Opa, rolou um erro aqui"
         label.textColor = UIColor.labelsPrimary
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        label.applyDynamicFont(.DesignSystem.title3Emphasized)
         return label
     }()
     
@@ -32,12 +39,9 @@ final class ErrorEmptyStateJobBoard: UIView {
         label.text = "Tente recarregar ou volte daqui a pouco."
         label.textColor = UIColor.labelsSecondary
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        label.applyDynamicFont(.DesignSystem.subheadline)
         return label
     }()
-    
- 
-    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,11 +58,11 @@ final class ErrorEmptyStateJobBoard: UIView {
 
 extension ErrorEmptyStateJobBoard: ViewCodeProtocol {
     func addSubviews() {
-        addSubview(image)
-        addSubview(mainTitle)
-        addSubview(subtitle)
+        addSubview(backgroundView)
+        backgroundView.addSubview(image)
+        backgroundView.addSubview(mainTitle)
+        backgroundView.addSubview(subtitle)
     }
-    
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -75,7 +79,6 @@ extension ErrorEmptyStateJobBoard: ViewCodeProtocol {
             subtitle.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -43.5)
         ])
     }
-    
     
     func setupAdditionalConfiguration() {
         backgroundColor = .DesignSystem.lavanda0

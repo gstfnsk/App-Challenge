@@ -34,7 +34,7 @@ class Onboarding2ViewController: UIViewController {
         button.clipsToBounds = true
         button.setTitle("Próximo", for: .normal)
         button.titleLabel?.textColor = .white
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17)
+        button.titleLabel?.applyDynamicFont(.DesignSystem.body)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return button
     }()
