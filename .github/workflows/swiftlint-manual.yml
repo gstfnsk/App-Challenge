@@ -17,5 +17,4 @@ jobs:
       - name: Run SwiftLint in strict mode on all files
         uses: norio-nomura/action-swiftlint@3.2.1
         with:
-          cache: true
           strict: true

@@ -20,7 +20,6 @@ jobs:
       - name: Run SwiftLint in strict mode on all files
         uses: norio-nomura/action-swiftlint@3.2.1
         with:
-          cache: true
           # `strict: true` will treat any warnings as errors, failing the check.
           strict: true
           # No `DIFF_BASE` here, so it scans the entire project.

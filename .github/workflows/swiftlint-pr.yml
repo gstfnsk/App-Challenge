@@ -21,9 +21,6 @@ jobs:
 
       - name: Run SwiftLint on changed files
         uses: norio-nomura/action-swiftlint@3.2.1
-        with:
-          cache: true
-          # No `strict` mode here, so warnings are just informational.
         env:
           # `DIFF_BASE` tells the action to only lint changed files.
           DIFF_BASE: ${{ github.base_ref }}
