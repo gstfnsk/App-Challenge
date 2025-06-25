@@ -61,6 +61,10 @@ class CompanyPublishedJobsHeader: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
 
         imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        // TODO: Update
+        imageView.isHidden = true
+        
         return imageView
     }()
 
