@@ -68,7 +68,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         case .normal:
             break
         default:
-            assert(false, "Unhandled state: \(state) on \(#file)")
+            assertionFailure("Unhandled state: \(state) on \(#file)")
         }
         
         stateIcon.isHidden = state != .filled && state != .open
@@ -93,8 +93,11 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         
         for text in texts {
             let badgeView = BadgeLabelWithIcon(text: text)
+
             badgeStack.addArrangedSubview(badgeView)
         }
+        
+        badgeStack.addArrangedSubview(UIView())
     }
 
     // MARK: - UI Elements
@@ -114,6 +117,8 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .center
         imageView.tintColor = .DesignSystem.terracota600
+        imageView.setContentHuggingPriority(.required, for: .horizontal)
+        
         return imageView
     }()
 
@@ -138,6 +143,8 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         stackView.axis = .vertical
         stackView.spacing = 4
         stackView.alignment = .leading
+        stackView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+
         return stackView
     }()
 
@@ -163,6 +170,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
     private lazy var badgeStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
+//        stack.distribution = .equalSpacing
         stack.spacing = 8
 
         return stack
@@ -172,7 +180,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         let stackView = UIStackView(arrangedSubviews: [imageStack, badgeStack, iconStack])
         stackView.axis = .vertical
         stackView.spacing = 13
-        stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -199,6 +207,7 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
         setupShadow()
         setupContentView()
         updateBasedOnState()
+        setBadgesText(["Label", "Label"])
     }
     
     func addSubviews() {
@@ -223,7 +232,7 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
 
 #Preview {
     let cell = JobOfferCollectionViewCell()
-    cell.state = .filled
+    cell.state = .open
     
     /// Ignore lines bellow, the are only for the pourpuse of this preview
     cell.translatesAutoresizingMaskIntoConstraints = false
@@ -240,12 +249,12 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
     container.addSubview(cell)
 
     NSLayoutConstraint.activate([
-        container.widthAnchor.constraint(equalToConstant: 375),
+        container.widthAnchor.constraint(equalToConstant: 325),
         container.heightAnchor.constraint(equalToConstant: 812),
 
         cell.centerXAnchor.constraint(equalTo: container.centerXAnchor),
         cell.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-        cell.widthAnchor.constraint(equalToConstant: size.width),
+        cell.widthAnchor.constraint(equalToConstant: size.width + 60),
         cell.heightAnchor.constraint(equalToConstant: size.height)
     ])
 
