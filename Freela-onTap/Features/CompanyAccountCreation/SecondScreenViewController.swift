@@ -19,6 +19,12 @@ class SecondScreenViewController: UIViewController {
         return label
     }()
     
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -110,6 +116,13 @@ class SecondScreenViewController: UIViewController {
     
     private lazy var progressBar = ProgressBar()
     
+    private lazy var labelView: UIView = {
+        let labelView = UIView()
+        labelView.translatesAutoresizingMaskIntoConstraints = false
+        labelView.backgroundColor = UIColor.DesignSystem.lavanda0
+        return labelView
+    }()
+    
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Etapa 2 de 3"
@@ -142,47 +155,64 @@ class SecondScreenViewController: UIViewController {
     }
     
     @objc func continueAction() {
+        
     }
 }
 
 extension SecondScreenViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.addSubview(titleStack)
+        contentView.addSubview(continueButton)
+        contentView.addSubview(inputsStack)
+        contentView.addSubview(labelView)
+        labelView.addSubview(label)
         scrollView.addSubview(progressBar)
-        scrollView.addSubview(label)
-        scrollView.addSubview(titleStack)
-        scrollView.addSubview(continueButton)
-        scrollView.addSubview(inputsStack)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            labelView.heightAnchor.constraint(equalToConstant: 41),
+            labelView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
+            labelView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            labelView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
             progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 4),
             
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
             label.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 12),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            titleStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 149),
-            titleStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            titleStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 51),
+            titleStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
                     
-            inputsStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 237),
-            inputsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            inputsStack.topAnchor.constraint(equalTo: titleStack.bottomAnchor, constant: 20),
+            inputsStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            inputsStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
             continueButton.heightAnchor.constraint(equalToConstant: 50),
             continueButton.topAnchor.constraint(equalTo: inputsStack.bottomAnchor, constant: 50),
-            continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-
+            continueButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -44),
+            continueButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            continueButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }

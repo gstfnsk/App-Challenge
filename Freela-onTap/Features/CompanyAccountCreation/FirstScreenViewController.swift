@@ -153,20 +153,25 @@ class FirstScreenViewController: UIViewController {
     }
     
     @objc func continueAction() {
+        let secondScreen = SecondScreenViewController()
+        self.navigationItem.backButtonTitle = "Voltar"
+        self.navigationController?.pushViewController(secondScreen, animated: true)
     }
 }
 
 extension FirstScreenViewController: ViewCodeProtocol {
     func addSubviews() {
-        view.addSubview(progressBar)
         view.addSubview(label)
         view.addSubview(titleStack)
         view.addSubview(continueButton)
         view.addSubview(inputsStack)
+        view.addSubview(progressBar)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            
+            progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 4),
@@ -188,11 +193,11 @@ extension FirstScreenViewController: ViewCodeProtocol {
             inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
-        guard let nav = self.navigationController else {
-            return
-        }
-        
-        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
+//        guard let nav = self.navigationController else {
+//            return
+//        }
+//        
+//        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
     }
 }
 #Preview {
