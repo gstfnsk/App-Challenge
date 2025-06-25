@@ -86,10 +86,10 @@ extension JobListViewController: UICollectionViewDataSource {
         return UICollectionViewCell()
     }
 
-    private func jobCellForItem(at indexPath: IndexPath) -> JobListCell {
+    private func jobCellForItem(at indexPath: IndexPath) -> JobOfferCollectionViewCell {
         guard
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobListCell.identifier, for: indexPath)
-                as? JobListCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: JobOfferCollectionViewCell.identifier, for: indexPath)
+                as? JobOfferCollectionViewCell
         else {
             fatalError("Erro ao criar CardCollectionViewCell")
         }

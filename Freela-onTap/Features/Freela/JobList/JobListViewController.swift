@@ -22,15 +22,15 @@ class JobListViewController: UIViewController {
     //        return search
     //    }()
     
-    lazy var emptyView: EmptyState = {
-        let emptyView = EmptyState()
+    lazy var emptyView: EmptyStateJobBoard = {
+        let emptyView = EmptyStateJobBoard()
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         emptyView.isHidden = true
         return emptyView
     }()
     
-    lazy var errorEmptyState: ErrorEmptyState = {
-        let emptyState = ErrorEmptyState()
+    lazy var errorEmptyState: ErrorEmptyStateJobBoard = {
+        let emptyState = ErrorEmptyStateJobBoard()
         emptyState.translatesAutoresizingMaskIntoConstraints = false
         return emptyState
     }()
@@ -61,7 +61,7 @@ class JobListViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BadgeLabelViewCell.self, forCellWithReuseIdentifier: BadgeLabelViewCell.identifier)
         collectionView.register(TitleJobListCell.self, forCellWithReuseIdentifier: TitleJobListCell.identifier)
-        collectionView.register(JobListCell.self, forCellWithReuseIdentifier: JobListCell.identifier)
+        collectionView.register(JobOfferCollectionViewCell.self, forCellWithReuseIdentifier: JobOfferCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = false
         collectionView.alwaysBounceHorizontal = false
@@ -94,7 +94,7 @@ class JobListViewController: UIViewController {
         
         setup()
         updateJobOfferList()
-        addMockDataTrigger()
+//        addMockDataTrigger()
         
         collectionView.backgroundColor = .DesignSystem.lavanda0
     }

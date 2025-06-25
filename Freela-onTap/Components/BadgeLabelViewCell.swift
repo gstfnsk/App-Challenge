@@ -54,7 +54,7 @@ class BadgeLabelViewCell: UICollectionViewCell {
 
     private func setupContentView() {
         contentView.backgroundColor = .systemBackground
-        contentView.layer.cornerRadius = 12
+        contentView.layer.cornerRadius = 15
         contentView.layer.masksToBounds = true
     }
     func setSelectedStyle() {
