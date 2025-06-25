@@ -44,7 +44,7 @@ enum JobPosition: String, CaseIterable {
         case .receptionist:
             return "coat"
         case .hostess:
-            return "person.2.fill"
+            return "person.2"
         case .waiter:
             return "figure.walk"
         case .runner:
