@@ -24,7 +24,7 @@ jobs:
       # This step only runs if the PR's base branch is `main`.
       - name: Run SwiftLint in strict mode on all files
         if: github.base_ref == 'main'
-        uses: norio-nomura/action-swiftlint@v7 # Using the modern version
+        uses: norio-nomura/action-swiftlint@3.2.1
         with:
           cache: true
           # `strict: true` fails the check for any warning.
@@ -35,7 +35,7 @@ jobs:
       # This step only runs if the PR's base branch is NOT `main`.
       - name: Run SwiftLint on changed files
         if: github.base_ref != 'main'
-        uses: norio-nomura/action-swiftlint@v7 # Using the modern version
+        uses: norio-nomura/action-swiftlint@3.2.1
         with:
           cache: true
           # No `strict` mode here.
