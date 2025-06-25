@@ -12,7 +12,7 @@ only_rules:
   # These are the most important rules for preventing runtime crashes.
   - force_cast
   - force_try
-  - force_unwrap
+  - force_unwrapping
   - discarded_notification_center_observer # Prevents memory leaks
   - duplicate_conditions # Finds logical errors
   - fatal_error_message # Enforces descriptive crash messages
