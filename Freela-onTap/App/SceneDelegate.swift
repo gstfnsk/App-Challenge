@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.overrideUserInterfaceStyle = .light
         
         // Set window root contoller
-        window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
+        window?.rootViewController = UINavigationController(rootViewController: JobRegisterViewController())
         window?.makeKeyAndVisible()
     }
 

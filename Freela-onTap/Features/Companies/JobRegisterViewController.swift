@@ -14,6 +14,7 @@ class JobRegisterViewController: UIViewController {
         view.backgroundColor = .DesignSystem.terracota600
         return view
     }()
+    
     lazy var stepLabel: UILabel = {
         var label = UILabel()
         label.text = "Etapa 1 de 2"
@@ -24,7 +25,7 @@ class JobRegisterViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     lazy var lastStepLabel: UILabel = {
         var label = UILabel()
         label.text = "Precisa de reforço?"
@@ -34,6 +35,7 @@ class JobRegisterViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
     lazy var lastStepDescriptionLabel: UILabel = {
         var label = UILabel()
         label.text = "Cadastre as informações da vaga, descreva as funções e conecte-se com profissionais disponíveis."
@@ -52,6 +54,7 @@ class JobRegisterViewController: UIViewController {
         stack.spacing = 3
         return stack
     }()
+    
     lazy var functionLabel: UILabel = {
         var label = UILabel()
         label.text = "Função: "
@@ -60,9 +63,15 @@ class JobRegisterViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
+    
     lazy var functionSelector: FunctionSelector = {
-        return FunctionSelector()
+        let function = FunctionSelector()
+        function.onSelectionChanged = { [weak self] in
+            self?.validateForm()
+        }
+        return function
     }()
+
     
     lazy var functionInput: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [functionLabel, functionSelector])
@@ -89,6 +98,7 @@ class JobRegisterViewController: UIViewController {
         label.layer.cornerRadius = 12
         return label
     }()
+    
     lazy var reaisStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [reaisLabel])
         stack.layer.cornerRadius = 12
@@ -105,6 +115,8 @@ class JobRegisterViewController: UIViewController {
         textField.placeholder = "120,00"
         textField.backgroundColor = .tertiarySystemBackground
         textField.layer.cornerRadius = 12
+        textField.keyboardType = .decimalPad
+        textField.addTarget(self, action: #selector(validateForm), for: .editingChanged)
         return textField
     }()
     
@@ -139,6 +151,7 @@ class JobRegisterViewController: UIViewController {
         datePicker.locale = Locale(identifier: "pt_BR")
         return datePicker
     }()
+    
     lazy var dateStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [dateLabel, datePicker])
         stack.axis = .vertical
@@ -159,7 +172,11 @@ class JobRegisterViewController: UIViewController {
         return label
     }()
     
+    private var selectedDate: Date?
+    
     @objc func dateChanged(_ sender: UIDatePicker) {
+        selectedDate = sender.date
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy"
         let dateString = formatter.string(from: sender.date)
@@ -254,7 +271,7 @@ class JobRegisterViewController: UIViewController {
         stack.spacing = 10
         return stack
     }()
-
+    
     lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.text = "Atribuições, requisitos e detalhes da vaga: "
@@ -263,7 +280,7 @@ class JobRegisterViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
-
+    
     lazy var descriptionTextField: UITextView = {
         let textField = UITextView()
         textField.backgroundColor = .DesignSystem.terracota0
@@ -273,9 +290,10 @@ class JobRegisterViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 17)
         textField.font = .DesignSystem.subheadline
         textField.textContainerInset = UIEdgeInsets(top: 12, left: 6, bottom: 12, right: 12)
+        textField.delegate = self
         return textField
     }()
-
+    
     lazy var limitLabel: UILabel = {
         var label = UILabel()
         label.text = "Importante conter todos os principais pontos do freela."
@@ -297,7 +315,7 @@ class JobRegisterViewController: UIViewController {
         stack.spacing = 20
         return stack
     }()
-
+    
     lazy var descriptionStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [descriptionLabel, descriptionTextField, limitLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -305,7 +323,7 @@ class JobRegisterViewController: UIViewController {
         stack.spacing = 10
         return stack
     }()
-
+    
     // MARK: BigStack
     lazy var bigStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [stepStack, inputStack, descriptionStack])
@@ -314,12 +332,12 @@ class JobRegisterViewController: UIViewController {
         stack.spacing = 20
         return stack
     }()
-
-    lazy var coninueButton: UIButton = {
+    
+    lazy var continueButton: UIButton = {
         let button = UIButton()
         button.setTitle("Continuar", for: .normal)
         button.setTitleColor(.DesignSystem.terracota0, for: .normal)
-        button.backgroundColor = .DesignSystem.terracota600
+        button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(continueAction), for: .touchUpInside)
         return button
@@ -336,32 +354,55 @@ class JobRegisterViewController: UIViewController {
     }()
     
     lazy var buttonStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [coninueButton, cancelButton])
+        var stack = UIStackView(arrangedSubviews: [continueButton, cancelButton])
         stack.axis = .vertical
         stack.spacing = 10
-        stack.translatesAutoresizingMaskIntoConstraints = false 
+        stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+   
+    @objc func validateForm() {
+        let isTextFilled = !(textField.text ?? "").isEmpty
+        let isFunctionSelected = functionSelector.selectedFunction != nil
 
-    @objc func continueAction() {
-        let jobListVC = UINavigationController(rootViewController: JobListViewController())
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
+        let defaultDescription = "Atendimento ao público, anotar pedidos, servir alimentos e bebidas, organizar mesas, apoiar na limpeza e organização do salão e repor itens quando necessário."
+        let isDescriptionFilled = !(descriptionTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
+                                  descriptionTextField.text != defaultDescription
+
+        let isFormValid = isTextFilled && isFunctionSelected && isDescriptionFilled
+
+        continueButton.isEnabled = isFormValid
+        continueButton.backgroundColor = isFormValid ? .DesignSystem.terracota600 : .systemGray4
     }
+
+    
+    @objc func continueAction() {
+        if
+            let job = functionSelector.selectedFunction,
+            let date = selectedDate,
+            let stringHour = hourPicker.title(for: .normal), let hour = Int(stringHour.replacingOccurrences(of: "h", with: "")),
+            let stringSalary = textField.text, let salary = Int(stringSalary)
+        {
+            let newJob = JobOffer(id: UUID(), companyId: UUID()/*AINDA NAO TEMOS */, postedAt: date, title: job, durationInHours: hour, startDate: datePicker.date, salaryBRL: salary, description: descriptionTextField.text, qualifications: "pergunta pro designer", duties: "pergunta pro designer")
+            let jobregister2 = JobRegister2ViewController()
+            navigationController?.pushViewController(jobregister2, animated: true)
+        }
+    }
+    
     @objc func cancelButtonAction() {
         let jobListVC = UINavigationController(rootViewController: JobListViewController())
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapDismissKeyboard)
         descriptionTextField.delegate = self
         setup()
     }
-
+    
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -385,7 +426,7 @@ extension JobRegisterViewController: ViewCodeProtocol {
             self.hourPicker.setTitleColor(.DesignSystem.terracota600, for: .normal)
             self.hourPickerWheel.isHidden = true
         }
-
+        
         title = "Cadastro de Vaga"
         view.backgroundColor = .DesignSystem.lavanda0
         let appearance = UINavigationBarAppearance()
@@ -393,7 +434,7 @@ extension JobRegisterViewController: ViewCodeProtocol {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
     }
-
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             stepLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -410,22 +451,22 @@ extension JobRegisterViewController: ViewCodeProtocol {
             time.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 356),
             time.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 193),
             time.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -155),
-
+            
             bigStack.topAnchor.constraint(equalTo: stepLabel.bottomAnchor, constant: 22),
             bigStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             bigStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-
+            
             cancelButton.heightAnchor.constraint(equalToConstant: 50),
-            coninueButton.heightAnchor.constraint(equalToConstant: 50),
+            continueButton.heightAnchor.constraint(equalToConstant: 50),
             descriptionTextField.heightAnchor.constraint(equalToConstant: 112)
             ,
             hourPicker.heightAnchor.constraint(equalTo: timePicker.heightAnchor),
             hourPicker.widthAnchor.constraint(equalToConstant: 60),
-
+            
             buttonStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -54),
             buttonStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             buttonStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-
+            
             orangeView.heightAnchor.constraint(equalToConstant: 4),
             orangeView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             orangeView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
@@ -457,9 +498,9 @@ extension JobRegisterViewController: UITextViewDelegate {
 class HourOnlyPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     let picker = UIPickerView()
     var onHourSelected: ((Int) -> Void)?
-
+    
     let hours = Array(0...12)
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -477,24 +518,30 @@ class HourOnlyPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
             picker.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return hours.count
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return "\(hours[row])h"
     }
-
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         onHourSelected?(hours[row])
+    }
+}
+
+extension JobRegisterViewController: UITextFieldDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        validateForm()
     }
 }
