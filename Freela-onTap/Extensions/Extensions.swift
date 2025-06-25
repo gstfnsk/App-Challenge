@@ -41,13 +41,29 @@ extension CaseIterable where Self: RawRepresentable {
 }
 
 // MARK: - timeAgoString
-extension Date {
-    func timeAgoString() -> String {
-        let now = Date()
+
+class DateFormatterHelper {
+    static let shared = DateFormatterHelper()
+    private init() {}
+    
+    let relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.locale = Locale(identifier: "pt_BR")
         formatter.unitsStyle = .abbreviated
-                
-        return  formatter.localizedString(for: self, relativeTo: now)
+        return formatter
+    }()
+    
+    let dateFormatter = DateFormatter()
+}
+
+extension Date {
+    func timeAgoString() -> String {
+        let now = Date()
+        return DateFormatterHelper.shared.relativeDateFormatter.localizedString(for: self, relativeTo: now)
+    }
+    
+    func formatted(_ stringFormat: String) -> String {
+        DateFormatterHelper.shared.dateFormatter.dateFormat = stringFormat
+        return DateFormatterHelper.shared.dateFormatter.string(from: self)
     }
 }
