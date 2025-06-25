@@ -18,7 +18,6 @@ final class BadgeLabelWithIcon: UIView {
     }
 
     // MARK: - Public Properties
-    // Add public properties here to configure the component
 
     var state: JobCellState = .normal {
         didSet {
@@ -44,7 +43,7 @@ final class BadgeLabelWithIcon: UIView {
             iconView.image = icon
         }
     }
-    
+
     var systemImageName: String? {
         didSet {
             if let systemImageName {
@@ -58,45 +57,46 @@ final class BadgeLabelWithIcon: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         setup()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-
+        
         setup()
     }
 
-    convenience init(text: String, icon: UIImage? = nil, state: JobCellState = .normal, size: BadgeSize = .small) {
-        self.init(frame: .zero)
-
+    init(
+        text: String,
+        icon: UIImage? = nil,
+        systemImageName: String? = nil,
+        state: JobCellState = .normal,
+        size: BadgeSize = .small
+    ) {
         self.text = text
         self.icon = icon
-        self.state = state
-        setup()
-    }
-    
-    convenience init(text: String, systemImageName: String, state: JobCellState = .normal, size: BadgeSize = .small) {
-        self.init(frame: .zero)
-
-        self.text = text
-        self.state = state
         self.systemImageName = systemImageName
+        self.state = state
+        self.badgeSize = size
+        
+        super.init(frame: .zero)
+        
         setup()
     }
 
     // MARK: - Private Methods
+
     private var badgeHeightConstraint: NSLayoutConstraint?
 
     private func updateBadgeSize() {
         layer.cornerRadius = CGFloat(badgeSize.rawValue / 2)
 
         if let existingConstraint = badgeHeightConstraint {
-            self.removeConstraint(existingConstraint)
+            existingConstraint.isActive = false // ✅ desativa corretamente
         }
 
-        let newHeightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(badgeSize.rawValue))
+        let newHeightConstraint = heightAnchor.constraint(equalToConstant: CGFloat(badgeSize.rawValue))
         newHeightConstraint.isActive = true
         badgeHeightConstraint = newHeightConstraint
     }
@@ -104,30 +104,30 @@ final class BadgeLabelWithIcon: UIView {
     private func updateBasedOnState() {
         switch state {
         case .normal:
-            self.backgroundColor = .DesignSystem.terracota500
-            self.textLabel.textColor = .DesignSystem.terracota0
-            self.iconView.tintColor = .DesignSystem.terracota0
+            backgroundColor = .DesignSystem.terracota500
+            textLabel.textColor = .DesignSystem.terracota0
+            iconView.tintColor = .DesignSystem.terracota0
         case .mutted:
-            self.backgroundColor = .DesignSystem.terracota100
-            self.textLabel.textColor = .DesignSystem.terracota700
-            self.iconView.tintColor = .DesignSystem.terracota700
+            backgroundColor = .DesignSystem.terracota100
+            textLabel.textColor = .DesignSystem.terracota700
+            iconView.tintColor = .DesignSystem.terracota700
         case .white:
-            self.backgroundColor = .DesignSystem.terracota0
-            self.textLabel.textColor = .DesignSystem.terracota700
-            self.iconView.tintColor = .DesignSystem.terracota700
+            backgroundColor = .DesignSystem.terracota0
+            textLabel.textColor = .DesignSystem.terracota700
+            iconView.tintColor = .DesignSystem.terracota700
         case .transparent:
-            self.backgroundColor = .clear
-            self.textLabel.textColor = .DesignSystem.terracota700
-            self.iconView.tintColor = .DesignSystem.terracota700
+            backgroundColor = .clear
+            textLabel.textColor = .DesignSystem.terracota700
+            iconView.tintColor = .DesignSystem.terracota700
         case .disabled:
-            self.backgroundColor = .quaternarySystemFill
-            self.textLabel.textColor = .tertiaryLabel
-            self.iconView.tintColor = .tertiaryLabel
+            backgroundColor = .quaternarySystemFill
+            textLabel.textColor = .tertiaryLabel
+            iconView.tintColor = .tertiaryLabel
         }
-        
+
         changeShadowState(state == .white)
     }
-    
+
     private func changeShadowState(_ enableShadow: Bool) {
         layer.shadowColor = enableShadow ? UIColor.black.cgColor : UIColor.clear.cgColor
         layer.shadowOpacity = 0.15
@@ -137,11 +137,13 @@ final class BadgeLabelWithIcon: UIView {
     }
 
     // MARK: - UI Elements
-    // Declare your UI elements here (e.g., labels, images, buttons)
+
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.applyDynamicFont(.DesignSystem.subheadline)
         label.textColor = .label
+        label.setContentHuggingPriority(.required, for: .horizontal)
+        label.setContentCompressionResistancePriority(.required, for: .horizontal)
         return label
     }()
 
@@ -155,43 +157,39 @@ final class BadgeLabelWithIcon: UIView {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [iconView, textLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         stackView.axis = .horizontal
         stackView.alignment = .center
         stackView.spacing = 3
+        stackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return stackView
     }()
 }
 
+// MARK: - ViewCodeProtocol
 extension BadgeLabelWithIcon: ViewCodeProtocol {
-    // MARK: - Add Subviews
-
     func addSubviews() {
         addSubview(stackView)
     }
 
-    // MARK: - Setup Constraints
-
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
-            stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
 
             iconView.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
 
-    // MARK: - Additional Configuration
-
     func setupAdditionalConfiguration() {
         updateBadgeSize()
         updateBasedOnState()
+        setContentHuggingPriority(.required, for: .horizontal)
         setContentHuggingPriority(.required, for: .vertical)
+        setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 }
-
 #Preview {
     let withIconColumn = UIStackView()
     withIconColumn.axis = .vertical
