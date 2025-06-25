@@ -93,7 +93,7 @@ final class BadgeLabelWithIcon: UIView {
         layer.cornerRadius = CGFloat(badgeSize.rawValue / 2)
 
         if let existingConstraint = badgeHeightConstraint {
-            existingConstraint.isActive = false // ✅ desativa corretamente
+            existingConstraint.isActive = false
         }
 
         let newHeightConstraint = heightAnchor.constraint(equalToConstant: CGFloat(badgeSize.rawValue))
@@ -183,6 +183,10 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
     }
 
     func setupAdditionalConfiguration() {
+        textLabel.text = text
+        iconView.isHidden = (icon == nil)
+        iconView.image = icon
+
         updateBadgeSize()
         updateBasedOnState()
         setContentHuggingPriority(.required, for: .horizontal)
