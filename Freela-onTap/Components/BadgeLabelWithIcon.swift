@@ -8,11 +8,22 @@
 import UIKit
 
 final class BadgeLabelWithIcon: UIView {
-    // MARK: - Public Properties
-    // Add public properties here to configure the component
+    enum JobCellState: CaseIterable {
+        case normal, mutted, white, transparent, disabled
+    }
+
     enum BadgeSize: Float {
         case small = 22
         case medium = 34
+    }
+
+    // MARK: - Public Properties
+    // Add public properties here to configure the component
+
+    var state: JobCellState = .normal {
+        didSet {
+            updateBasedOnState()
+        }
     }
 
     var badgeSize: BadgeSize = .small {
@@ -21,7 +32,7 @@ final class BadgeLabelWithIcon: UIView {
         }
     }
 
-    var text = "Label" {
+    var text: String? {
         didSet {
             textLabel.text = text
         }
@@ -33,19 +44,13 @@ final class BadgeLabelWithIcon: UIView {
             iconView.image = icon
         }
     }
-
-    // use default backgroundColor from UIView
-
-    var featureColor: UIColor = .DesignSystem.terracota700 {
+    
+    var systemImageName: String? {
         didSet {
-            textLabel.textColor = featureColor
-            iconView.tintColor = featureColor
-        }
-    }
-
-    var backColor: UIColor = .white {
-        didSet {
-            backgroundColor = backColor
+            if let systemImageName {
+                let config = UIImage.SymbolConfiguration(pointSize: 15, weight: .regular)
+                icon = UIImage(systemName: systemImageName, withConfiguration: config)
+            }
         }
     }
 
@@ -62,12 +67,23 @@ final class BadgeLabelWithIcon: UIView {
 
         setup()
     }
-    
-    convenience init(text: String, icon: UIImage? = nil, size: BadgeSize = .small) {
+
+    convenience init(text: String, icon: UIImage? = nil, state: JobCellState = .normal, size: BadgeSize = .small) {
         self.init(frame: .zero)
-        
+
         self.text = text
         self.icon = icon
+        self.state = state
+        setup()
+    }
+    
+    convenience init(text: String, systemImageName: String, state: JobCellState = .normal, size: BadgeSize = .small) {
+        self.init(frame: .zero)
+
+        self.text = text
+        self.state = state
+        self.systemImageName = systemImageName
+        setup()
     }
 
     // MARK: - Private Methods
@@ -83,6 +99,41 @@ final class BadgeLabelWithIcon: UIView {
         let newHeightConstraint = self.heightAnchor.constraint(equalToConstant: CGFloat(badgeSize.rawValue))
         newHeightConstraint.isActive = true
         badgeHeightConstraint = newHeightConstraint
+    }
+
+    private func updateBasedOnState() {
+        switch state {
+        case .normal:
+            self.backgroundColor = .DesignSystem.terracota500
+            self.textLabel.textColor = .DesignSystem.terracota0
+            self.iconView.tintColor = .DesignSystem.terracota0
+        case .mutted:
+            self.backgroundColor = .DesignSystem.terracota100
+            self.textLabel.textColor = .DesignSystem.terracota700
+            self.iconView.tintColor = .DesignSystem.terracota700
+        case .white:
+            self.backgroundColor = .DesignSystem.terracota0
+            self.textLabel.textColor = .DesignSystem.terracota700
+            self.iconView.tintColor = .DesignSystem.terracota700
+        case .transparent:
+            self.backgroundColor = .clear
+            self.textLabel.textColor = .DesignSystem.terracota700
+            self.iconView.tintColor = .DesignSystem.terracota700
+        case .disabled:
+            self.backgroundColor = .quaternarySystemFill
+            self.textLabel.textColor = .tertiaryLabel
+            self.iconView.tintColor = .tertiaryLabel
+        }
+        
+        changeShadowState(state == .white)
+    }
+    
+    private func changeShadowState(_ enableShadow: Bool) {
+        layer.shadowColor = enableShadow ? UIColor.black.cgColor : UIColor.clear.cgColor
+        layer.shadowOpacity = 0.15
+        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.shadowRadius = 2
+        layer.masksToBounds = false
     }
 
     // MARK: - UI Elements
@@ -126,13 +177,11 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4),
-            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            
-            iconView.heightAnchor.constraint(equalToConstant: 15)
+            stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+
+            iconView.heightAnchor.constraint(equalToConstant: 20)
         ])
-        
-        updateBadgeSize()
     }
 
     // MARK: - Additional Configuration
@@ -141,31 +190,43 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
         self.text = "Label"
         self.icon = nil
 
-        textLabel.textColor = featureColor
-        iconView.tintColor = featureColor
-
-        backgroundColor = .DesignSystem.terracota100
-        
-        setContentHuggingPriority(.defaultHigh, for: .vertical)
+        updateBadgeSize()
+        updateBasedOnState()
+        setContentHuggingPriority(.required, for: .vertical)
     }
 }
 
 #Preview {
-    let blabel = BadgeLabelWithIcon()
-    blabel.icon = UIImage(systemName: "figure.walk")
-    blabel.badgeSize = .medium
-    blabel.text = "Garçom"
-    
-    let blabel2 = BadgeLabelWithIcon()
-    blabel2.text = "Medium"
-    blabel2.badgeSize = .medium
-    
-    let blabel3 = BadgeLabelWithIcon()
+    let withIconColumn = UIStackView()
+    withIconColumn.axis = .vertical
+    withIconColumn.spacing = 8
+    withIconColumn.alignment = .center
 
-    let stack = UIStackView(arrangedSubviews: [blabel, blabel2, blabel3])
-    stack.axis = .vertical
-    stack.alignment = .center
-    stack.spacing = 8
-    
-    return stack
+    let withoutIconColumn = UIStackView()
+    withoutIconColumn.axis = .vertical
+    withoutIconColumn.spacing = 8
+    withoutIconColumn.alignment = .center
+
+    for state in BadgeLabelWithIcon.JobCellState.allCases {
+        let withIcon = BadgeLabelWithIcon()
+        withIcon.state = state
+        withIcon.badgeSize = .medium
+        withIcon.systemImageName = "person.2"
+        withIcon.text = "\(state)".capitalized
+
+        let withoutIcon = BadgeLabelWithIcon()
+        withoutIcon.state = state
+        withoutIcon.badgeSize = .medium
+        withoutIcon.text = "\(state)".capitalized
+
+        withIconColumn.addArrangedSubview(withIcon)
+        withoutIconColumn.addArrangedSubview(withoutIcon)
+    }
+
+    let horizontalStack = UIStackView(arrangedSubviews: [withIconColumn, withoutIconColumn])
+    horizontalStack.axis = .horizontal
+    horizontalStack.spacing = 24
+    horizontalStack.alignment = .top
+
+    return horizontalStack
 }
