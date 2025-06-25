@@ -1,0 +1,21 @@
+# Provides a way to manually trigger a full, strict scan on any branch.
+# This does not run automatically on pushes or PRs.
+name: SwiftLint (Manual Scan)
+
+on:
+  # The `workflow_dispatch` trigger adds the "Run workflow" button to the Actions UI.
+  workflow_dispatch:
+
+jobs:
+  manual-scan:
+    name: Run Strict Full Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Run SwiftLint in strict mode on all files
+        uses: norio-nomura/action-swiftlint@v7
+        with:
+          cache: true
+          strict: true

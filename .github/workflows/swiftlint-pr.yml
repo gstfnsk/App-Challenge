@@ -1,0 +1,29 @@
+# Handles pull requests to any branch EXCEPT `main`.
+# This provides fast, non-strict feedback on changed files for development branches.
+name: SwiftLint (PR)
+
+on:
+  pull_request:
+    # Using `branches-ignore` is an efficient way to exclude PRs that target `main`.
+    branches-ignore:
+      - 'main' # Or 'master', depending on your default branch name
+
+jobs:
+  lint-changed-files:
+    name: Scan Changed Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          # `fetch-depth: 0` is CRITICAL here so the action can diff against the base branch.
+          fetch-depth: 0
+
+      - name: Run SwiftLint on changed files
+        uses: norio-nomura/action-swiftlint@v7
+        with:
+          cache: true
+          # No `strict` mode here, so warnings are just informational.
+        env:
+          # `DIFF_BASE` tells the action to only lint changed files.
+          DIFF_BASE: ${{ github.base_ref }}
