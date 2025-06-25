@@ -186,9 +186,6 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
     // MARK: - Additional Configuration
 
     func setupAdditionalConfiguration() {
-        self.text = "Label"
-        self.icon = nil
-
         updateBadgeSize()
         updateBasedOnState()
         setContentHuggingPriority(.required, for: .vertical)
