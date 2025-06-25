@@ -18,7 +18,7 @@ jobs:
         # No `fetch-depth` needed here because we are not diffing.
 
       - name: Run SwiftLint in strict mode on all files
-        uses: norio-nomura/action-swiftlint@v7
+        uses: norio-nomura/action-swiftlint@3.2.1
         with:
           cache: true
           # `strict: true` will treat any warnings as errors, failing the check.
