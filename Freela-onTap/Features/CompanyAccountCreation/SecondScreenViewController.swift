@@ -1,19 +1,19 @@
 //
-//  FirstScreenViewController.swift
+//  SecondScreenViewController.swift
 //  Freela-onTap
 //
-//  Created by Giulia Stefainski on 23/06/25.
+//  Created by Giulia Stefainski on 25/06/25.
 //
 
 import UIKit
 import SwiftUI
 
-class FirstScreenViewController: UIViewController {
+class SecondScreenViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.labelsPrimary
-        label.text = "Sua equipe começa aqui"
+        label.text = "Onde fica seu negócio?"
         label.textAlignment = .center
         label.font = UIFont.DesignSystem.title3SemiBold
         return label
@@ -23,7 +23,7 @@ class FirstScreenViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        label.text = "Cadastre sua empresa e comece a divulgar oportunidades de forma prática e rápida."
+        label.text = "Informe seu endereço para que freelancers vejam onde será o trabalho."
         label.textAlignment = .center
         label.textColor = UIColor.secondaryLabel
         label.font = UIFont.DesignSystem.subheadline
@@ -39,45 +39,59 @@ class FirstScreenViewController: UIViewController {
     }()
     
     private lazy var inputsStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [name, cnpj, companySize, typeOfCompany, whatsapp])
+        var stack = UIStackView(arrangedSubviews: [cep, street, streetNumber, complement, neighborhood, city, state])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 20
         return stack
     }()
     
-    private lazy var name: TextInput = {
+    private lazy var cep: TextInput = {
        let input = TextInput()
-        input.labelText = "Nome fantasia:"
-        input.placeholderText = "Sunset Drinks"
+        input.labelText = "CEP:"
+        input.placeholderText = "98765-432"
         return input
     }()
     
-    private lazy var cnpj: TextInput = {
+    private lazy var street: TextInput = {
        let input = TextInput()
-        input.labelText = "CNPJ:"
-        input.placeholderText = "12.345.678.0001-23"
+        input.labelText = "Rua / Logradouro:"
+        input.placeholderText = "R. Osvaldo Aranha"
         return input
     }()
     
-    private lazy var companySize: TextInput = {
+    private lazy var streetNumber: TextInput = {
        let input = TextInput()
-        input.labelText = "Tamanho da empresa:"
-        input.placeholderText = "Selecionar"
+        input.labelText = "Número:"
+        input.placeholderText = "1088"
         return input
     }()
     
-    private lazy var typeOfCompany: TextInput = {
+    private lazy var complement: TextInput = {
        let input = TextInput()
-        input.labelText = "Tipo de estabelecimento:"
-        input.placeholderText = "Selecionar"
+        input.labelText = "Complemento:"
+        input.placeholderText = "Loja 107"
         return input
     }()
     
-    private lazy var whatsapp: TextInput = {
+    private lazy var neighborhood: TextInput = {
        let input = TextInput()
-        input.labelText = "Whatsapp:"
-        input.placeholderText = "+55 51 98765-4321"
+        input.labelText = "Bairro:"
+        input.placeholderText = "Petrópolis"
+        return input
+    }()
+    
+    private lazy var city: TextInput = {
+       let input = TextInput()
+        input.labelText = "Cidade:"
+        input.placeholderText = "Porto Alegre"
+        return input
+    }()
+    
+    private lazy var state: TextInput = {
+       let input = TextInput()
+        input.labelText = "Estado:"
+        input.placeholderText = "Rio Grande do Sul"
         return input
     }()
     
@@ -98,12 +112,18 @@ class FirstScreenViewController: UIViewController {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.text = "Etapa 1 de 3"
+        label.text = "Etapa 2 de 3"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.labelsPrimary
         label.font = UIFont.DesignSystem.caption2
         label.textAlignment = .center
         return label
+    }()
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
     }()
     
     override func viewDidLoad() {
@@ -114,7 +134,7 @@ class FirstScreenViewController: UIViewController {
         
         view.backgroundColor = UIColor.DesignSystem.terracota0
         
-        progressBar.currentState = .first
+        progressBar.currentState = .second
 
         view.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
@@ -125,7 +145,7 @@ class FirstScreenViewController: UIViewController {
     }
 }
 
-extension FirstScreenViewController: ViewCodeProtocol {
+extension SecondScreenViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(progressBar)
         view.addSubview(label)
@@ -160,6 +180,6 @@ extension FirstScreenViewController: ViewCodeProtocol {
     }
 }
 #Preview {
-    let test = FirstScreenViewController()
+    let test = SecondScreenViewController()
     return test
 }
