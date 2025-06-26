@@ -25,7 +25,7 @@ class TabBarController: UITabBarController {
         let image = UIImage(systemName: "safari")
         let tabItem = UITabBarItem(title: title, image: image, selectedImage: image)
         
-        let rootViewController = ViewController()
+        let rootViewController = UIViewController()
         rootViewController.tabBarItem = tabItem
         rootViewController.title = title
         let navController = UINavigationController(rootViewController: rootViewController)
@@ -37,7 +37,7 @@ class TabBarController: UITabBarController {
         let title = "Minhas Vagas"
         let image = UIImage(systemName: "calendar.badge.checkmark")
         let tabItem = UITabBarItem(title: title, image: image, selectedImage: image)
-        let rootViewController = ViewController()
+        let rootViewController = UIViewController()
         rootViewController.tabBarItem = tabItem
         rootViewController.title = title
         let navController = UINavigationController(rootViewController: rootViewController)
@@ -49,7 +49,7 @@ class TabBarController: UITabBarController {
         let title = "Perfil"
         let image = UIImage(systemName: "person")
         let tabItem = UITabBarItem(title: title, image: image, selectedImage: image)
-        let rootViewController = ViewController()
+        let rootViewController = UIViewController()
         rootViewController.tabBarItem = tabItem
         rootViewController.title = title
         let navController = UINavigationController(rootViewController: rootViewController)

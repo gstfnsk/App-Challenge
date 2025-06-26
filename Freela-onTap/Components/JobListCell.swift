@@ -20,7 +20,7 @@ class JobListCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Recepcionista"
-        label.font = .DesignSystem.title3
+        label.applyDynamicFont(.DesignSystem.title3)
         label.textColor = .DesignSystem.terracota900
         return label
     }()
@@ -28,7 +28,7 @@ class JobListCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Restaurante"
-        label.font = .DesignSystem.footnote
+        label.applyDynamicFont(.DesignSystem.footnote)
         label.textColor = .secondaryLabel
         return label
     }()
@@ -94,8 +94,17 @@ class JobListCell: UICollectionViewCell {
     
     // MARK: Properties
     static let identifier = "JobListCell"
-    
-    
+    private static let shortDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM"
+        return formatter
+    }()
+
+    private static let timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH'h'mm"
+        return formatter
+    }()
     func configure(job: JobOffer) {
         titleLabel.text = job.title.rawValue.localizedCapitalized
         time.text = job.postedAt.timeAgoString()
@@ -105,16 +114,9 @@ class JobListCell: UICollectionViewCell {
 
         // TODO: In future, use real images
         imageView.image = UIImage(named: "companyPhotos/\((job.company?.name ?? "").replacingOccurrences(of: "é", with: "e").replacingOccurrences(of: "ô", with: "o"))")
-
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM"
-        badges[0].text = dateFormatter.string(from: job.startDate)
-
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH'h'mm"
-        badges[1].text = "Horário: \(timeFormatter.string(from: job.startDate))"
-        
+        badges[0].text = JobListCell.shortDateFormatter.string(from: job.startDate)
+        badges[1].text = "Horário: \(JobListCell.timeFormatter.string(from: job.startDate))"
         badges[2].text = "R$ \(job.salaryBRL)"
         badges[3].text = "\(job.durationInHours)h"
     }
@@ -147,6 +149,21 @@ class JobListCell: UICollectionViewCell {
         contentView.backgroundColor = .systemBackground
         contentView.layer.cornerRadius = 12
         contentView.layer.masksToBounds = true
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        reset()
+    }
+
+    private func reset() {
+        titleLabel.text = ""
+        descriptionLabel.text = ""
+        time.text = ""
+        location.text = ""
+        imageView.image = nil
+        badges.forEach { $0.text = "" }
     }
 }
 extension JobListCell: ViewCodeProtocol {

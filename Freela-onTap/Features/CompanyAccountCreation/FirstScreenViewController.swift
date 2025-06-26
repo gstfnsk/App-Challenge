@@ -15,7 +15,7 @@ class FirstScreenViewController: UIViewController {
         label.textColor = UIColor.labelsPrimary
         label.text = "Sua equipe começa aqui"
         label.textAlignment = .center
-        label.font = UIFont.DesignSystem.title3SemiBold
+        label.applyDynamicFont(UIFont.DesignSystem.title3SemiBold)
         return label
     }()
     
@@ -26,7 +26,7 @@ class FirstScreenViewController: UIViewController {
         label.text = "Cadastre sua empresa e comece a divulgar oportunidades de forma prática e rápida."
         label.textAlignment = .center
         label.textColor = UIColor.secondaryLabel
-        label.font = UIFont.DesignSystem.subheadline
+        label.applyDynamicFont(UIFont.DesignSystem.subheadline)
         return label
     }()
     
@@ -39,7 +39,7 @@ class FirstScreenViewController: UIViewController {
     }()
     
     private lazy var inputsStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [name, cnpj, companySize, typeOfCompany, whatsapp])
+        var stack = UIStackView(arrangedSubviews: [name, cnpj, companyStack, typeOfCompanyStack, whatsapp])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 20
@@ -60,19 +60,50 @@ class FirstScreenViewController: UIViewController {
         return input
     }()
     
-    private lazy var companySize: TextInput = {
-       let input = TextInput()
-        input.labelText = "Tamanho da empresa:"
-        input.placeholderText = "Selecionar"
-        return input
+    private lazy var companySizeLabel: UILabel = {
+        let companySizeLabel = UILabel()
+        companySizeLabel.translatesAutoresizingMaskIntoConstraints = false
+        companySizeLabel.font = UIFont.DesignSystem.subheadline
+        companySizeLabel.text = "Tamanho da empresa"
+        companySizeLabel.textColor = UIColor.labelsSecondary
+        return companySizeLabel
     }()
     
-    private lazy var typeOfCompany: TextInput = {
-       let input = TextInput()
-        input.labelText = "Tipo de estabelecimento:"
-        input.placeholderText = "Selecionar"
-        return input
+    lazy var companyStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [companySizeLabel, companySize])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 10
+        return stack
     }()
+    
+    lazy var typeOfCompanyStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [typeOfCompanyLabel, typeOfCompany])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 10
+        return stack
+    }()
+
+    private lazy var typeOfCompanyLabel: UILabel = {
+        let typeOfCompanyLabel = UILabel()
+        typeOfCompanyLabel.translatesAutoresizingMaskIntoConstraints = false
+        typeOfCompanyLabel.text = "Tamanho da empresa"
+        typeOfCompanyLabel.font = UIFont.DesignSystem.subheadline
+        typeOfCompanyLabel.textColor = UIColor.labelsSecondary
+        return typeOfCompanyLabel
+    }()
+    
+    private lazy var companySize: SizeSelector = {
+        let companySize = SizeSelector()
+        return companySize
+    }()
+    
+    private lazy var typeOfCompany: TypeOfRestaurantSelector = {
+        let typeOfCompany = TypeOfRestaurantSelector()
+        return typeOfCompany
+    }()
+    
     
     private lazy var whatsapp: TextInput = {
        let input = TextInput()
@@ -112,7 +143,7 @@ class FirstScreenViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         title = "Cadastro de conta"
         
-        view.backgroundColor = UIColor.DesignSystem.terracota0
+        view.backgroundColor = .DesignSystem.lavanda0
         
         progressBar.currentState = .first
 
@@ -122,20 +153,24 @@ class FirstScreenViewController: UIViewController {
     }
     
     @objc func continueAction() {
+        let secondScreen = SecondScreenViewController()
+        self.navigationItem.backButtonTitle = "Voltar"
+        self.navigationController?.pushViewController(secondScreen, animated: true)
     }
 }
 
 extension FirstScreenViewController: ViewCodeProtocol {
     func addSubviews() {
-        view.addSubview(progressBar)
         view.addSubview(label)
         view.addSubview(titleStack)
         view.addSubview(continueButton)
         view.addSubview(inputsStack)
+        view.addSubview(progressBar)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            
             progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -157,6 +192,12 @@ extension FirstScreenViewController: ViewCodeProtocol {
             inputsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
+        
+//        guard let nav = self.navigationController else {
+//            return
+//        }
+//        
+//        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
     }
 }
 #Preview {
