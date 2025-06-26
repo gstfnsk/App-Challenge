@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ThirdViewController: UIViewController {
+class ThirdScreenViewController: UIViewController {
     // MARK: Description
     private lazy var orangeView: UIView = {
         let view = UIView()
@@ -228,7 +228,7 @@ class ThirdViewController: UIViewController {
     }
 }
 
-extension ThirdViewController: ViewCodeProtocol {
+extension ThirdScreenViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(stepLabel)
         view.addSubview(bigStack)
@@ -281,7 +281,7 @@ extension ThirdViewController: ViewCodeProtocol {
         navigationItem.hidesBackButton = true
     }
 }
-extension ThirdViewController: UITextViewDelegate {
+extension ThirdScreenViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "Sunset Drinks é um bar descontraído, especializado em coquetelaria autoral e cervejas artesanais. Um espaço pra quem curte bons drinks, boa música e pôr do sol na faixa." {
             textView.text = ""
@@ -296,7 +296,7 @@ extension ThirdViewController: UITextViewDelegate {
     }
 }
 
-extension ThirdViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension ThirdScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true, completion: nil)
         
