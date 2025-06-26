@@ -58,22 +58,39 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Private Methods
     private func updateBasedOnState() {
+        // Update state icon and stack background
         switch state {
         case .filled:
             let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .regular)
             stateIcon.image = UIImage(systemName: "person.crop.circle.fill.badge.checkmark", withConfiguration: config)?
                 .withTintColor(.DesignSystem.terracota600, renderingMode: .alwaysOriginal)
+            stack.backgroundColor = .DesignSystem.lavanda0
         case .open:
             stateIcon.image = UIImage(named: "person.crop.circle.fill.badge.magnifyingglass")
-        case .normal:
-            break
-        case .disabled:
-            break
-        default:
-            assertionFailure("Unhandled state: \(state) on \(#file)")
+            stack.backgroundColor = nil
+        case .normal, .disabled:
+            stateIcon.image = nil
+            stack.backgroundColor = nil
+        case .highlighted:
+            assertionFailure("State not yet implemented: \(state) in \(#function)")            
         }
-        
-        stateIcon.isHidden = state != .filled && state != .open
+
+        // State icon visibility
+        stateIcon.isHidden = !(state == .filled || state == .open)
+
+        // Colors
+        let isDisabled = (state == .disabled)
+        contentView.backgroundColor = isDisabled ? .systemGroupedBackground : .systemBackground
+        titleLabel.textColor = isDisabled ? .tertiaryLabel : .DesignSystem.terracota900
+        let iconColor: UIColor = isDisabled ? .tertiaryLabel : .DesignSystem.terracota600
+        time.imageColor = iconColor
+        location.imageColor = iconColor
+
+        // Badge styles
+        let badgeState: BadgeLabelWithIcon.JobCellState = isDisabled ? .disabled : .mutted
+        badgeStack.arrangedSubviews
+            .compactMap { $0 as? BadgeLabelWithIcon }
+            .forEach { $0.state = badgeState }
     }
     
     private func setupShadow() {
@@ -94,7 +111,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         badgeStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for text in texts {
-            let badgeView = BadgeLabelWithIcon(text: text, state: .mutted)
+            let badgeView = BadgeLabelWithIcon(text: text, state: self.state == .disabled ? .disabled : .mutted)
                 
             badgeStack.addArrangedSubview(badgeView)
         }
@@ -127,7 +144,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Recepcionista"
-        label.applyDynamicFont(.DesignSystem.title3)
+        label.applyDynamicFont(.DesignSystem.title3Emphasized)
         label.textColor = .DesignSystem.terracota900
         return label
     }()
@@ -235,7 +252,7 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
 
 #Preview {
     let cell = JobOfferCollectionViewCell()
-    cell.state = .open
+    cell.state = .disabled
     
     /// Ignore lines bellow, the are only for the pourpuse of this preview
     cell.translatesAutoresizingMaskIntoConstraints = false
