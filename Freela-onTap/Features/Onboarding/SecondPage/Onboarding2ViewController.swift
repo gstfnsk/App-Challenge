@@ -46,8 +46,12 @@ class Onboarding2ViewController: UIViewController {
             onboardingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             swipeButton.setTitle("Começar Agora", for: .normal)
         } else {
-            let jobListVC = UINavigationController(rootViewController: JobListViewController())
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
+            let userPath = UserPathViewController()
+            navigationController?.setViewControllers([userPath], animated: true)
+            let userPathRoot = UINavigationController(rootViewController: UserPathViewController())
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(userPathRoot)
+//            let jobListVC = UINavigationController(rootViewController: JobListViewController())
+//            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
         }
     }
     

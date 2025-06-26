@@ -22,16 +22,19 @@ struct CompanyProfile: Identifiable {
 }
 
 enum EstablishmentType: String, CaseIterable {
-    case restaurant = "restaurante"
-    case bar = "bar"
-    case coffeeshop = "cafeteria"
-    case other = "outro"
+    case restaurant = "Restaurante"
+    case bar = "Bar"
+    case coffeeshop = "Cafeteria"
+    case nightHouse = "Casa noturna"
+    case event = "Evento"
+    case hotel = "Hotel ou Pousada"
+    case other = "Outro"
 }
 
 enum CompanySize: String, CaseIterable {
-    case tiny = "1-10 funcionários"
-    case small = "11-20 funcionários"
-    case medium = "21-30 funcionários"
-    case large = "31-40 funcionários"
-    case superLarge = "Mais de 41 funcionários"
+    case tiny = "1-5 funcionários"
+    case small = "6-10 funcionários"
+    case medium = "11-20 funcionários"
+    case large = "21-30 funcionários"
+    case superLarge = "31 ou mais"
 }
