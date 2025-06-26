@@ -8,12 +8,33 @@ import UIKit
 
 class JobRegisterViewController: UIViewController {
     // MARK: Description
+    
+    private lazy var scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var orangeView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .DesignSystem.terracota600
         return view
     }()
+    
+    private lazy var overlayView: UIView = {
+        let view = GradientOverlayView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isUserInteractionEnabled = true
+        return view
+    }()
+    
     
     lazy var stepLabel: UILabel = {
         var label = UILabel()
@@ -71,7 +92,7 @@ class JobRegisterViewController: UIViewController {
         }
         return function
     }()
-
+    
     
     lazy var functionInput: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [functionLabel, functionSelector])
@@ -108,7 +129,7 @@ class JobRegisterViewController: UIViewController {
         return stack
     }()
     
-    private lazy var textField: InsetedTextField = {
+    private lazy var moneyTextField: InsetedTextField = {
         let textField = InsetedTextField(insetX: 16, insetY: 10)
         textField.font = .DesignSystem.body
         textField.textColor = .label
@@ -121,7 +142,7 @@ class JobRegisterViewController: UIViewController {
     }()
     
     lazy var money: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [reaisStack, textField])
+        var stack = UIStackView(arrangedSubviews: [reaisStack, moneyTextField])
         stack.bringSubviewToFront(reaisStack)
         stack.spacing = -15
         return stack
@@ -274,7 +295,7 @@ class JobRegisterViewController: UIViewController {
     
     lazy var descriptionLabel: UILabel = {
         var label = UILabel()
-        label.text = "Atribuições, requisitos e detalhes da vaga: "
+        label.text = "Descrição da vaga: "
         label.textColor = .labelsSecondary
         label.font = .DesignSystem.subheadline
         label.font = UIFont.systemFont(ofSize: 15)
@@ -285,22 +306,13 @@ class JobRegisterViewController: UIViewController {
         let textField = UITextView()
         textField.backgroundColor = .DesignSystem.terracota0
         textField.layer.cornerRadius = 12
-        textField.text = "Atendimento ao público, anotar pedidos, servir alimentos e bebidas, organizar mesas, apoiar na limpeza e organização do salão e repor itens quando necessário."
+        textField.text = "Buscamos alguém para integrar a equipe, com foco em bom atendimento, atenção aos detalhes e paixão pelo que faz.."
         textField.textColor = .labelsSecondary
         textField.font = UIFont.systemFont(ofSize: 17)
         textField.font = .DesignSystem.subheadline
         textField.textContainerInset = UIEdgeInsets(top: 12, left: 6, bottom: 12, right: 12)
         textField.delegate = self
         return textField
-    }()
-    
-    lazy var limitLabel: UILabel = {
-        var label = UILabel()
-        label.text = "Importante conter todos os principais pontos do freela."
-        label.textColor = .labelsSecondary
-        label.font = .DesignSystem.caption2
-        label.font = UIFont.systemFont(ofSize: 12)
-        return label
     }()
     
     lazy var timeDayInformaion: UIStackView = {
@@ -317,16 +329,85 @@ class JobRegisterViewController: UIViewController {
     }()
     
     lazy var descriptionStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [descriptionLabel, descriptionTextField, limitLabel])
+        var stack = UIStackView(arrangedSubviews: [descriptionLabel, descriptionTextField])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 10
         return stack
     }()
     
+    lazy var responsabilitiesLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Responsabilidades"
+        label.textColor = .labelsSecondary
+        label.font = .DesignSystem.subheadline
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    lazy var responsabilitiesTextField: UITextView = {
+        let textField = UITextView()
+        textField.backgroundColor = .DesignSystem.terracota0
+        textField.layer.cornerRadius = 12
+        textField.text = """
+        • Atender clientes com cordialidade
+        • Organizar reservas e fila de espera
+        • Apoiar equipe de salão e cozinha.
+        """
+        textField.textColor = .labelsSecondary
+        textField.font = UIFont.systemFont(ofSize: 17)
+        textField.font = .DesignSystem.subheadline
+        textField.textContainerInset = UIEdgeInsets(top: 12, left: 6, bottom: 12, right: 12)
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var responsabilitiesStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [responsabilitiesLabel, responsabilitiesTextField])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 10
+        return stack
+    }()
+    
+    lazy var dutiesLabel: UILabel = {
+        var label = UILabel()
+        label.text = "Obrigações"
+        label.textColor = .labelsSecondary
+        label.font = .DesignSystem.subheadline
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
+    lazy var dutiesTextField: UITextView = {
+        let textField = UITextView()
+        textField.backgroundColor = .DesignSystem.terracota0
+        textField.layer.cornerRadius = 12
+        textField.text = """
+                    • Experiência em atendimento ao público
+                    • Boa comunicação verbal e escrita
+                    • Fluência em português (inglês é um diferencial)
+                    """
+        textField.textColor = .labelsSecondary
+        textField.font = UIFont.systemFont(ofSize: 17)
+        textField.font = .DesignSystem.subheadline
+        textField.textContainerInset = UIEdgeInsets(top: 12, left: 6, bottom: 12, right: 12)
+        textField.delegate = self
+        return textField
+    }()
+    
+    lazy var dutiesStack: UIStackView = {
+        var stack = UIStackView(arrangedSubviews: [dutiesLabel, dutiesTextField])
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.spacing = 10
+        return stack
+    }()
+    
+    
     // MARK: BigStack
     lazy var bigStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [stepStack, inputStack, descriptionStack])
+        var stack = UIStackView(arrangedSubviews: [stepStack, inputStack, descriptionStack, responsabilitiesStack, dutiesStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 20
@@ -360,35 +441,93 @@ class JobRegisterViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-   
+    
     @objc func validateForm() {
-        let isTextFilled = !(textField.text ?? "").isEmpty
+        let isTextFilled = !(moneyTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
         let isFunctionSelected = functionSelector.selectedFunction != nil
 
-        let defaultDescription = "Atendimento ao público, anotar pedidos, servir alimentos e bebidas, organizar mesas, apoiar na limpeza e organização do salão e repor itens quando necessário."
-        let isDescriptionFilled = !(descriptionTextField.text ?? "").trimmingCharacters(in: .whitespacesAndNewlines).isEmpty &&
-                                  descriptionTextField.text != defaultDescription
+        let defaultDescription = "Buscamos alguém para integrar a equipe, com foco em bom atendimento, atenção aos detalhes e paixão pelo que faz.."
+        let defaultResponsabilities = """
+    • Atender clientes com cordialidade
+    • Organizar reservas e fila de espera
+    • Apoiar equipe de salão e cozinha.
+    """
+        let defaultDuties = """
+    • Experiência em atendimento ao público
+    • Boa comunicação verbal e escrita
+    • Fluência em português (inglês é um diferencial)
+    """
 
-        let isFormValid = isTextFilled && isFunctionSelected && isDescriptionFilled
+        let descriptionText = descriptionTextField.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let responsabilitiesText = responsabilitiesTextField.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let dutiesText = dutiesTextField.text.trimmingCharacters(in: .whitespacesAndNewlines)
 
+        let isDescriptionFilled = !descriptionText.isEmpty && descriptionText != defaultDescription
+        let isResponsabilitiesFilled = !responsabilitiesText.isEmpty && responsabilitiesText != defaultResponsabilities
+        let isDutiesFilled = !dutiesText.isEmpty && dutiesText != defaultDuties
+
+        let isFormValid = isTextFilled && isFunctionSelected && isDescriptionFilled && isResponsabilitiesFilled && isDutiesFilled
+        // MUDAR AQUI DEPOOOISSSSS
         continueButton.isEnabled = isFormValid
         continueButton.backgroundColor = isFormValid ? .DesignSystem.terracota600 : .systemGray4
+        
+        print("Form válido?", isFormValid)
+        print("Botão está habilitado?", continueButton.isEnabled)
     }
 
     
     @objc func continueAction() {
-        if
-            let job = functionSelector.selectedFunction,
-            let date = selectedDate,
-            let stringHour = hourPicker.title(for: .normal), let hour = Int(stringHour.replacingOccurrences(of: "h", with: "")),
-            let stringSalary = textField.text, let salary = Int(stringSalary)
-        {
-            let newJob = JobOffer(id: UUID(), companyId: UUID()/*AINDA NAO TEMOS */, postedAt: date, title: job, durationInHours: hour, startDate: datePicker.date, salaryBRL: salary, description: descriptionTextField.text, qualifications: "pergunta pro designer", duties: "pergunta pro designer")
+        let job = functionSelector.selectedFunction
+        let date = selectedDate
+        let stringHour = time.text
+        let hourComponent = stringHour?.split(separator: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let hour = Int(hourComponent ?? "")
+        let stringSalary = moneyTextField.text
+        let salary = stringSalary != nil ? Int(stringSalary!) : nil
+        let description = descriptionTextField.text
+        let qualifications = responsabilitiesTextField.text
+        let duties = dutiesTextField.text
+            
+        print("clicou")
+//        print("job: \(String(describing: job))")
+//        print("date: \(String(describing: date))")
+//        print("stringHour: \(String(describing: stringHour))")
+//        print("hourComponent: \(String(describing: hourComponent))")
+//        print("hour: \(String(describing: hour))")
+//        print("stringSalary: \(String(describing: stringSalary))")
+//        print("salary: \(String(describing: salary))")
+//        print("description: \(String(describing: description))")
+//        print("qualifications: \(String(describing: qualifications))")
+//        print("duties: \(String(describing: duties))")
+
+
+        if let job,
+           let date,
+           let hour,
+           let salary,
+           let description,
+           let qualifications,
+           let duties {
+            let newJob = JobOffer(
+                id: UUID(),
+                companyId: UUID(), // AINDA NAO TEMOS
+                postedAt: date,
+                title: job,
+                durationInHours: hour,
+                startDate: datePicker.date,
+                salaryBRL: salary,
+                description: description,
+                qualifications: qualifications,
+                duties: duties
+            )
+            
             let jobregister2 = JobRegister2ViewController()
+            jobregister2.jobOffer = newJob
             navigationController?.pushViewController(jobregister2, animated: true)
         }
     }
-    
+
+
     @objc func cancelButtonAction() {
         let jobListVC = UINavigationController(rootViewController: JobListViewController())
         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
@@ -400,7 +539,10 @@ class JobRegisterViewController: UIViewController {
         let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapDismissKeyboard)
         descriptionTextField.delegate = self
+        responsabilitiesTextField.delegate = self
+        dutiesTextField.delegate = self
         setup()
+        validateForm()
     }
     
     @objc func dismissKeyboard() {
@@ -410,18 +552,24 @@ class JobRegisterViewController: UIViewController {
 
 extension JobRegisterViewController: ViewCodeProtocol {
     func addSubviews() {
-        view.addSubview(stepLabel)
-        view.addSubview(bigStack)
-        view.addSubview(orangeView)
-        view.addSubview(buttonStack)
-        view.addSubview(date)
-        view.addSubview(time)
-        view.addSubview(hourPickerWheel)
+        view.addSubview(scrollView)
+        view.addSubview(overlayView)
+
+        scrollView.addSubview(contentView)
+        contentView.addSubview(bigStack)
+        contentView.addSubview(stepLabel)
+        contentView.addSubview(orangeView)
+        contentView.addSubview(date)
+        contentView.addSubview(time)
+        contentView.addSubview(hourPickerWheel)
+        overlayView.addSubview(buttonStack)
+        
         
         hourPickerWheel.onHourSelected = { [weak self] selectedHour in
-            guard let self = self else {
+            guard let self else {
                 return
             }
+            
             self.hourPicker.setTitle(String(format: "%02dh", selectedHour), for: .normal)
             self.hourPicker.setTitleColor(.DesignSystem.terracota600, for: .normal)
             self.hourPickerWheel.isHidden = true
@@ -437,61 +585,122 @@ extension JobRegisterViewController: ViewCodeProtocol {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            stepLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stepLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            stepLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            dateStack.widthAnchor.constraint(equalToConstant: 115),
-            timeStack.widthAnchor.constraint(equalToConstant: 70),
-            textField.widthAnchor.constraint(equalToConstant: 330),
+            // scrollView na tela
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            date.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 356),
-            date.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 28),
-            date.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -266),
+            // contentView dentro da scrollView
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             
-            time.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 356),
-            time.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 193),
-            time.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -155),
+            // conteúdo dentro da contentView
+            stepLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            stepLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            stepLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            bigStack.topAnchor.constraint(equalTo: stepLabel.bottomAnchor, constant: 22),
-            bigStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            bigStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            date.topAnchor.constraint(equalTo: stepLabel.bottomAnchor, constant: 325),
+            date.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 27),
+            date.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -266),
             
-            cancelButton.heightAnchor.constraint(equalToConstant: 50),
-            continueButton.heightAnchor.constraint(equalToConstant: 50),
-            descriptionTextField.heightAnchor.constraint(equalToConstant: 112)
-            ,
-            hourPicker.heightAnchor.constraint(equalTo: timePicker.heightAnchor),
-            hourPicker.widthAnchor.constraint(equalToConstant: 60),
+            time.topAnchor.constraint(equalTo: stepLabel.bottomAnchor, constant: 325),
+            time.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 191),
+            time.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -155),
             
-            buttonStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -54),
-            buttonStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            buttonStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            bigStack.topAnchor.constraint(equalTo: stepLabel.bottomAnchor, constant: 24),
+            bigStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            bigStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            bigStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -175), // <- FECHA A SCROLL
             
+            // botão fixo fora da scroll
+            overlayView.heightAnchor.constraint(equalToConstant: 150),
+            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            buttonStack.heightAnchor.constraint(equalToConstant: 112),
+            buttonStack.widthAnchor.constraint(equalToConstant: 321),
+            buttonStack.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
+            buttonStack.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -35),
+            
+            // continua fora da scroll
             orangeView.heightAnchor.constraint(equalToConstant: 4),
-            orangeView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            orangeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             orangeView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
             orangeView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -197),
             
             hourPickerWheel.topAnchor.constraint(equalTo: view.topAnchor, constant: 374),
             hourPickerWheel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 280),
             hourPickerWheel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            hourPickerWheel.heightAnchor.constraint(equalToConstant: 180)
+            hourPickerWheel.heightAnchor.constraint(equalToConstant: 180),
+            
+            // alturas e larguras fixas
+            cancelButton.heightAnchor.constraint(equalToConstant: 50),
+            continueButton.heightAnchor.constraint(equalToConstant: 50),
+            descriptionTextField.heightAnchor.constraint(equalToConstant: 112),
+            dutiesTextField.heightAnchor.constraint(equalToConstant: 112),
+            responsabilitiesTextField.heightAnchor.constraint(equalToConstant: 112),
+            
+            dateStack.widthAnchor.constraint(equalToConstant: 115),
+            timeStack.widthAnchor.constraint(equalToConstant: 70),
+            moneyTextField.widthAnchor.constraint(equalToConstant: 330),
+            hourPicker.heightAnchor.constraint(equalTo: timePicker.heightAnchor),
+            hourPicker.widthAnchor.constraint(equalToConstant: 60)
         ])
     }
 }
 
 extension JobRegisterViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.text == "Atendimento ao público, anotar pedidos, servir alimentos e bebidas, organizar mesas, apoiar na limpeza e organização do salão e repor itens quando necessário." {
+        let placeholderDescription = "Buscamos alguém para integrar a equipe, com foco em bom atendimento, atenção aos detalhes e paixão pelo que faz.."
+        let placeholderResponsabilities = """
+        • Atender clientes com cordialidade
+        • Organizar reservas e fila de espera
+        • Apoiar equipe de salão e cozinha.
+        """
+        
+        let placeholderDuties = """
+        • Experiência em atendimento ao público
+        • Boa comunicação verbal e escrita
+        • Fluência em português (inglês é um diferencial)
+        """
+        
+        if textView.text == placeholderDescription
+            || textView.text == placeholderResponsabilities
+            || textView.text == placeholderDuties
+        {
             textView.text = ""
             textView.textColor = .label
         }
     }
     func textViewDidEndEditing(_ textView: UITextView) {
-        if textView.text.isEmpty {
-            textView.text = "Atendimento ao público, anotar pedidos, servir alimentos e bebidas, organizar mesas, apoiar na limpeza e organização do salão e repor itens quando necessário."
+        if descriptionTextField.text.isEmpty {
+            textView.text = "Buscamos alguém para integrar a equipe, com foco em bom atendimento, atenção aos detalhes e paixão pelo que faz.."
             textView.textColor = .secondaryLabel
+        } else if responsabilitiesTextField.text.isEmpty {
+            responsabilitiesTextField.text = """
+            • Atender clientes com cordialidade
+            • Organizar reservas e fila de espera
+            • Apoiar equipe de salão e cozinha.
+            """
+            textView.textColor = .secondaryLabel
+        } else if dutiesTextField.text.isEmpty {
+            dutiesTextField.text = """
+            • Experiência em atendimento ao público
+            • Boa comunicação verbal e escrita
+            • Fluência em português (inglês é um diferencial)
+            """
+            textView.textColor = .secondaryLabel
+        } else {
+            textView.textColor = .label
         }
+    }
+    func textViewDidChange(_ textView: UITextView) {
+        validateForm()
     }
 }
 
@@ -537,11 +746,5 @@ class HourOnlyPickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         onHourSelected?(hours[row])
-    }
-}
-
-extension JobRegisterViewController: UITextFieldDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        validateForm()
     }
 }

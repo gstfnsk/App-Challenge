@@ -8,15 +8,21 @@
 import UIKit
 
 class JobRegister2ViewController: UIViewController {
-    // receive a job offer from
-    let jobOffer: JobOffer? = nil
+    var jobOffer: JobOffer?
     
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    
+    private lazy var orangeView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .DesignSystem.terracota600
+        return view
+    }()
+    // virá do cadastro de empresa
     private lazy var companyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,14 +55,17 @@ class JobRegister2ViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
-
-    private lazy var companyNameTitle: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Le Cochon Volant"
-        label.font = UIFont(name: "SFProRounded-Bold", size: 30)
-        return label
-    }()
+    // ta sendo usado isso?
+//    private lazy var companyNameTitle: UILabel = {
+//        var label = UILabel()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        if let jobOffer {
+//            label.text = jobOffer.title.rawValue
+//        }
+//        
+//        label.font = UIFont(name: "SFProRounded-Bold", size: 30)
+//        return label
+//    }()
 
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
@@ -65,13 +74,14 @@ class JobRegister2ViewController: UIViewController {
         label.font = UIFont.DesignSystem.headline
         return label
     }()
-
+    
+    // certinho
     private lazy var descriptionText: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
-        label.text = """
-            Estamos buscando um(a) atendente para atuar em nosso bar, oferecendo um atendimento descontraído, ágil e de qualidade. Ideal para quem busca uma renda extra e gosta de trabalhar em ambientes animados e com contato direto com o público.
-            """
+        if let jobOffer {
+            label.text = jobOffer.description
+        }
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.font = UIFont.DesignSystem.body
@@ -97,13 +107,10 @@ class JobRegister2ViewController: UIViewController {
     private lazy var dutiesText: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
-        label.text = """
-            - Receber e atender os clientes com simpatia
-            - Anotar pedidos e servir bebidas e petiscos
-            - Organizar mesas e balcão
-            - Auxiliar na organização do espaço durante o turno
-            - Manter o ambiente limpo e agradável
-            """
+        if let jobOffer {
+            label.text = jobOffer.duties
+        }
+        
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.DesignSystem.body
@@ -125,17 +132,14 @@ class JobRegister2ViewController: UIViewController {
         label.font = UIFont.DesignSystem.headline
         return label
     }()
-
+    // certinho
     private lazy var requirementsText: UILabel = {
         var label = UILabel()
         label.numberOfLines = 0
-        label.text = """
-            - Maior de 18 anos
-            - Experiência prévia em atendimento, bar ou eventos (desejável)
-            - Boa comunicação e proatividade
-            - Disponibilidade para trabalhar no período noturno e finais de semana
-            - Agilidade e organização
-            """
+        if let jobOffer {
+            label.text = jobOffer.duties
+        }
+        
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.DesignSystem.body
@@ -157,11 +161,11 @@ class JobRegister2ViewController: UIViewController {
         stack.spacing = 13
         return stack
     }()
-
+    // vem do cadastro da empresa!!!
     private lazy var companyName: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Sunset Drinks"
+        label.text = "vem do cadastro da empresa"
         label.textColor = UIColor.DesignSystem.terracota900
         label.font = UIFont.DesignSystem.title2Emphasized
         return label
@@ -170,12 +174,12 @@ class JobRegister2ViewController: UIViewController {
     private lazy var establishmentType: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Restaurante"
+        label.text = "faltou por na tela de cadastro 1"
         label.font = UIFont.DesignSystem.body
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         return label
     }()
-
+    // virá do cadastro da empresa
     private lazy var companyAddress: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -188,8 +192,7 @@ class JobRegister2ViewController: UIViewController {
 
         return label
     }()
-    
-
+    // virá do cadastro da empresa
     private lazy var companyNumberOfEmployees: LabelWithIconComponent = {
         var label = LabelWithIconComponent()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -199,17 +202,18 @@ class JobRegister2ViewController: UIViewController {
         return label
     }()
 
-    private lazy var postedTime: LabelWithIconComponent = {
-        var label = LabelWithIconComponent()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "1h atrás"
-        label.image = UIImage(systemName: "clock.arrow.circlepath")
-        return label
-    }()
+    // não faz sentido estar no cadastro
+//    private lazy var postedTime: LabelWithIconComponent = {
+//        var label = LabelWithIconComponent()
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        label.text = "1h atrás"
+//        label.image = UIImage(systemName: "clock.arrow.circlepath")
+//        return label
+//    }()
 
     lazy var companyStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [
-            companyName, establishmentType, companyNumberOfEmployees, companyAddress, postedTime
+            companyName, establishmentType, companyNumberOfEmployees, companyAddress, /*postedTime */
         ])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -232,31 +236,45 @@ class JobRegister2ViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
+    // certinho
     private lazy var date: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
-        badge.text = "27/06"
+        if let jobOffer {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd/MM"
+            let formattedDate = formatter.string(from: jobOffer.startDate)
+            badge.text = formattedDate
+        }
         badge.badgeSize = .medium
         return badge
     }()
 
+    // problema
     private lazy var time: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "Horário: 18h"
+        let badge = BadgeLabelWithIcon()
+        badge.text = "Horário: --:--"
         badge.badgeSize = .medium
         return badge
     }()
+
 
     private lazy var amount: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
-        badge.text = "R$ 120"
+        if let jobOffer {
+            let stringSalary = String(jobOffer.salaryBRL)
+            badge.text = stringSalary
+        }
         badge.badgeSize = .medium
         return badge
     }()
-
+    
+    // certinho
     private lazy var duration: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
-        badge.text = "6h"
+        if let jobOffer {
+            let stringDuration = String(jobOffer.durationInHours)
+            badge.text = stringDuration
+        }
         badge.badgeSize = .medium
         return badge
     }()
@@ -299,6 +317,14 @@ class JobRegister2ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let jobOffer {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "HH:mm"
+            let stringTime = formatter.string(from: jobOffer.postedAt)
+            time.text = "Horário: \(stringTime)"
+        }
+
 
         setup()
     }
@@ -336,8 +362,8 @@ class JobRegister2ViewController: UIViewController {
 extension JobRegister2ViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
-        view.addSubview(buttonsStack)
         view.addSubview(overlayView)
+        view.addSubview(orangeView)
         overlayView.addSubview(buttonsStack)
 
         scrollView.addSubview(contentView)
@@ -368,6 +394,11 @@ extension JobRegister2ViewController: ViewCodeProtocol {
                 equalTo: imageContainerView.widthAnchor,
                 multiplier: 196.0 / 361.0
             ),
+            
+            orangeView.heightAnchor.constraint(equalToConstant: 4),
+            orangeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            orangeView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
+            orangeView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
 
             companyStack.topAnchor.constraint(equalTo: imageContainerView.bottomAnchor, constant: 16),
             companyStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -395,9 +426,8 @@ extension JobRegister2ViewController: ViewCodeProtocol {
             buttonsStack.heightAnchor.constraint(equalToConstant: 112),
             buttonsStack.widthAnchor.constraint(equalToConstant: 321),
 
-            buttonsStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5),
-            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36)
+            buttonsStack.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
+            buttonsStack.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -0)
         ])
     }
     
