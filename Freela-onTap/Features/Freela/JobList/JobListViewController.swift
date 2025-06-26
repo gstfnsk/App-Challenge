@@ -14,13 +14,6 @@ class JobListViewController: UIViewController {
     internal var filterSectionId = 0
     internal var titleSectionId = 1
     internal var jobListingSectionId = 2
-
-    //    lazy var searchController: UISearchController = {
-    //        var search = UISearchController.create()
-    //        search.searchResultsUpdater = self
-    //        search.searchBar.delegate = self
-    //        return search
-    //    }()
     
     lazy var emptyView: EmptyStateJobBoard = {
         let emptyView = EmptyStateJobBoard()
@@ -51,7 +44,6 @@ class JobListViewController: UIViewController {
     }()
     
     @objc func buttonRefresh() {
-        print("clicou")
         self.updateJobOfferList()
         self.collectionView.reloadData()
     }
@@ -74,13 +66,6 @@ class JobListViewController: UIViewController {
         return collectionView
     }()
 
-    //
-    func areJobsDifferent(oldJobs: [JobOffer], newJobs: [JobOffer]) -> Bool {
-        let oldIDs = Set(oldJobs.map(\.id))
-        let newIDs = Set(newJobs.map(\.id))
-        return oldIDs != newIDs
-    }
-
     @objc private func refreshJobs() {
         // swiftlint:disable:next trailing_closure
         updateJobOfferList(finally: {
@@ -94,15 +79,6 @@ class JobListViewController: UIViewController {
         
         setup()
         updateJobOfferList()
-//        addMockDataTrigger()
-        
-        collectionView.backgroundColor = .DesignSystem.lavanda0
-    }
-}
-
-extension JobListViewController: UISearchResultsUpdating, UISearchBarDelegate {
-    func updateSearchResults(for searchController: UISearchController) {
-        print("Degbug: \(searchController.searchBar.text ?? "")")
     }
 }
 
@@ -127,6 +103,7 @@ extension JobListViewController: UICollectionViewDelegate {
             let backItem = UIBarButtonItem()
             backItem.title = "Voltar"
             navigationItem.backBarButtonItem = backItem
+            
             let jobDetailsVC = JobDetailsViewController()
             let selectedJobOffer = listedJobOffers[indexPath.row]
             jobDetailsVC.configure(with: selectedJobOffer)
@@ -145,44 +122,5 @@ extension JobListViewController: UICollectionViewDelegate {
             updateJobOfferList()
             collectionView.reloadData()
         }
-    }
-
-    private func addMockDataTrigger(){
-        let mockButton = MockdataHoldButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30))
-    mockButton.parentViewController = self
-    mockButton.onConfirmRestore = {
-        Task {
-            do {
-                try await CloudKitManager.shared.deleteAllMockData()
-                try await CloudKitManager.shared.addMockCompaniesAndJobs()
-
-                await MainActor.run {
-                    self.updateJobOfferList()
-                    self.collectionView.reloadData()
-
-                    let alert = UIAlertController(
-                        title: "Mock Data Restored",
-                        message: "The mock job offers were restored.\n\nIt may take a few minutes for CloudKit to propagate the changes.",
-                        preferredStyle: .alert
-                    )
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            } catch {
-                await MainActor.run {
-                    let errorAlert = UIAlertController(
-                        title: "Error",
-                        message: "Failed to restore mock data: \(error.localizedDescription)",
-                        preferredStyle: .alert
-                    )
-                    errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(errorAlert, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-
-    let barButtonItem = UIBarButtonItem(customView: mockButton)
-    navigationItem.rightBarButtonItem = barButtonItem
     }
 }
