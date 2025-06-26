@@ -163,7 +163,9 @@ class SecondScreenViewController: UIViewController {
     }
     
     @objc func continueAction() {
-        
+        let thirdScreen = ThirdScreenViewController()
+        self.navigationItem.backButtonTitle = "Voltar"
+        self.navigationController?.pushViewController(thirdScreen, animated: true)
     }
 }
 
