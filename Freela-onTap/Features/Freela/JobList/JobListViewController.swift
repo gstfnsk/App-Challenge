@@ -61,7 +61,7 @@ class JobListViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(BadgeLabelViewCell.self, forCellWithReuseIdentifier: BadgeLabelViewCell.identifier)
         collectionView.register(TitleJobListCell.self, forCellWithReuseIdentifier: TitleJobListCell.identifier)
-        collectionView.register(JobListCell.self, forCellWithReuseIdentifier: JobListCell.identifier)
+        collectionView.register(JobOfferCollectionViewCell.self, forCellWithReuseIdentifier: JobOfferCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.alwaysBounceVertical = false
         collectionView.alwaysBounceHorizontal = false

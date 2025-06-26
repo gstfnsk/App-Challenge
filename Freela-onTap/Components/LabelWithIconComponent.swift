@@ -13,7 +13,7 @@ class LabelWithIconComponent: UIView {
         image.contentMode = .scaleAspectFit
         image.tintColor = UIColor.DesignSystem.terracota600
         image.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        image.setContentCompressionResistancePriority(.required, for: .horizontal)
+        image.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
         return image
     }()
