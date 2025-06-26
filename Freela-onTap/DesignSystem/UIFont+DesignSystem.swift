@@ -12,11 +12,13 @@ extension UIFont {
         // MARK: - System Text Styles (Dynamic Type)
 
         static let largeTitle = UIFont.dynamic(.largeTitle, weight: .regular)
+        static let textStyles = UIFont.dynamic(.largeTitle, weight: .bold)
         static let title1 = UIFont.dynamic(.title1, weight: .regular)
         static let title2 = UIFont.dynamic(.title2, weight: .regular)
         static let title2Emphasized = UIFont.dynamic(.title2, weight: .bold)
         static let title3 = UIFont.dynamic(.title3, weight: .regular)
         static let title3Emphasized = UIFont.dynamic(.title3, weight: .bold)
+        static let title3SemiBold = UIFont.dynamic(.title3, weight: .semibold)
         static let body = UIFont.dynamic(.body, weight: .regular)
         static let bodyEmphasized = UIFont.dynamic(.body, weight: .bold)
         static let headline = UIFont.dynamic(.headline, weight: .semibold)

@@ -25,13 +25,13 @@ final class TextInput: UIView {
     
     var labelText = "Input" {
         didSet {
-            // TODO
+            label.text = labelText
         }
     }
     
     var placeholderText = "Input name" {
         didSet {
-            // TODO
+            textField.placeholder = placeholderText
         }
     }
     
