@@ -120,7 +120,7 @@ class ThirdScreenViewController: UIViewController {
         button.setTitleColor(.DesignSystem.terracota0, for: .normal)
         button.backgroundColor = .DesignSystem.terracota600
         button.layer.cornerRadius = 12
-        button.addTarget(self, action: #selector(photoAction), for: .touchUpInside)
+        button.addTarget(self, action: #selector(finishAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -203,8 +203,18 @@ class ThirdScreenViewController: UIViewController {
     }
     
     @objc func finishAction() {
-        let jobListVC = UINavigationController(rootViewController: JobListViewController())
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
+        let alert = UIAlertController(title: "Cadastro finalizado!", message: "Seu perfil tá no ar. Que tal divulgar sua primeira vaga agora?", preferredStyle: .alert)
+        let alertActionOne = UIAlertAction(title: "Divulgar vaga agora", style: .default) {_ in
+            /* go to MyJobs */
+        }
+        alertActionOne.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
+        let alertActionTwo = UIAlertAction(title: "Fazer isso mais tarde", style: .default) {_ in
+        }
+        alertActionTwo.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
+
+        alert.addAction(alertActionOne)
+        alert.addAction(alertActionTwo)
+        present(alert, animated: true)
     }
     
     @objc func changePhotoAction() {
