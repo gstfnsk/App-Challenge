@@ -205,10 +205,13 @@ class ThirdScreenViewController: UIViewController {
     @objc func finishAction() {
         let alert = UIAlertController(title: "Cadastro finalizado!", message: "Seu perfil tá no ar. Que tal divulgar sua primeira vaga agora?", preferredStyle: .alert)
         let alertActionOne = UIAlertAction(title: "Divulgar vaga agora", style: .default) {_ in
-            /* go to MyJobs */
+            let jobRegisterVC = JobRegisterViewController()
+                    self.navigationController?.pushViewController(jobRegisterVC, animated: true)
         }
         alertActionOne.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
         let alertActionTwo = UIAlertAction(title: "Fazer isso mais tarde", style: .default) {_ in
+            let companyVC = CompanyPublishedJobsViewController()
+                    self.navigationController?.pushViewController(companyVC, animated: true)
         }
         alertActionTwo.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
 
