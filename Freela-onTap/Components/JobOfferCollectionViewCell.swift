@@ -64,7 +64,6 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
             let config = UIImage.SymbolConfiguration(pointSize: 28, weight: .regular)
             stateIcon.image = UIImage(systemName: "person.crop.circle.fill.badge.checkmark", withConfiguration: config)?
                 .withTintColor(.DesignSystem.terracota600, renderingMode: .alwaysOriginal)
-            stack.backgroundColor = .DesignSystem.lavanda0
         case .open:
             stateIcon.image = UIImage(named: "person.crop.circle.fill.badge.magnifyingglass")
             stack.backgroundColor = nil
@@ -80,6 +79,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
 
         // Colors
         let isDisabled = (state == .disabled)
+        
         contentView.backgroundColor = isDisabled ? .systemGroupedBackground : .systemBackground
         titleLabel.textColor = isDisabled ? .tertiaryLabel : .DesignSystem.terracota900
         let iconColor: UIColor = isDisabled ? .tertiaryLabel : .DesignSystem.terracota600

@@ -1,5 +1,5 @@
 //
-//  TabBarController.swift
+//  FrellaTabBarController.swift
 //  App-Challenge
 //
 //  Created by Ana Carolina Palhares Poletto on 11/06/25.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
+class FreelaTabBarController: UITabBarController {
     lazy var searchTab: UINavigationController = {
         let title = "Pesquisar"
         let image = UIImage(systemName: "text.page.badge.magnifyingglass")
