@@ -4,7 +4,9 @@
 //
 //  Created by Ana Carolina Palhares Poletto on 11/06/25.
 //
+
 import UIKit
+
 // MARK: CollectionView Layout
 extension JobListViewController {
     func createSection0() -> Section {

@@ -50,8 +50,6 @@ class Onboarding2ViewController: UIViewController {
             navigationController?.setViewControllers([userPath], animated: true)
             let userPathRoot = UINavigationController(rootViewController: UserPathViewController())
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(userPathRoot)
-//            let jobListVC = UINavigationController(rootViewController: JobListViewController())
-//            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
         }
     }
     
