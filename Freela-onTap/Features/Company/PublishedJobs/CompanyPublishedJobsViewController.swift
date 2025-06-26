@@ -91,9 +91,9 @@ extension CompanyPublishedJobsViewController: UICollectionViewDelegate {
                 case openJobsListSectionId:
                     return openJobs[indexPath.item]
                 case filledJobsListSectionId:
-                    return openJobs[indexPath.item]
+                    return filledJobs[indexPath.item]
                 default: // closedJobsListSectionId
-                    return openJobs[indexPath.item]
+                    return closedJobs[indexPath.item]
                 }
             }()
             
