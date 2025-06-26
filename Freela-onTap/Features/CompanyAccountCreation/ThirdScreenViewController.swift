@@ -173,11 +173,10 @@ class ThirdScreenViewController: UIViewController {
     
     lazy var imageView: UIImageView = {
         var imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(systemName: "person")
         imageView.tintColor = .DesignSystem.terracota600
         imageView.clipsToBounds = true
-        imageView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         imageView.layer.cornerRadius = 8
         return imageView
     }()
