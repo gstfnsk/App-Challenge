@@ -23,10 +23,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         
-        Task {
-            await CloudKitManager.shared.createMockDataIfNeeded()
-        }
-        
         window = UIWindow(windowScene: windowScene)
         
         // Force light mode

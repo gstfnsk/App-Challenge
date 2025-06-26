@@ -244,31 +244,35 @@ class JobDetailsViewController: UIViewController {
     }()
 
     private lazy var date: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "27/06"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "27/06",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     private lazy var time: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "Horário: 18h"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "Horário: 18h",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     private lazy var amount: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "R$ 120"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "R$ 120",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     private lazy var duration: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "6h"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "6h",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     lazy var badgesStack: UIStackView = {
