@@ -48,8 +48,7 @@ extension JobListViewController: ViewCodeProtocol {
         ])
     }
     
-    
-    func adicionalSetup() {
-        navigationItem.hidesBackButton = true
+    func setupAdditionalConfiguration() {
+        collectionView.backgroundColor = .DesignSystem.lavanda0
     }
 }
