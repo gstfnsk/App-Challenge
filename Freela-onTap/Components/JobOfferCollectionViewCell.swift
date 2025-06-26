@@ -67,6 +67,8 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
             stateIcon.image = UIImage(named: "person.crop.circle.fill.badge.magnifyingglass")
         case .normal:
             break
+        case .disabled:
+            break
         default:
             assertionFailure("Unhandled state: \(state) on \(#file)")
         }
@@ -92,8 +94,8 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         badgeStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
         
         for text in texts {
-            let badgeView = BadgeLabelWithIcon(text: text)
-
+            let badgeView = BadgeLabelWithIcon(text: text, state: .mutted)
+                
             badgeStack.addArrangedSubview(badgeView)
         }
         
@@ -159,7 +161,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
     }()
 
     private lazy var iconStack: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [time, location])
+        let stackView = UIStackView(arrangedSubviews: [time, location, UIView()])
         stackView.spacing = 16
         stackView.alignment = .leading
         stackView.distribution = .fill
@@ -170,7 +172,8 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
     private lazy var badgeStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-//        stack.distribution = .equalSpacing
+        stack.distribution = .fill
+        stack.alignment = .leading
         stack.spacing = 8
 
         return stack
