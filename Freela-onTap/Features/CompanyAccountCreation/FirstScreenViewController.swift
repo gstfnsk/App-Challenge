@@ -149,6 +149,11 @@ class FirstScreenViewController: UIViewController {
 
         view.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
+        
+        let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+
+        view.addGestureRecognizer(tapDismissKeyboard)
+        
         setup()
     }
     
@@ -156,6 +161,10 @@ class FirstScreenViewController: UIViewController {
         let secondScreen = SecondScreenViewController()
         self.navigationItem.backButtonTitle = "Voltar"
         self.navigationController?.pushViewController(secondScreen, animated: true)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
