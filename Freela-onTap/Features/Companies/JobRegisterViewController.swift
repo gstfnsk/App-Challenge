@@ -93,7 +93,6 @@ class JobRegisterViewController: UIViewController {
         return function
     }()
     
-    
     lazy var functionInput: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [functionLabel, functionSelector])
         stack.axis = .vertical
@@ -270,6 +269,8 @@ class JobRegisterViewController: UIViewController {
         return datePicker
     }()
     
+    private var duration: String?
+    
     let hourPicker: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("6h", for: .normal)
@@ -282,6 +283,7 @@ class JobRegisterViewController: UIViewController {
     }()
     
     @objc func showHourPicker() {
+        duration = hourPicker.titleLabel?.text
         hourPickerWheel.isHidden = false
     }
     
@@ -475,15 +477,18 @@ class JobRegisterViewController: UIViewController {
         print("Botão está habilitado?", continueButton.isEnabled)
     }
 
-    
     @objc func continueAction() {
         let job = functionSelector.selectedFunction
         let date = selectedDate
         let stringHour = time.text
         let hourComponent = stringHour?.split(separator: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines)
         let hour = Int(hourComponent ?? "")
-        let stringSalary = moneyTextField.text
-        let salary = stringSalary != nil ? Int(stringSalary!) : nil
+        let stringSalary = moneyTextField.text ?? ""
+
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale(identifier: "pt_BR") // para aceitar "100,00"
+        
         let description = descriptionTextField.text
         let qualifications = responsabilitiesTextField.text
         let duties = dutiesTextField.text
@@ -503,17 +508,25 @@ class JobRegisterViewController: UIViewController {
 
         if let job,
            let date,
+           let duration,
+           // ESSE HOUR é o horário que começa.. tem que ser passado por fora!
            let hour,
-           let salary,
+           let number = formatter.number(from: stringSalary),
            let description,
            let qualifications,
            let duties {
-            let newJob = JobOffer(
+            let salary = Int(truncating: number)
+            let numberDuration = duration.replacingOccurrences(of: "h", with: "")
+            let intDuration = Int(numberDuration) ?? 00
+            let newJob = JobOffer (
+                
+                
                 id: UUID(),
                 companyId: UUID(), // AINDA NAO TEMOS
                 postedAt: date,
                 title: job,
-                durationInHours: hour,
+                // esse HOUR NAO ´E DURATION E HOrario que eu começo
+                durationInHours: intDuration,
                 startDate: datePicker.date,
                 salaryBRL: salary,
                 description: description,
@@ -523,6 +536,7 @@ class JobRegisterViewController: UIViewController {
             
             let jobregister2 = JobRegister2ViewController()
             jobregister2.jobOffer = newJob
+            jobregister2.begginingHour = hour
             navigationController?.pushViewController(jobregister2, animated: true)
         }
     }

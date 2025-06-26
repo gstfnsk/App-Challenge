@@ -9,6 +9,8 @@ import UIKit
 
 class JobRegister2ViewController: UIViewController {
     var jobOffer: JobOffer?
+    // //MARK: GAMBIARRA PRA DEPOIS
+    var begginingHour: Int?
     
     private lazy var contentView: UIView = {
         let view = UIView()
@@ -55,6 +57,7 @@ class JobRegister2ViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
+    
     // ta sendo usado isso?
 //    private lazy var companyNameTitle: UILabel = {
 //        var label = UILabel()
@@ -161,38 +164,39 @@ class JobRegister2ViewController: UIViewController {
         stack.spacing = 13
         return stack
     }()
-    // vem do cadastro da empresa!!!
+    // MARK: VEM DO CADASTRO DA EMPRESA
     private lazy var companyName: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "vem do cadastro da empresa"
+        label.text = "Sunset Drinks"
         label.textColor = UIColor.DesignSystem.terracota900
         label.font = UIFont.DesignSystem.title2Emphasized
         return label
     }()
-
+    
+    // MARK: VEM DO CADASTRO DA EMPRESA
     private lazy var establishmentType: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "faltou por na tela de cadastro 1"
+        label.text = "Restaurante"
         label.font = UIFont.DesignSystem.body
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         return label
     }()
-    // virá do cadastro da empresa
+    // MARK: VEM DO CADASTRO DA EMPRESA
     private lazy var companyAddress: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.DesignSystem.footnote
         label.textColor = UIColor.DesignSystem.terracota600
-        label.text = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC"
+        label.text = "R. Osvaldo Aranha, 1088 - loja 107. Petrópolis, Porto Alegre"
         label.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(openInMaps))
         label.addGestureRecognizer(tapGesture)
 
         return label
     }()
-    // virá do cadastro da empresa
+    // MARK: VEM DO CADASTRO DA EMPRESA
     private lazy var companyNumberOfEmployees: LabelWithIconComponent = {
         var label = LabelWithIconComponent()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -249,20 +253,27 @@ class JobRegister2ViewController: UIViewController {
         return badge
     }()
 
-    // problema
+    // ESSE CARA E O HORARIO QUE COMEÇA
     private lazy var time: BadgeLabelWithIcon = {
         let badge = BadgeLabelWithIcon()
-        badge.text = "Horário: --:--"
+        var stringBeginningHour = String(begginingHour ?? 00)
+        stringBeginningHour.append(":00")
+        badge.text = stringBeginningHour
         badge.badgeSize = .medium
         return badge
     }()
-
 
     private lazy var amount: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         if let jobOffer {
             let stringSalary = String(jobOffer.salaryBRL)
-            badge.text = stringSalary
+            let text1 = "R$"
+            let text2 = ",00"
+            var fullText = ""
+            fullText.append(text1)
+            fullText.append(stringSalary)
+            fullText.append(text2)
+            badge.text = fullText
         }
         badge.badgeSize = .medium
         return badge
@@ -273,7 +284,10 @@ class JobRegister2ViewController: UIViewController {
         var badge = BadgeLabelWithIcon()
         if let jobOffer {
             let stringDuration = String(jobOffer.durationInHours)
-            badge.text = stringDuration
+            var durationWithH: String = ""
+            durationWithH.append(stringDuration)
+            durationWithH.append("h")
+            badge.text = durationWithH
         }
         badge.badgeSize = .medium
         return badge
@@ -318,14 +332,7 @@ class JobRegister2ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let jobOffer {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm"
-            let stringTime = formatter.string(from: jobOffer.postedAt)
-            time.text = "Horário: \(stringTime)"
-        }
-
-
+        print(begginingHour as Any)
         setup()
     }
 
@@ -339,7 +346,8 @@ class JobRegister2ViewController: UIViewController {
         }
         alertActionOne.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
         let alertActionTwo = UIAlertAction(title: "Publicar outra vaga", style: .default) {_ in
-            /* go to JobsRegister */
+            let rootVC = JobRegisterViewController()
+            self.navigationController?.popToRootViewController(animated: true)
         }
         alertActionTwo.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
 
@@ -408,15 +416,18 @@ extension JobRegister2ViewController: ViewCodeProtocol {
             badgesStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
 
             mainStack.topAnchor.constraint(equalTo: badgesStack.bottomAnchor, constant: 20),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -110),
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -150),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            overlayView.heightAnchor.constraint(equalToConstant: 113),
+            overlayView.heightAnchor.constraint(equalToConstant: 150),
             overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
 
+            buttonsStack.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
+            buttonsStack.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -34.5),
+            
             publishButton.widthAnchor.constraint(equalToConstant: 321),
             publishButton.heightAnchor.constraint(equalToConstant: 50),
             
@@ -425,9 +436,6 @@ extension JobRegister2ViewController: ViewCodeProtocol {
 
             buttonsStack.heightAnchor.constraint(equalToConstant: 112),
             buttonsStack.widthAnchor.constraint(equalToConstant: 321),
-
-            buttonsStack.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
-            buttonsStack.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -0)
         ])
     }
     
