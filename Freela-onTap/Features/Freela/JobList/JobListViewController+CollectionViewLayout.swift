@@ -41,19 +41,21 @@ extension JobListViewController {
         return section
     }
     
-    func createSection2() -> Section {
+    func createJobListSectionLayout() -> Section {
         // item
         let itemSize = Size(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(174)
+            heightDimension: .fractionalHeight(1.0)
         )
         let item = Item(layoutSize: itemSize)
+        
         // group
         let groupSize = Size(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(174)
+            heightDimension: .estimated(140.0)
         )
         let group = Group.vertical(layoutSize: groupSize, subitems: [item])
+        
         // section
         let section = Section(group: group)
         section.interGroupSpacing = 10.0
@@ -69,7 +71,7 @@ extension JobListViewController {
             case 1:
                 return self.createSection1()
             default:
-                return self.createSection2()
+                return self.createJobListSectionLayout()
             }
         }
     }
