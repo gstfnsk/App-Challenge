@@ -171,16 +171,26 @@ class UserPathViewController: UIViewController {
         view.backgroundColor = UIColor.DesignSystem.terracota0
         setup()
     }
+    
     @objc func freelaAction() {
-        let jobList = JobListViewController()
-        self.navigationItem.backButtonTitle = "Voltar"
-        self.navigationController?.pushViewController(jobList, animated: true)
+        let jobListVC = UINavigationController(rootViewController: JobListViewController())
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(jobListVC)
     }
     
     @objc func companyAction() {
-        let registerCompany = FirstScreenViewController()
-        self.navigationItem.backButtonTitle = "Voltar"
-        self.navigationController?.pushViewController(registerCompany, animated: true)
+        // Cria o alerta para informar o usuário.
+        let alert = UIAlertController(
+            title: "Em breve",
+            message: "A nossa versão para empresas ainda não está pronta para testes, mas estará disponível em breve. Agradecemos seu interesse!",
+            preferredStyle: .alert
+        )
+
+        // Adiciona um botão "OK" para que o usuário possa fechar o alerta.
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+
+        // Apresenta o alerta na tela.
+        self.present(alert, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
