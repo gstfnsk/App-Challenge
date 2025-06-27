@@ -94,9 +94,9 @@ extension TypeOfRestaurantSelector: ViewCodeProtocol {
         ])
     }
 }
-
-#Preview {
-    let test = TypeOfRestaurantSelector()
-    return test
-}
-
+//
+//#Preview {
+//    let test = TypeOfRestaurantSelector()
+//    return test
+//}
+//

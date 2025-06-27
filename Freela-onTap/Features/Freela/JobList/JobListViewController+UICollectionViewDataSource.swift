@@ -21,11 +21,7 @@ extension JobListViewController: UICollectionViewDataSource {
             return 1
         }
         if section == jobListingSectionId {
-            if listedJobOffers.isEmpty && !errorEmptyState.isHidden {
-                emptyView.isHidden = false
-            } else {
-                emptyView.isHidden = true
-            }
+            emptyView.isHidden = !(listedJobOffers.isEmpty && errorEmptyState.isHidden)
             return listedJobOffers.count
         }
         return 0

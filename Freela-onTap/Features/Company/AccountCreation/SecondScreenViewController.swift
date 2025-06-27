@@ -226,7 +226,8 @@ extension SecondScreenViewController: ViewCodeProtocol {
         ])
     }
 }
-#Preview {
-    let test = SecondScreenViewController()
-    return test
-}
+//
+//#Preview {
+//    let test = SecondScreenViewController()
+//    return test
+//}

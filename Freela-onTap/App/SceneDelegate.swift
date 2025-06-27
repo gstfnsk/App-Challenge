@@ -10,24 +10,34 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
 
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    func scene(
+        _ scene: UIScene,
+        willConnectTo session: UISceneSession,
+        options connectionOptions: UIScene.ConnectionOptions
+    ) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        
-        UIBarButtonItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.DesignSystem.terracota600], for: .normal)
+
+        UIBarButtonItem.appearance().setTitleTextAttributes(
+            [.foregroundColor: UIColor.DesignSystem.terracota600],
+            for: .normal
+        )
         UINavigationBar.appearance().tintColor = UIColor.DesignSystem.terracota600
 
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
-        
+
         window = UIWindow(windowScene: windowScene)
-        
+
+        #if DEBUG
+            window?.activateShakeGestureForMockdataReplacement()
+        #endif
+
         // Force light mode
         window?.overrideUserInterfaceStyle = .light
-        
+
         // Set window root contoller
         window?.rootViewController = UINavigationController(rootViewController: OnboardingViewController())
         window?.makeKeyAndVisible()

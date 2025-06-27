@@ -11,36 +11,46 @@ import CloudKit
 
 // MARK: - JobOffer methods
 extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
-    func fetchAllJobOffers() async throws -> [JobOffer] {
-        try await throwIfICloudNotAvailable()
-
-        // Predicate for all JobOffers with an ID
-        let predicate = CloudKitManager.allWithIdPredicate
-
-        let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
-        let (matchResults, _) = try await publicDB.records(matching: query)
-
-        var offers: [JobOffer] = []
-
-        let cachedCompanies: [CompanyProfile] = (try? await CloudKitManager.shared.fetchAllCompanies()) ?? []
-        var companyProfileCache: [UUID: CompanyProfile] = [:]
-        for company in cachedCompanies {
-            companyProfileCache[company.id] = company
-        }
+    func fetchAllJobOffers(forceUpdate: Bool = false) async throws -> [JobOffer] {
         
-        for (_, result) in matchResults {
-            switch result {
-            case .success(let record):
-                if var jobOffer = JobOffer(record: record) {
-                    jobOffer.company = companyProfileCache[jobOffer.companyId]
-                    offers.append(jobOffer)
-                }
-            case .failure(let error):
-                throw error
+        if(CloudKitManager.jobOfferCache.isEmpty || forceUpdate){
+            try await throwIfICloudNotAvailable()
+            
+            // Predicate for all JobOffers with an ID
+            let predicate = CloudKitManager.allWithIdPredicate
+
+            let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
+            let (matchResults, _) = try await publicDB.records(matching: query)
+
+            CloudKitManager.companyProfileCache = (try? await CloudKitManager.shared.fetchAllCompanies()) ?? []
+            var companyProfileCache: [UUID: CompanyProfile] = [:]
+            for company in CloudKitManager.companyProfileCache {
+                companyProfileCache[company.id] = company
             }
+            
+            var jobOfferList: [JobOffer] = []
+            
+            for (_, result) in matchResults {
+                switch result {
+                case .success(let record):
+                    if var jobOffer = JobOffer(record: record) {
+                        
+                        jobOffer.company = companyProfileCache[jobOffer.companyId]
+                        jobOfferList.append(jobOffer)
+                    }
+                case .failure(let error):
+                    throw error
+                }
+            }
+            
+            CloudKitManager.jobOfferCache = jobOfferList
         }
         
-        return offers
+        return CloudKitManager.jobOfferCache
+    }
+    
+    func fetchAllJobOffers() async throws -> [JobOffer] {
+        try await fetchAllJobOffers(forceUpdate: false)
     }
         
 

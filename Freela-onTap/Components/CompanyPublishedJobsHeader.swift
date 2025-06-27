@@ -113,6 +113,7 @@ extension CompanyPublishedJobsHeader: ViewCodeProtocol {
     }
 }
 
-#Preview {
-    CompanyPublishedJobsHeader()
-}
+
+//#Preview {
+//    CompanyPublishedJobsHeader()
+//}
