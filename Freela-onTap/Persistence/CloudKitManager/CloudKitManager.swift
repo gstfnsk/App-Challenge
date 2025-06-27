@@ -46,7 +46,8 @@ struct CloudKitManager: FreelaOnTapPersistence {
     internal let jobOfferRecordType = "JobOffer"
     internal let companyProfileRecordType = "CompanyProfile"
     
-    static var companyProfileCache: [CKRecord.ID: CompanyProfile] = [:]
+    static var companyProfileCache: [CompanyProfile] = []
+    static var jobOfferCache: [JobOffer] = []
    
 
     // MARK: - Check iCloud Availability
