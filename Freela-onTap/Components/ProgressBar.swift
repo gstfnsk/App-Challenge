@@ -103,7 +103,8 @@ extension ProgressBar: ViewCodeProtocol {
         updateState()
     }
 }
-#Preview {
-    let progressBar = ProgressBar()
-    return progressBar
-}
+//
+//#Preview {
+//    let progressBar = ProgressBar()
+//    return progressBar
+//}

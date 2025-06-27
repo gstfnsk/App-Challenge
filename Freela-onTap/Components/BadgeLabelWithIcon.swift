@@ -194,37 +194,38 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
         setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 }
-#Preview {
-    let withIconColumn = UIStackView()
-    withIconColumn.axis = .vertical
-    withIconColumn.spacing = 8
-    withIconColumn.alignment = .center
-
-    let withoutIconColumn = UIStackView()
-    withoutIconColumn.axis = .vertical
-    withoutIconColumn.spacing = 8
-    withoutIconColumn.alignment = .center
-
-    for state in BadgeLabelWithIcon.JobCellState.allCases {
-        let withIcon = BadgeLabelWithIcon()
-        withIcon.state = state
-        withIcon.badgeSize = .medium
-        withIcon.systemImageName = "person.2"
-        withIcon.text = "\(state)".capitalized
-
-        let withoutIcon = BadgeLabelWithIcon()
-        withoutIcon.state = state
-        withoutIcon.badgeSize = .medium
-        withoutIcon.text = "\(state)".capitalized
-
-        withIconColumn.addArrangedSubview(withIcon)
-        withoutIconColumn.addArrangedSubview(withoutIcon)
-    }
-
-    let horizontalStack = UIStackView(arrangedSubviews: [withIconColumn, withoutIconColumn])
-    horizontalStack.axis = .horizontal
-    horizontalStack.spacing = 24
-    horizontalStack.alignment = .top
-
-    return horizontalStack
-}
+//
+//#Preview {
+//    let withIconColumn = UIStackView()
+//    withIconColumn.axis = .vertical
+//    withIconColumn.spacing = 8
+//    withIconColumn.alignment = .center
+//
+//    let withoutIconColumn = UIStackView()
+//    withoutIconColumn.axis = .vertical
+//    withoutIconColumn.spacing = 8
+//    withoutIconColumn.alignment = .center
+//
+//    for state in BadgeLabelWithIcon.JobCellState.allCases {
+//        let withIcon = BadgeLabelWithIcon()
+//        withIcon.state = state
+//        withIcon.badgeSize = .medium
+//        withIcon.systemImageName = "person.2"
+//        withIcon.text = "\(state)".capitalized
+//
+//        let withoutIcon = BadgeLabelWithIcon()
+//        withoutIcon.state = state
+//        withoutIcon.badgeSize = .medium
+//        withoutIcon.text = "\(state)".capitalized
+//
+//        withIconColumn.addArrangedSubview(withIcon)
+//        withoutIconColumn.addArrangedSubview(withoutIcon)
+//    }
+//
+//    let horizontalStack = UIStackView(arrangedSubviews: [withIconColumn, withoutIconColumn])
+//    horizontalStack.axis = .horizontal
+//    horizontalStack.spacing = 24
+//    horizontalStack.alignment = .top
+//
+//    return horizontalStack
+//}
