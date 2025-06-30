@@ -13,7 +13,9 @@ class FunctionSelector: UIView {
         let attributedTitle = AttributedString("Selecionar", attributes: AttributeContainer([
                 .foregroundColor: UIColor.labelsSecondary,
                 .font: UIFont.systemFont(ofSize: 16)
-            ]))
+            ])
+        )
+        
         
         configuration.attributedTitle = attributedTitle
         button.configuration = configuration
@@ -42,10 +44,13 @@ class FunctionSelector: UIView {
                     image: UIImage(systemName: function.iconName),
                     handler: { [weak self] _ in
                         self?.selectedFunction = function
+                        self?.onSelectionChanged?()
                     }
                 )
             }
     }
+    
+    var onSelectionChanged: (() -> Void)?
     
     var selectedFunction: JobPosition? {
         didSet {
