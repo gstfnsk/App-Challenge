@@ -44,22 +44,22 @@ class SizeSelector: UIView {
         return CompanySize.allCases.reversed().map { size in
             UIAction(
                 title: size.rawValue,
-                handler: { _ in
-                    print("Selecionado: \(size.rawValue)")
+                handler: { [weak self] _ in
+                    self?.selectedFunction = size
                 }
             )
         }
     }
 
-    var selectedFunction: JobPosition? {
+    var selectedFunction: CompanySize? {
         didSet {
             var config = button.configuration
-            let title = selectedFunction?.rawValue.capitalized ?? "Selecionar"
+            let title = selectedFunction?.rawValue ?? "Selecionar"
 
             let attributedTitle = AttributedString(
                 title,
                 attributes: AttributeContainer([
-                    .foregroundColor: UIColor.DesignSystem.terracota600,  // nova cor após seleção
+                    .foregroundColor: UIColor.DesignSystem.terracota600,
                     .font: UIFont.systemFont(ofSize: 16)
                 ])
             )

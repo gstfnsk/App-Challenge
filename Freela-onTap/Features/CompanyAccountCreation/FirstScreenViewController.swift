@@ -88,7 +88,7 @@ class FirstScreenViewController: UIViewController {
     private lazy var typeOfCompanyLabel: UILabel = {
         let typeOfCompanyLabel = UILabel()
         typeOfCompanyLabel.translatesAutoresizingMaskIntoConstraints = false
-        typeOfCompanyLabel.text = "Tamanho da empresa"
+        typeOfCompanyLabel.text = "Tipo de estabelecimento"
         typeOfCompanyLabel.font = UIFont.DesignSystem.subheadline
         typeOfCompanyLabel.textColor = UIColor.labelsSecondary
         return typeOfCompanyLabel
