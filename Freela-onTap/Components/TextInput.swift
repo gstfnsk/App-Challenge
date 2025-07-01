@@ -139,6 +139,9 @@ extension TextInput: ViewCodeProtocol {
 
 
 
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
     let normalTextInput = TextInput()
 
@@ -162,3 +165,4 @@ extension TextInput: ViewCodeProtocol {
     stacked.widthAnchor.constraint(equalToConstant: 300).isActive = true
     return stacked
 }
+#endif

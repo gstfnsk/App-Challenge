@@ -95,8 +95,10 @@ extension TypeOfRestaurantSelector: ViewCodeProtocol {
     }
 }
 
-#Preview {
-    let test = TypeOfRestaurantSelector()
-    return test
-}
 
+#if DEBUG
+@available(iOS 17.0, *)
+#Preview {
+    TypeOfRestaurantSelector()
+}
+#endif

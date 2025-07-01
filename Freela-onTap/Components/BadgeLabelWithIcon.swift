@@ -194,6 +194,11 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
         setContentCompressionResistancePriority(.required, for: .horizontal)
     }
 }
+
+
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
     let withIconColumn = UIStackView()
     withIconColumn.axis = .vertical
@@ -228,3 +233,4 @@ extension BadgeLabelWithIcon: ViewCodeProtocol {
 
     return horizontalStack
 }
+#endif

@@ -97,6 +97,10 @@ extension SizeSelector: ViewCodeProtocol {
     }
 }
 
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
     SizeSelector()
 }
+#endif

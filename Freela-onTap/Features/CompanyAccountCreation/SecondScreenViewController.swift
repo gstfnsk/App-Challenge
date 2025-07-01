@@ -226,7 +226,10 @@ extension SecondScreenViewController: ViewCodeProtocol {
         ])
     }
 }
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
-    let test = SecondScreenViewController()
-    return test
+    SecondScreenViewController()
 }
+#endif

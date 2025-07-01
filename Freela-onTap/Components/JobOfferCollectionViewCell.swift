@@ -250,6 +250,9 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
     }
 }
 
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
     let cell = JobOfferCollectionViewCell()
     cell.state = .disabled
@@ -280,3 +283,4 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
 
     return container
 }
+#endif

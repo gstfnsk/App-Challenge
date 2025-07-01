@@ -82,6 +82,9 @@ extension LabelWithIconComponent: ViewCodeProtocol {
     }
 }
 
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
     let blabel = LabelWithIconComponent()
     blabel.translatesAutoresizingMaskIntoConstraints = false
@@ -89,3 +92,4 @@ extension LabelWithIconComponent: ViewCodeProtocol {
     blabel.image = UIImage(systemName: "clock.arrow.circlepath")
     return blabel
 }
+#endif

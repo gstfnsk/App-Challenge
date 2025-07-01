@@ -103,7 +103,11 @@ extension ProgressBar: ViewCodeProtocol {
         updateState()
     }
 }
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
     let progressBar = ProgressBar()
     return progressBar
 }
+#endif

@@ -113,6 +113,10 @@ extension CompanyPublishedJobsHeader: ViewCodeProtocol {
     }
 }
 
+
+#if DEBUG
+@available(iOS 17.0, *)
 #Preview {
     CompanyPublishedJobsHeader()
 }
+#endif
