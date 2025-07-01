@@ -209,8 +209,7 @@ extension FirstScreenViewController: ViewCodeProtocol {
 //        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
     }
 }
-//
-//#Preview {
-//    let test = FirstScreenViewController()
-//    return test
-//}
+#Preview {
+    let test = FirstScreenViewController()
+    return test
+}

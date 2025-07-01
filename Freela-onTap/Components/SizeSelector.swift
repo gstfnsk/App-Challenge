@@ -96,7 +96,7 @@ extension SizeSelector: ViewCodeProtocol {
         ])
     }
 }
-//
-//#Preview {
-//    SizeSelector()
-//}
+
+#Preview {
+    SizeSelector()
+}

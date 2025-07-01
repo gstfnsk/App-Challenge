@@ -249,34 +249,34 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
         ])
     }
 }
-//
-//#Preview {
-//    let cell = JobOfferCollectionViewCell()
-//    cell.state = .disabled
-//    
-//    /// Ignore lines bellow, the are only for the pourpuse of this preview
-//    cell.translatesAutoresizingMaskIntoConstraints = false
-//
-//    cell.setNeedsLayout()
-//    cell.layoutIfNeeded()
-//
-//    let size = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-//
-//    let container = UIView()
-//    container.backgroundColor = .systemBackground
-//    container.translatesAutoresizingMaskIntoConstraints = false
-//
-//    container.addSubview(cell)
-//
-//    NSLayoutConstraint.activate([
-//        container.widthAnchor.constraint(equalToConstant: 325),
-//        container.heightAnchor.constraint(equalToConstant: 812),
-//
-//        cell.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-//        cell.centerYAnchor.constraint(equalTo: container.centerYAnchor),
-//        cell.widthAnchor.constraint(equalToConstant: size.width + 60),
-//        cell.heightAnchor.constraint(equalToConstant: size.height)
-//    ])
-//
-//    return container
-//}
+
+#Preview {
+    let cell = JobOfferCollectionViewCell()
+    cell.state = .disabled
+    
+    /// Ignore lines bellow, the are only for the pourpuse of this preview
+    cell.translatesAutoresizingMaskIntoConstraints = false
+
+    cell.setNeedsLayout()
+    cell.layoutIfNeeded()
+
+    let size = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+
+    let container = UIView()
+    container.backgroundColor = .systemBackground
+    container.translatesAutoresizingMaskIntoConstraints = false
+
+    container.addSubview(cell)
+
+    NSLayoutConstraint.activate([
+        container.widthAnchor.constraint(equalToConstant: 325),
+        container.heightAnchor.constraint(equalToConstant: 812),
+
+        cell.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+        cell.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+        cell.widthAnchor.constraint(equalToConstant: size.width + 60),
+        cell.heightAnchor.constraint(equalToConstant: size.height)
+    ])
+
+    return container
+}

@@ -138,27 +138,27 @@ extension TextInput: ViewCodeProtocol {
 }
 
 
-//
-//#Preview {
-//    let normalTextInput = TextInput()
-//
-//    let errorTextInput = TextInput()
-//    errorTextInput.state = .error
-//    
-//    let filledTextInput = TextInput()
-//    filledTextInput.text = "Some text"
-//    
-//    let disabledTextInput = TextInput()
-//    disabledTextInput.state = .disabled
-//    
-//    let stacked: UIStackView = {
-//        let stack = UIStackView(arrangedSubviews: [normalTextInput, errorTextInput, filledTextInput, disabledTextInput])
-//        stack.axis = .vertical
-//        stack.spacing = 16
-//        
-//        return stack
-//    }()
-//    
-//    stacked.widthAnchor.constraint(equalToConstant: 300).isActive = true
-//    return stacked
-//}
+
+#Preview {
+    let normalTextInput = TextInput()
+
+    let errorTextInput = TextInput()
+    errorTextInput.state = .error
+    
+    let filledTextInput = TextInput()
+    filledTextInput.text = "Some text"
+    
+    let disabledTextInput = TextInput()
+    disabledTextInput.state = .disabled
+    
+    let stacked: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [normalTextInput, errorTextInput, filledTextInput, disabledTextInput])
+        stack.axis = .vertical
+        stack.spacing = 16
+        
+        return stack
+    }()
+    
+    stacked.widthAnchor.constraint(equalToConstant: 300).isActive = true
+    return stacked
+}

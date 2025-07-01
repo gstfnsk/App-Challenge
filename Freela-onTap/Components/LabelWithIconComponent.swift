@@ -81,11 +81,11 @@ extension LabelWithIconComponent: ViewCodeProtocol {
         ])
     }
 }
-//
-//#Preview {
-//    let blabel = LabelWithIconComponent()
-//    blabel.translatesAutoresizingMaskIntoConstraints = false
-//    blabel.text = "1h atrás"
-//    blabel.image = UIImage(systemName: "clock.arrow.circlepath")
-//    return blabel
-//}
+
+#Preview {
+    let blabel = LabelWithIconComponent()
+    blabel.translatesAutoresizingMaskIntoConstraints = false
+    blabel.text = "1h atrás"
+    blabel.image = UIImage(systemName: "clock.arrow.circlepath")
+    return blabel
+}
