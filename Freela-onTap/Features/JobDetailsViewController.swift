@@ -38,9 +38,8 @@ class JobDetailsViewController: UIViewController {
             companyImageView.topAnchor.constraint(equalTo: container.topAnchor),
             companyImageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             companyImageView.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            companyImageView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ])
-
         return container
     }()
 
@@ -54,7 +53,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Le Cochon Volant"
-        label.font = UIFont(name: "SFProRounded-Bold", size: 30)
+        label.applyDynamicFont(.DesignSystem.title2Emphasized)
         return label
     }()
 
@@ -62,7 +61,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Descrição da vaga:"
-        label.font = UIFont.DesignSystem.headline
+        label.applyDynamicFont(UIFont.DesignSystem.headline)
         return label
     }()
 
@@ -74,7 +73,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         return label
     }()
 
@@ -90,7 +89,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Responsabilidades:"
-        label.font = UIFont.DesignSystem.headline
+        label.applyDynamicFont(UIFont.DesignSystem.headline)
         return label
     }()
 
@@ -106,7 +105,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         return label
     }()
 
@@ -122,7 +121,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Requisitos:"
-        label.font = UIFont.DesignSystem.headline
+        label.applyDynamicFont(UIFont.DesignSystem.headline)
         return label
     }()
 
@@ -138,7 +137,7 @@ class JobDetailsViewController: UIViewController {
             """
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         return label
     }()
 
@@ -163,7 +162,7 @@ class JobDetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Sunset Drinks"
         label.textColor = UIColor.DesignSystem.terracota900
-        label.font = UIFont.DesignSystem.title2Emphasized
+        label.applyDynamicFont(UIFont.DesignSystem.title2Emphasized)
         return label
     }()
 
@@ -171,7 +170,7 @@ class JobDetailsViewController: UIViewController {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Bar"
-        label.font = UIFont.DesignSystem.body
+        label.applyDynamicFont(UIFont.DesignSystem.body)
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         return label
     }()
@@ -179,7 +178,7 @@ class JobDetailsViewController: UIViewController {
     private lazy var companyAddress: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.DesignSystem.footnote
+        label.applyDynamicFont(UIFont.DesignSystem.footnote)
         label.textColor = UIColor.DesignSystem.terracota600
         label.text = "Av. Beira-Mar, 1250 - Bairro Praia Norte, Florianópolis - SC"
         label.isUserInteractionEnabled = true
@@ -245,31 +244,35 @@ class JobDetailsViewController: UIViewController {
     }()
 
     private lazy var date: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "27/06"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "27/06",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     private lazy var time: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "Horário: 18h"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "Horário: 18h",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     private lazy var amount: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "R$ 120"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "R$ 120",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     private lazy var duration: BadgeLabelWithIcon = {
-        var badge = BadgeLabelWithIcon()
-        badge.text = "6h"
-        badge.badgeSize = .medium
-        return badge
+        BadgeLabelWithIcon(
+            text: "6h",
+            state: .mutted,
+            size: .medium
+        )
     }()
 
     lazy var badgesStack: UIStackView = {
@@ -283,13 +286,15 @@ class JobDetailsViewController: UIViewController {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = UIColor.DesignSystem.terracota200
         button.layer.cornerRadius = 12
-        button.backgroundColor = UIColor.systemGray5
+        button.addTarget(self.jobOffer, action: #selector(shareButtonTapped), for: .touchUpInside)
         return button
     }()
 
     private lazy var buttonsStack: UIStackView = {
-        var stack = UIStackView(arrangedSubviews: [contactButton])
+        var stack = UIStackView(arrangedSubviews: [contactButton, shareButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.spacing = 12
         return stack
@@ -320,6 +325,12 @@ class JobDetailsViewController: UIViewController {
 
     @objc private func didTapRightButton() {
         // Open denunciar alert
+    }
+    
+    @objc private func shareButtonTapped() {
+        let texto = "“Vi que estão buscando \(jobOffer?.title.rawValue.localizedCapitalized ?? "") no Freela onTap! Pode ser uma boa pra você."
+        let activityVC = UIActivityViewController(activityItems: [texto, "https://testflight.apple.com/join/fhWYxupt"], applicationActivities: nil)
+        present(activityVC, animated: true)
     }
 
     func configure(with jobOffer: JobOffer) {
@@ -393,7 +404,7 @@ class JobDetailsViewController: UIViewController {
             string: "Agora é com você!!",
             attributes: [
                 .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.bodyEmphasized,
+                .font: UIFont.DesignSystem.bodyEmphasized
             ]
         )
         alert.setValue(attributedTitle, forKey: "attributedTitle")
@@ -403,7 +414,7 @@ class JobDetailsViewController: UIViewController {
             string: "Fale direto com quem tá contratando e garanta seu freela",
             attributes: [
                 .foregroundColor: UIColor.black,
-                .font: UIFont.DesignSystem.body,
+                .font: UIFont.DesignSystem.body
             ]
         )
         alert.setValue(attributedMessage, forKey: "attributedMessage")
@@ -493,8 +504,8 @@ extension JobDetailsViewController: ViewCodeProtocol {
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -31.5),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 36),
 
-            //            shareButton.heightAnchor.constraint(equalToConstant: 50),
-            //            shareButton.widthAnchor.constraint(equalToConstant: 59)
+            shareButton.heightAnchor.constraint(equalToConstant: 50),
+            shareButton.widthAnchor.constraint(equalToConstant: 59)
         ])
     }
 }

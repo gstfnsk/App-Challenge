@@ -15,7 +15,7 @@ final class Onboarding2Cell: UICollectionViewCell {
     private lazy var mainTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 40)
+        label.font = UIFont.systemFont(ofSize: 40) // not dynamic
         label.numberOfLines = 0
         label.textColor = UIColor.DesignSystem.terracota600
         return label
@@ -24,7 +24,7 @@ final class Onboarding2Cell: UICollectionViewCell {
     private lazy var subtitle: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 17) // not dynamic
         label.numberOfLines = 0
         label.textColor = UIColor.DesignSystem.terracota900
         return label

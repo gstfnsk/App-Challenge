@@ -17,7 +17,7 @@ class TitleJobListCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Vagas adicionadas recentemente"
-        label.font = .systemFont(ofSize: 15, weight: .regular)
+        label.applyDynamicFont(.DesignSystem.subheadline)
         label.textColor = .secondaryLabel
         return label
     }()
