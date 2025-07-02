@@ -56,6 +56,7 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "CEP:"
         input.placeholderText = "98765-432"
+        input.keyboardType = UIKeyboardType.numberPad
         return input
     }()
     
@@ -70,6 +71,7 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "Número:"
         input.placeholderText = "1088"
+        input.keyboardType = UIKeyboardType.numberPad
         return input
     }()
     
@@ -155,6 +157,7 @@ class SecondScreenViewController: UIViewController {
         let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 
         view.addGestureRecognizer(tapDismissKeyboard)
+
         setup()
     }
     

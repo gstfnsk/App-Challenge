@@ -56,6 +56,7 @@ class FirstScreenViewController: UIViewController {
     private lazy var cnpj: TextInput = {
        let input = TextInput()
         input.labelText = "CNPJ:"
+        input.keyboardType = UIKeyboardType.numberPad
         input.placeholderText = "12.345.678.0001-23"
         return input
     }()

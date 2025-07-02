@@ -35,6 +35,12 @@ final class TextInput: UIView {
         }
     }
     
+    var keyboardType: UIKeyboardType {
+        get { textField.keyboardType }
+        set { textField.keyboardType = newValue }
+    }
+
+    
     var text: String? {
         get {
             textField.text
