@@ -58,13 +58,24 @@ class SecondScreenViewController: UIViewController {
         input.placeholderText = "98765-432"
         
         input.editingFunc = { [weak self, weak input] in
-            guard let cep = input?.text?.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression),
-                  cep.count == 8 else {
+            guard let cep = input?.text?.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression) else {
                 return
             }
-            self?.fetchAdress(cep: cep)
+            if cep.count != 8 {
+                input?.state = .error
+            } else {
+                input?.state = .normal
+                self?.fetchAdress(cep: cep)
+            }
+            if cep.count >= 6 {
+                let cepPrefix = cep.prefix(5)
+                let cepSufix = cep.dropFirst(5)
+                let formattedCep = "\(cepPrefix)-\(cepSufix)"
+                input?.text = formattedCep
+            } else {
+                input?.text = cep
+            }
         }
-        
         return input
     }()
 
@@ -270,8 +281,7 @@ extension SecondScreenViewController: ViewCodeProtocol {
     }
 }
 #Preview {
-    let test = SecondScreenViewController()
-    return test
+     SecondScreenViewController()
 }
 
 struct Endereco: Decodable {
