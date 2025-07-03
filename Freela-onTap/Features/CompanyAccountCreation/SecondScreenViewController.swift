@@ -53,11 +53,32 @@ class SecondScreenViewController: UIViewController {
     }()
     
     private lazy var cep: TextInput = {
-       let input = TextInput()
+        let input = TextInput()
         input.labelText = "CEP:"
         input.placeholderText = "98765-432"
+        
+        input.editingFunc = { [weak self, weak input] in
+            guard let cep = input?.text?.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression) else {
+                return
+            }
+            if cep.count != 8 {
+                input?.state = .error
+            } else {
+                input?.state = .normal
+                self?.fetchAdress(cep: cep)
+            }
+            if cep.count >= 6 {
+                let cepPrefix = cep.prefix(5)
+                let cepSufix = cep.dropFirst(5)
+                let formattedCep = "\(cepPrefix)-\(cepSufix)"
+                input?.text = formattedCep
+            } else {
+                input?.text = cep
+            }
+        }
         return input
     }()
+
     
     private lazy var street: TextInput = {
        let input = TextInput()
@@ -100,7 +121,6 @@ class SecondScreenViewController: UIViewController {
         input.placeholderText = "Rio Grande do Sul"
         return input
     }()
-    
     
     private lazy var continueButton: UIButton = {
         let button = UIButton()
@@ -167,6 +187,40 @@ class SecondScreenViewController: UIViewController {
         self.navigationItem.backButtonTitle = "Voltar"
         self.navigationController?.pushViewController(thirdScreen, animated: true)
     }
+    
+    @objc func cepDidChange() {
+        guard let cep = cep.text?.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression),
+              cep.count == 8 else {
+            return
+        }
+        fetchAdress(cep: cep)
+    }
+    
+    private func fetchAdress(cep: String) {
+        guard let url = URL(string: "https://viacep.com.br/ws/\(cep)/json/") else {
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data, error == nil else {
+                return
+            }
+            
+            do {
+                let endereco = try JSONDecoder().decode(Endereco.self, from: data)
+                DispatchQueue.main.async {
+                    self.street.text = endereco.logradouro
+                    self.neighborhood.text = endereco.bairro
+                    self.city.text = endereco.localidade
+                    self.state.text = endereco.uf
+                }
+            } catch {
+                print("Erro ao decodificar JSON:", error)
+            }
+        }
+        
+        task.resume()
+    }
 }
 
 extension SecondScreenViewController: ViewCodeProtocol {
@@ -227,6 +281,12 @@ extension SecondScreenViewController: ViewCodeProtocol {
     }
 }
 #Preview {
-    let test = SecondScreenViewController()
-    return test
+     SecondScreenViewController()
+}
+
+struct Endereco: Decodable {
+    let logradouro: String
+    let bairro: String
+    let localidade: String
+    let uf: String
 }

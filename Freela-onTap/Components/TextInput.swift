@@ -44,6 +44,14 @@ final class TextInput: UIView {
         }
     }
     
+    
+//    // ------
+    var editingFunc: () -> Void = {}
+
+    @objc private func textFieldDidChange() {
+        editingFunc()
+    }
+//    // -----
     // MARK: - Initializers
     
     override init(frame: CGRect) {
@@ -94,7 +102,6 @@ final class TextInput: UIView {
         textField.placeholder = placeholderText
         textField.layer.borderColor = UIColor.DesignSystem.terracota700.cgColor
         textField.backgroundColor = .tertiarySystemBackground
-        
         textField.layer.cornerRadius = 12
         textField.layer.borderWidth = 1
                 
@@ -134,6 +141,7 @@ extension TextInput: ViewCodeProtocol {
     // MARK: - Additional Configuration
     func setupAdditionalConfiguration() {
         changeState(state)
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
 }
 
