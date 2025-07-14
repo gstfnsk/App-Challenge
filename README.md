@@ -1,10 +1,8 @@
 # Freela onTap
 
-[IMAGEM DO HEADER AQUI]
+![Freela onTap Header](.github/images/header.png)
 
-> [PLACEHOLDER PARA SLOGAN E DESCRIÇÃO]
-
-O Freela onTap é um aplicativo para iOS que conecta freelancers e empresas do setor de hospitalidade, para quem busca uma oportunidade e quem precisa contratar, sem burocracia e de forma ágil.
+O Freela onTap é um **aplicativo para iOS** que conecta freelancers e empresas do setor de hospitalidade, para quem busca uma oportunidade e quem precisa contratar, sem burocracia e de forma ágil.
 
 ---
 
