@@ -23,11 +23,8 @@ O Freela onTap ataca esse problema de frente, centralizando e organizando a cone
 
 --- 
 
-![](.github/images/app-screenshots/001.png)
-![](.github/images/app-screenshots/002.png)
-![](.github/images/app-screenshots/003.png)
-![](.github/images/app-screenshots/004.png)
-![](.github/images/app-screenshots/005.png)
+![](.github/images/app-screenshots/empresa.png)
+![](.github/images/app-screenshots/freelancer.png)
 
 ---
 
