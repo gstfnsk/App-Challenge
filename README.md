@@ -21,7 +21,15 @@ O Freela onTap ataca esse problema de frente, centralizando e organizando a cone
 | **Comunicação Direta** | Um canal direto para que as partes combinem os detalhes do serviço, agilizando o processo. |
 | **Informações Claras** | Todas as vagas apresentam informações essenciais como valores, horários e localização no mapa, acabando com a incerteza. |
 
-[IMAGEM/GIF DA TELA DE MURAL DE VAGAS] [IMAGEM/GIF DA TELA DE DETALHES DA VAGA] [IMAGEM/GIF DO PERFIL DA EMPRESA]
+--- 
+
+![](.github/images/app-screenshots/001.png)
+![](.github/images/app-screenshots/002.png)
+![](.github/images/app-screenshots/003.png)
+![](.github/images/app-screenshots/004.png)
+![](.github/images/app-screenshots/005.png)
+
+---
 
 ### Pesquisa e Validação de Mercado
 
