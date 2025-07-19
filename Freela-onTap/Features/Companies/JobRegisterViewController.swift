@@ -476,59 +476,62 @@ class JobRegisterViewController: UIViewController {
         print("Form válido?", isFormValid)
         print("Botão está habilitado?", continueButton.isEnabled)
     }
+    var begginingHour: Date?
+    // PRECISA SER DOUBLE AQUI
+    var intSalary: Int?
 
     @objc func continueAction() {
         let job = functionSelector.selectedFunction
         let date = selectedDate
-        let stringHour = time.text
-        let hourComponent = stringHour?.split(separator: ":").first?.trimmingCharacters(in: .whitespacesAndNewlines)
-        let hour = Int(hourComponent ?? "")
+        
+        // MARK: BEGINNING HOUR
+        let dateForm = DateFormatter()
+        dateForm.dateFormat = "HH:mm"
+        
+        if let stringHour = time.text,
+           let date = dateForm.date(from: stringHour) {
+            begginingHour = date
+            print("data convertida")
+        } else {
+            print("erro ao converter data")
+        }
+        
+        // mudar aqui
         let stringSalary = moneyTextField.text ?? ""
+        let formattedSalary = stringSalary.replacingOccurrences(of: ",", with: ".")
+        print(formattedSalary)
+        // PRECISA SER DOUBLE AQUI
+        intSalary = Int(formattedSalary)
+        //
 
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.locale = Locale(identifier: "pt_BR") // para aceitar "100,00"
         
         let description = descriptionTextField.text
         let qualifications = responsabilitiesTextField.text
         let duties = dutiesTextField.text
             
         print("clicou")
-//        print("job: \(String(describing: job))")
-//        print("date: \(String(describing: date))")
-//        print("stringHour: \(String(describing: stringHour))")
-//        print("hourComponent: \(String(describing: hourComponent))")
-//        print("hour: \(String(describing: hour))")
-//        print("stringSalary: \(String(describing: stringSalary))")
-//        print("salary: \(String(describing: salary))")
-//        print("description: \(String(describing: description))")
-//        print("qualifications: \(String(describing: qualifications))")
-//        print("duties: \(String(describing: duties))")
 
 
         if let job,
            let date,
            let duration,
            // ESSE HOUR é o horário que começa.. tem que ser passado por fora!
-           let hour,
-           let number = formatter.number(from: stringSalary),
+           let begginingHour,
+           let intSalary,
            let description,
            let qualifications,
            let duties {
-            let salary = Int(truncating: number)
             let numberDuration = duration.replacingOccurrences(of: "h", with: "")
             let intDuration = Int(numberDuration) ?? 00
             let newJob = JobOffer (
-                
-                
                 id: UUID(),
                 companyId: UUID(), // AINDA NAO TEMOS
                 postedAt: date,
                 title: job,
-                // esse HOUR NAO ´E DURATION E HOrario que eu começo
                 durationInHours: intDuration,
                 startDate: datePicker.date,
-                salaryBRL: salary,
+                //PRECISA SER DOUBLE PRA PASSAR...
+                salaryBRL: intSalary,
                 description: description,
                 qualifications: qualifications,
                 duties: duties
@@ -536,7 +539,7 @@ class JobRegisterViewController: UIViewController {
             
             let jobregister2 = JobRegister2ViewController()
             jobregister2.jobOffer = newJob
-            jobregister2.begginingHour = hour
+            jobregister2.begginingHour = begginingHour
             navigationController?.pushViewController(jobregister2, animated: true)
         }
     }
