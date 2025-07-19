@@ -567,7 +567,6 @@ class JobRegisterViewController: UIViewController {
 extension JobRegisterViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(scrollView)
-        view.addSubview(overlayView)
 
         scrollView.addSubview(contentView)
         contentView.addSubview(bigStack)
@@ -576,7 +575,7 @@ extension JobRegisterViewController: ViewCodeProtocol {
         contentView.addSubview(date)
         contentView.addSubview(time)
         contentView.addSubview(hourPickerWheel)
-        overlayView.addSubview(buttonStack)
+        contentView.addSubview(buttonStack)
         
         
         hourPickerWheel.onHourSelected = { [weak self] selectedHour in
@@ -630,16 +629,11 @@ extension JobRegisterViewController: ViewCodeProtocol {
             bigStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             bigStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -175), // <- FECHA A SCROLL
             
-            // botão fixo fora da scroll
-            overlayView.heightAnchor.constraint(equalToConstant: 150),
-            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             buttonStack.heightAnchor.constraint(equalToConstant: 112),
             buttonStack.widthAnchor.constraint(equalToConstant: 321),
-            buttonStack.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
-            buttonStack.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -35),
+            buttonStack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            buttonStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -35),
             
             // continua fora da scroll
             orangeView.heightAnchor.constraint(equalToConstant: 4),
@@ -691,6 +685,7 @@ extension JobRegisterViewController: UITextViewDelegate {
             textView.textColor = .label
         }
     }
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         if descriptionTextField.text.isEmpty {
             textView.text = "Buscamos alguém para integrar a equipe, com foco em bom atendimento, atenção aos detalhes e paixão pelo que faz.."
@@ -713,6 +708,7 @@ extension JobRegisterViewController: UITextViewDelegate {
             textView.textColor = .label
         }
     }
+    
     func textViewDidChange(_ textView: UITextView) {
         validateForm()
     }
