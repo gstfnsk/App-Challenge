@@ -132,14 +132,29 @@ class JobRegisterViewController: UIViewController {
         let textField = InsetedTextField(insetX: 16, insetY: 10)
         textField.font = .DesignSystem.body
         textField.textColor = .label
-        textField.placeholder = "120,00"
+        textField.placeholder = "120"
         textField.backgroundColor = .tertiarySystemBackground
         textField.layer.cornerRadius = 12
         textField.keyboardType = .decimalPad
         textField.addTarget(self, action: #selector(validateForm), for: .editingChanged)
+        textField.addTarget(self, action: #selector(formatMoney), for: .editingDidEnd)
+        textField.addTarget(self, action: #selector(noComma), for: .editingChanged)
+        
         return textField
     }()
-    
+    @objc func noComma() {
+        let moneyWihtoutComma = moneyTextField.text?.replacingOccurrences(of: ",", with: "")
+        moneyTextField.text = moneyWihtoutComma
+        
+    }
+    @objc func formatMoney() {
+        if let text = moneyTextField.text, !text.isEmpty {
+            if !text.hasSuffix(",00") && !text.contains(",") {
+                moneyTextField.text = text + ",00"
+            }
+        }
+    }
+
     lazy var money: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [reaisStack, moneyTextField])
         stack.bringSubviewToFront(reaisStack)
@@ -498,9 +513,7 @@ class JobRegisterViewController: UIViewController {
         
         // mudar aqui
         let stringSalary = moneyTextField.text ?? ""
-        let formattedSalary = stringSalary.replacingOccurrences(of: ",", with: ".")
-        print(formattedSalary)
-        // PRECISA SER DOUBLE AQUI
+        let formattedSalary = stringSalary.replacingOccurrences(of: ",00", with: "")
         intSalary = Int(formattedSalary)
         //
 
@@ -530,7 +543,7 @@ class JobRegisterViewController: UIViewController {
                 title: job,
                 durationInHours: intDuration,
                 startDate: datePicker.date,
-                //PRECISA SER DOUBLE PRA PASSAR...
+                // PRECISA SER DOUBLE PRA PASSAR...
                 salaryBRL: intSalary,
                 description: description,
                 qualifications: qualifications,

@@ -256,9 +256,11 @@ class JobRegister2ViewController: UIViewController {
             // MARK: MUDAR AQUI
             let stringSalary = String(jobOffer.salaryBRL)
             let text1 = "R$"
+            let text2 = ",00"
             var fullText = ""
             fullText.append(text1)
             fullText.append(stringSalary)
+            fullText.append(text2)
             badge.text = fullText
         }
         badge.badgeSize = .medium
