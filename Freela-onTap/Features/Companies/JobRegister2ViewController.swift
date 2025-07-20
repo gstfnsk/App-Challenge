@@ -201,7 +201,7 @@ class JobRegister2ViewController: UIViewController {
 
     lazy var companyStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [
-            companyName, establishmentType, companyNumberOfEmployees, companyAddress,
+            companyName, establishmentType, companyNumberOfEmployees, companyAddress
         ])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -273,7 +273,7 @@ class JobRegister2ViewController: UIViewController {
         var badge = BadgeLabelWithIcon()
         if let jobOffer {
             let stringDuration = String(jobOffer.durationInHours)
-            var durationWithH: String = ""
+            var durationWithH = ""
             durationWithH.append(stringDuration)
             durationWithH.append("h")
             badge.text = durationWithH
@@ -335,7 +335,7 @@ class JobRegister2ViewController: UIViewController {
         }
         alertActionOne.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
         let alertActionTwo = UIAlertAction(title: "Publicar outra vaga", style: .default) {_ in
-            let rootVC = JobRegisterViewController()
+            _ = JobRegisterViewController()
             self.navigationController?.popToRootViewController(animated: true)
         }
         alertActionTwo.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
@@ -424,7 +424,7 @@ extension JobRegister2ViewController: ViewCodeProtocol {
             returnButton.heightAnchor.constraint(equalToConstant: 50),
 
             buttonsStack.heightAnchor.constraint(equalToConstant: 112),
-            buttonsStack.widthAnchor.constraint(equalToConstant: 321),
+            buttonsStack.widthAnchor.constraint(equalToConstant: 321)
         ])
     }
     
