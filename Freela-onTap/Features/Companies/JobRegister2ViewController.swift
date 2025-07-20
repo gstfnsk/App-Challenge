@@ -11,6 +11,7 @@ class JobRegister2ViewController: UIViewController {
     var jobOffer: JobOffer?
     // //MARK: GAMBIARRA PRA DEPOIS
     var begginingHour: Date?
+    var begginingDate: Date?
     
     
     private lazy var contentView: UIView = {
@@ -229,7 +230,7 @@ class JobRegister2ViewController: UIViewController {
         if let jobOffer {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM"
-            let formattedDate = formatter.string(from: jobOffer.startDate)
+            let formattedDate = formatter.string(from: begginingDate ?? Date())
             badge.text = formattedDate
         }
         badge.badgeSize = .medium

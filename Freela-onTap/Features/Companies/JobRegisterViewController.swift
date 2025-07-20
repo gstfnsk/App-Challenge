@@ -537,6 +537,10 @@ class JobRegisterViewController: UIViewController {
             let numberDuration = duration.replacingOccurrences(of: "h", with: "")
             let intDuration = Int(numberDuration) ?? 00
             let newJob = JobOffer (
+                
+                // MARK: AQUI DEVERIA SER COMBINADO O beginningHOUR com datepicker.date pra passar no startDate..
+                
+                
                 id: UUID(),
                 companyId: UUID(), // AINDA NAO TEMOS
                 postedAt: date,
@@ -553,6 +557,7 @@ class JobRegisterViewController: UIViewController {
             let jobregister2 = JobRegister2ViewController()
             jobregister2.jobOffer = newJob
             jobregister2.begginingHour = begginingHour
+            jobregister2.begginingDate = datePicker.date
             navigationController?.pushViewController(jobregister2, animated: true)
         }
     }
