@@ -528,7 +528,6 @@ class JobRegisterViewController: UIViewController {
         if let job,
            let date,
            let duration,
-           // ESSE HOUR é o horário que começa.. tem que ser passado por fora!
            let begginingHour,
            let intSalary,
            let description,
@@ -536,18 +535,30 @@ class JobRegisterViewController: UIViewController {
            let duties {
             let numberDuration = duration.replacingOccurrences(of: "h", with: "")
             let intDuration = Int(numberDuration) ?? 00
-            let newJob = JobOffer (
+           
+            let startDateComponents = DateComponents(
+                year: Calendar.current.component(.year, from: date),
+                month: Calendar.current.component(.month, from: date),
+                day: Calendar.current.component(.day, from: date),
+                hour: Calendar.current.component(.hour, from: begginingHour),
+                minute: Calendar.current.component(.minute, from: begginingHour)
+            )
+            
+            guard let startDate = Calendar.current.date(from: startDateComponents) else {
+                #if DEBUG
+                print("\(#file) \(#line) - Couldn't create Date from DateComponents")
+                #endif
                 
-                // MARK: AQUI DEVERIA SER COMBINADO O beginningHOUR com datepicker.date pra passar no startDate..
-                
-                
+                return
+            }
+                        
+            let newJob = JobOffer(
                 id: UUID(),
                 companyId: UUID(), // AINDA NAO TEMOS
                 postedAt: date,
                 title: job,
                 durationInHours: intDuration,
-                startDate: datePicker.date,
-                // PRECISA SER DOUBLE PRA PASSAR...
+                startDate: startDate,
                 salaryBRL: intSalary,
                 description: description,
                 qualifications: qualifications,
