@@ -27,7 +27,8 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
 
             var jobOfferMap: [UUID: JobOffer] = [:]
 
-            for offer in jobOffers {
+            for var offer in jobOffers {
+                offer.company = try? await fetchCompany(id: offer.companyId)
                 jobOfferMap.updateValue(offer, forKey: offer.id)
             }
 

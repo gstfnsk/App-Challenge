@@ -44,7 +44,7 @@ class JobListViewController: UIViewController {
     }()
     
     @objc func buttonRefresh() {
-        self.updateJobOfferList()
+        self.updateJobOfferList(forceUpdate: true)
         self.collectionView.reloadData()
     }
 
@@ -78,7 +78,7 @@ class JobListViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
-        updateJobOfferList()
+        updateJobOfferList(forceUpdate: true)
     }
 }
 
