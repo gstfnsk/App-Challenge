@@ -18,7 +18,7 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         let predicate = CloudKitManager.allWithIdPredicate
 
         let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
-        let (matchResults, _) = try await publicDB.records(matching: query)
+        let (matchResults, _) = try await publicDatabase.records(matching: query)
 
         var offers: [JobOffer] = []
 
@@ -50,7 +50,7 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         let predicate = NSPredicate(format: "id == %@", id.uuidString)
 
         let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
-        let (matchResults, _) = try await publicDB.records(matching: query)
+        let (matchResults, _) = try await publicDatabase.records(matching: query)
         
         for (_, result) in matchResults {
             switch result {
@@ -82,7 +82,7 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         record["qualifications"] = jobOffer.qualifications
         record["duties"] = jobOffer.duties
         
-        try await publicDB.save(record)
+        try await publicDatabase.save(record)
     }
     
     // MARK: - Delete JobOffer
@@ -91,7 +91,7 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         try await throwIfICloudNotAvailable()
 
         let recordID = CKRecord.ID(recordName: id.uuidString)
-        try await publicDB.deleteRecord(withID: recordID)
+        try await publicDatabase.deleteRecord(withID: recordID)
     }
     
     func deleteJobOffer(_ jobOffer: JobOffer) async throws {

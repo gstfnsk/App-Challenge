@@ -24,7 +24,7 @@ extension CloudKitManager {
         try await throwIfICloudNotAvailable()
 
         var query = CKQuery(recordType: companyProfileRecordType, predicate: CloudKitManager.allWithIdPredicate)
-        var (matchResults, _) = try await publicDB.records(matching: query)
+        var (matchResults, _) = try await publicDatabase.records(matching: query)
 
         for (_, result) in matchResults {
             switch result {
@@ -36,7 +36,7 @@ extension CloudKitManager {
         }
 
         query = CKQuery(recordType: jobOfferRecordType, predicate: CloudKitManager.allWithIdPredicate)
-        (matchResults, _) = try await publicDB.records(matching: query)
+        (matchResults, _) = try await publicDatabase.records(matching: query)
 
         for (_, result) in matchResults {
             switch result {
