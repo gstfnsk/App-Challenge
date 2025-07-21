@@ -10,7 +10,9 @@ import UIKit
 class JobRegister2ViewController: UIViewController {
     var jobOffer: JobOffer?
     // //MARK: GAMBIARRA PRA DEPOIS
-    var begginingHour: Int?
+    var begginingHour: Date?
+    var begginingDate: Date?
+    
     
     private lazy var contentView: UIView = {
         let view = UIView()
@@ -58,17 +60,6 @@ class JobRegister2ViewController: UIViewController {
         return scrollView
     }()
     
-    // ta sendo usado isso?
-//    private lazy var companyNameTitle: UILabel = {
-//        var label = UILabel()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        if let jobOffer {
-//            label.text = jobOffer.title.rawValue
-//        }
-//        
-//        label.font = UIFont(name: "SFProRounded-Bold", size: 30)
-//        return label
-//    }()
 
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
@@ -135,6 +126,7 @@ class JobRegister2ViewController: UIViewController {
         label.font = UIFont.DesignSystem.headline
         return label
     }()
+    
     // certinho
     private lazy var requirementsText: UILabel = {
         var label = UILabel()
@@ -206,18 +198,10 @@ class JobRegister2ViewController: UIViewController {
         return label
     }()
 
-    // não faz sentido estar no cadastro
-//    private lazy var postedTime: LabelWithIconComponent = {
-//        var label = LabelWithIconComponent()
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.text = "1h atrás"
-//        label.image = UIImage(systemName: "clock.arrow.circlepath")
-//        return label
-//    }()
 
     lazy var companyStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [
-            companyName, establishmentType, companyNumberOfEmployees, companyAddress, /*postedTime */
+            companyName, establishmentType, companyNumberOfEmployees, companyAddress
         ])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
@@ -246,7 +230,7 @@ class JobRegister2ViewController: UIViewController {
         if let jobOffer {
             let formatter = DateFormatter()
             formatter.dateFormat = "dd/MM"
-            let formattedDate = formatter.string(from: jobOffer.startDate)
+            let formattedDate = formatter.string(from: begginingDate ?? Date())
             badge.text = formattedDate
         }
         badge.badgeSize = .medium
@@ -256,8 +240,12 @@ class JobRegister2ViewController: UIViewController {
     // ESSE CARA E O HORARIO QUE COMEÇA
     private lazy var time: BadgeLabelWithIcon = {
         let badge = BadgeLabelWithIcon()
-        var stringBeginningHour = String(begginingHour ?? 00)
-        stringBeginningHour.append(":00")
+        
+        // MARK: MUDAR AQUI
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        let stringBeginningHour = formatter.string(from: begginingHour ?? Date())
+        
         badge.text = stringBeginningHour
         badge.badgeSize = .medium
         return badge
@@ -266,6 +254,7 @@ class JobRegister2ViewController: UIViewController {
     private lazy var amount: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
         if let jobOffer {
+            // MARK: MUDAR AQUI
             let stringSalary = String(jobOffer.salaryBRL)
             let text1 = "R$"
             let text2 = ",00"
@@ -284,7 +273,7 @@ class JobRegister2ViewController: UIViewController {
         var badge = BadgeLabelWithIcon()
         if let jobOffer {
             let stringDuration = String(jobOffer.durationInHours)
-            var durationWithH: String = ""
+            var durationWithH = ""
             durationWithH.append(stringDuration)
             durationWithH.append("h")
             badge.text = durationWithH
@@ -346,7 +335,7 @@ class JobRegister2ViewController: UIViewController {
         }
         alertActionOne.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
         let alertActionTwo = UIAlertAction(title: "Publicar outra vaga", style: .default) {_ in
-            let rootVC = JobRegisterViewController()
+            _ = JobRegisterViewController()
             self.navigationController?.popToRootViewController(animated: true)
         }
         alertActionTwo.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
@@ -435,7 +424,7 @@ extension JobRegister2ViewController: ViewCodeProtocol {
             returnButton.heightAnchor.constraint(equalToConstant: 50),
 
             buttonsStack.heightAnchor.constraint(equalToConstant: 112),
-            buttonsStack.widthAnchor.constraint(equalToConstant: 321),
+            buttonsStack.widthAnchor.constraint(equalToConstant: 321)
         ])
     }
     
