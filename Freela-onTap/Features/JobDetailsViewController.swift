@@ -287,7 +287,7 @@ class JobDetailsViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         button.tintColor = .white
-        button.backgroundColor = UIColor.DesignSystem.terracota200
+        button.backgroundColor = UIColor.DesignSystem.terracota500
         button.layer.cornerRadius = 12
         button.addTarget(self.jobOffer, action: #selector(shareButtonTapped), for: .touchUpInside)
         return button
