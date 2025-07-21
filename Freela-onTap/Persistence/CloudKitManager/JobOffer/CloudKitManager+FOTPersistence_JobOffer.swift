@@ -12,56 +12,41 @@ import CloudKit
 // MARK: - JobOffer methods
 extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
     func fetchAllJobOffers() async throws -> [JobOffer] {
+        return try await fetchAllJobOffers(forceUpdate: false)
+    }
+    
+    func fetchAllJobOffers(forceUpdate: Bool = false) async throws -> [JobOffer] {
         try await throwIfICloudNotAvailable()
 
-        // Predicate for all JobOffers with an ID
-        let predicate = CloudKitManager.allWithIdPredicate
+        if self.cache.jobOffers.isEmpty || forceUpdate {
+            let jobOffers: [JobOffer] = try await fetchRecords(
+                ofType: jobOfferRecordType,
+                matching: Self.allWithIdPredicate,
+                decode: JobOffer.init(record:)
+            )
 
-        let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
-        let (matchResults, _) = try await publicDatabase.records(matching: query)
+            var jobOfferMap: [UUID: JobOffer] = [:]
 
-        var offers: [JobOffer] = []
-
-        let cachedCompanies: [CompanyProfile] = (try? await CloudKitManager.shared.fetchAllCompanies()) ?? []
-        var companyProfileCache: [UUID: CompanyProfile] = [:]
-        for company in cachedCompanies {
-            companyProfileCache[company.id] = company
-        }
-        
-        for (_, result) in matchResults {
-            switch result {
-            case .success(let record):
-                if var jobOffer = JobOffer(record: record) {
-                    jobOffer.company = companyProfileCache[jobOffer.companyId]
-                    offers.append(jobOffer)
-                }
-            case .failure(let error):
-                throw error
+            for offer in jobOffers {
+                jobOfferMap.updateValue(offer, forKey: offer.id)
             }
+
+            self.cache.jobOffers = jobOfferMap
         }
-        
-        return offers
+
+        return Array(self.cache.jobOffers.values)
     }
         
 
     func fetchJobOffer(id: UUID) async throws -> JobOffer? {
         try await throwIfICloudNotAvailable()
-
-        let predicate = NSPredicate(format: "id == %@", id.uuidString)
-
-        let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
-        let (matchResults, _) = try await publicDatabase.records(matching: query)
         
-        for (_, result) in matchResults {
-            switch result {
-            case .success(let record):
-                return JobOffer(record: record)
-            case .failure(let error):
-                throw error
-            }
+        if let cached = self.cache.jobOffers[id] {
+            return cached
         }
 
-        return nil
+        _ = try? await fetchAllJobOffers(forceUpdate: true)
+        return self.cache.jobOffers[id]
     }
 
     func saveJobOffer(_ jobOffer: JobOffer) async throws {
