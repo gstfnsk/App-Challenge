@@ -313,7 +313,17 @@ extension ThirdScreenViewController: UIImagePickerControllerDelegate, UINavigati
         picker.dismiss(animated: true, completion: nil)
         
         if let image = info[.originalImage] as? UIImage {
-            imageView.image = image
+            if let b64 = image.base64(resizedTo: CompanyProfile.profilePictureResolution) {
+                imageView.image = UIImage(fromBase64: b64)
+            } else {
+                let alert = UIAlertController(
+                    title: "Algo deu errado",
+                    message: "Não foi possível carregar a imagem, tente novamente.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+            }
             photoisSelectedStack.isHidden = false
         }
     }

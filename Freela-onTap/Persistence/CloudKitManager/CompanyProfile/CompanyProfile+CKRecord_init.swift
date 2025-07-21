@@ -6,6 +6,7 @@
 //
 
 import CloudKit
+import UIKit
 
 // MARK: - Init CompanyProfile from CloudKit Record
 extension CompanyProfile {
@@ -40,5 +41,8 @@ extension CompanyProfile {
             neighborhood: neighborhood,
             cityAndState: cityAndState
         )
+        
+        let profilePictureData = record["profilePictureData"] as? String
+        self.profileImage = UIImage(fromBase64: profilePictureData ?? "")
     }
 }

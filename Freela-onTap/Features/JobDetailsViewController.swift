@@ -362,7 +362,7 @@ class JobDetailsViewController: UIViewController {
         companyNumberOfEmployees.text = company.companySize.rawValue
 
         companyAddress.text =
-            company.address.streetAndNumber + ", " + company.address.cityAndState + ", " + company.address.cityAndState
+        company.address.streetAndNumber + ", " + company.address.neighborhood + ", " + company.address.cityAndState
         postedTime.text = jobOffer.postedAt.timeAgoString()
 
         let dateFormatter = DateFormatter()
@@ -379,11 +379,7 @@ class JobDetailsViewController: UIViewController {
         dutiesText.text = jobOffer.duties
         requirementsText.text = jobOffer.qualifications
 
-        // TODO: In future, use real images
-        companyImageView.image = UIImage(
-            named:
-                "companyPhotos/\((jobOffer.company?.name ?? "").replacingOccurrences(of: "é", with: "e").replacingOccurrences(of: "ô", with: "o"))"
-        )
+        companyImageView.image = company.profileImage ?? UIImage(named: "placeholder")
     }
 
     @objc private func openInMaps() {
