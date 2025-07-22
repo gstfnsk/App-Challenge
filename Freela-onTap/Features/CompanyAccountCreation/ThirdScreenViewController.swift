@@ -9,6 +9,9 @@ import UIKit
 
 class ThirdScreenViewController: UIViewController {
     // MARK: Description
+    
+    private let defaultPhoto = UIImage(systemName: "person")
+
     private lazy var orangeView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +38,7 @@ class ThirdScreenViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
     lazy var lastStepDescriptionLabel: UILabel = {
         var label = UILabel()
         label.text = "Conte sobre seu estabelecimento e mostre uma foto do ambiente. Isso ajuda freelancers a conhecerem seu espaço e atrair os freelas certos."
@@ -72,6 +76,7 @@ class ThirdScreenViewController: UIViewController {
         textField.font = UIFont.systemFont(ofSize: 17)
         textField.font = .DesignSystem.subheadline
         textField.textContainerInset = UIEdgeInsets(top: 12, left: 6, bottom: 12, right: 12)
+        
         return textField
     }()
     
@@ -118,12 +123,14 @@ class ThirdScreenViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Finalizar", for: .normal)
         button.setTitleColor(.DesignSystem.terracota0, for: .normal)
-        button.backgroundColor = .DesignSystem.terracota600
+        button.backgroundColor = .systemGray4
+        button.isEnabled = false
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(finishAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     lazy var photoLabel: UILabel = {
         var label = UILabel()
         label.text = "Formatos compatíveis: JPG, JPEG, PNG, HEIC e TIFF."
@@ -132,6 +139,7 @@ class ThirdScreenViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()
+    
     lazy var selectedPhotoLabel: UILabel = {
         var label = UILabel()
         label.text = "Foto selecionada"
@@ -141,6 +149,7 @@ class ThirdScreenViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
     lazy var selectedPhotoDescription: UILabel = {
         var label = UILabel()
         label.text = "Essa será a imagem do seu estabelecimento no app."
@@ -151,6 +160,7 @@ class ThirdScreenViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
     lazy var changePhotoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -162,6 +172,7 @@ class ThirdScreenViewController: UIViewController {
         button.addTarget(self, action: #selector(changePhotoAction), for: .touchUpInside)
         return button
     }()
+    
     lazy var photoStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [selectedPhotoLabel, selectedPhotoDescription, changePhotoButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -174,7 +185,7 @@ class ThirdScreenViewController: UIViewController {
     lazy var imageView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(systemName: "person")
+        imageView.image = defaultPhoto
         imageView.tintColor = .DesignSystem.terracota600
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 8
@@ -193,12 +204,24 @@ class ThirdScreenViewController: UIViewController {
         return stack
     }()
 
+    @objc func validateForm() {
+        let defaultTextField = "Sunset Drinks é um bar descontraído, especializado em coquetelaria autoral e cervejas artesanais. Um espaço pra quem curte bons drinks, boa música e pôr do sol na faixa."
+        
+        let isDescriptionFilled = !(descriptionTextField.text.isEmpty) && descriptionTextField.text != defaultTextField
+        let isPhotoFilled = imageView.image !== defaultPhoto
+        let isAllFiled = isDescriptionFilled && isPhotoFilled
+        
+        finishButton.isEnabled = isAllFiled
+        finishButton.backgroundColor = isAllFiled ? .DesignSystem.terracota600 : .systemGray4
+
+    }
     
     @objc func photoAction() {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
         present(picker, animated: true, completion: nil)
+        
     }
     
     @objc func finishAction() {
@@ -229,6 +252,7 @@ class ThirdScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        descriptionTextField.delegate = self
         let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapDismissKeyboard)
         descriptionTextField.delegate = self
@@ -294,6 +318,10 @@ extension ThirdScreenViewController: ViewCodeProtocol {
     }
 }
 extension ThirdScreenViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        self.validateForm()
+    }
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "Sunset Drinks é um bar descontraído, especializado em coquetelaria autoral e cervejas artesanais. Um espaço pra quem curte bons drinks, boa música e pôr do sol na faixa." {
             textView.text = ""
@@ -315,6 +343,7 @@ extension ThirdScreenViewController: UIImagePickerControllerDelegate, UINavigati
         if let image = info[.originalImage] as? UIImage {
             imageView.image = image
             photoisSelectedStack.isHidden = false
+            validateForm()
         }
     }
 }
