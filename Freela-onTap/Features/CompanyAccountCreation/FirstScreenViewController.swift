@@ -47,16 +47,22 @@ class FirstScreenViewController: UIViewController {
     }()
     
     private lazy var name: TextInput = {
-       let input = TextInput()
+        let input = TextInput()
         input.labelText = "Nome fantasia:"
         input.placeholderText = "Sunset Drinks"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
     private lazy var cnpj: TextInput = {
-       let input = TextInput()
+        let input = TextInput()
         input.labelText = "CNPJ:"
         input.placeholderText = "12.345.678.0001-23"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -84,7 +90,7 @@ class FirstScreenViewController: UIViewController {
         stack.spacing = 10
         return stack
     }()
-
+    
     private lazy var typeOfCompanyLabel: UILabel = {
         let typeOfCompanyLabel = UILabel()
         typeOfCompanyLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -106,9 +112,12 @@ class FirstScreenViewController: UIViewController {
     
     
     private lazy var whatsapp: TextInput = {
-       let input = TextInput()
+        let input = TextInput()
         input.labelText = "Whatsapp:"
         input.placeholderText = "+55 51 98765-4321"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -118,7 +127,8 @@ class FirstScreenViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Continuar", for: .normal)
         button.setTitleColor(.DesignSystem.terracota0, for: .normal)
-        button.backgroundColor = .DesignSystem.terracota600
+        button.backgroundColor = .systemGray4
+        button.isEnabled = false
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(continueAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -146,15 +156,16 @@ class FirstScreenViewController: UIViewController {
         view.backgroundColor = .DesignSystem.lavanda0
         
         progressBar.currentState = .first
-
+        
         view.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
         
         let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-
+        
         view.addGestureRecognizer(tapDismissKeyboard)
         
         setup()
+        
     }
     
     @objc func continueAction() {
@@ -165,6 +176,17 @@ class FirstScreenViewController: UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func validateForm() {
+        let isNameFilled = !(name.text?.isEmpty ?? true)
+        let isCnpjFilled = !(cnpj.text?.isEmpty ?? true)
+        let isWhatsAppFilled = !(whatsapp.text?.isEmpty ?? true)
+        
+        let allFieldsFilled = isNameFilled && isCnpjFilled && isWhatsAppFilled
+        
+        continueButton.isEnabled = allFieldsFilled
+        continueButton.backgroundColor = allFieldsFilled ? .DesignSystem.terracota600 : .systemGray4
     }
 }
 
@@ -187,7 +209,7 @@ extension FirstScreenViewController: ViewCodeProtocol {
             
             label.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 12),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
+            
             titleStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 149),
             titleStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
@@ -202,11 +224,11 @@ extension FirstScreenViewController: ViewCodeProtocol {
             inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
-//        guard let nav = self.navigationController else {
-//            return
-//        }
-//        
-//        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
+        //        guard let nav = self.navigationController else {
+        //            return
+        //        }
+        //
+        //        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
     }
 }
 #Preview {

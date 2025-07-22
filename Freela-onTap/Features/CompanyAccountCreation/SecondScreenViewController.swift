@@ -56,8 +56,10 @@ class SecondScreenViewController: UIViewController {
         let input = TextInput()
         input.labelText = "CEP:"
         input.placeholderText = "98765-432"
-        
         input.editingFunc = { [weak self, weak input] in
+            
+            self?.validateForm()
+            
             guard let cep = input?.text?.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression) else {
                 return
             }
@@ -84,6 +86,9 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "Rua / Logradouro:"
         input.placeholderText = "R. Osvaldo Aranha"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -91,6 +96,9 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "Número:"
         input.placeholderText = "1088"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -98,6 +106,9 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "Complemento:"
         input.placeholderText = "Loja 107"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -105,6 +116,9 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "Bairro:"
         input.placeholderText = "Petrópolis"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -112,6 +126,9 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "Cidade:"
         input.placeholderText = "Porto Alegre"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -119,6 +136,9 @@ class SecondScreenViewController: UIViewController {
        let input = TextInput()
         input.labelText = "Estado:"
         input.placeholderText = "Rio Grande do Sul"
+        input.editingFunc = {[weak self] in
+            self?.validateForm()
+        }
         return input
     }()
     
@@ -127,7 +147,8 @@ class SecondScreenViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Continuar", for: .normal)
         button.setTitleColor(.DesignSystem.terracota0, for: .normal)
-        button.backgroundColor = .DesignSystem.terracota600
+        button.backgroundColor = .systemGray4
+        button.isEnabled = false
         button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(continueAction), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -220,6 +241,23 @@ class SecondScreenViewController: UIViewController {
         }
         
         task.resume()
+    }
+    
+    @objc func validateForm() {
+        let isCepFilled = !(cep.text?.isEmpty ?? true)
+        let isRoadFilled = !(street.text?.isEmpty ?? true)
+        let isNumberFilled = !(streetNumber.text?.isEmpty ?? true)
+        let isComplementFilled = !(complement.text?.isEmpty ?? true)
+        let isNeighborhoodFilled = !(neighborhood.text?.isEmpty ?? true)
+        let isCityFilled = !(city.text?.isEmpty ?? true)
+        let isStateFilled = !(state.text?.isEmpty ?? true)
+        
+        
+        let isAllFilled = isCepFilled && isRoadFilled && isNumberFilled && isComplementFilled && isNeighborhoodFilled && isCityFilled && isStateFilled
+        
+        continueButton.isEnabled = isAllFilled
+        continueButton.backgroundColor = isAllFilled ? .DesignSystem.terracota600 : .systemGray4
+        
     }
 }
 
