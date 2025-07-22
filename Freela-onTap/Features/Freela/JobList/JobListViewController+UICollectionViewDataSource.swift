@@ -111,6 +111,7 @@ extension JobListViewController: UICollectionViewDataSource {
 
 extension JobListViewController {
     func updateJobOfferList(
+        forceUpdate: Bool = false,
         onSuccess: @escaping () -> Void = {},
         onFailure: @escaping (_ error: Error) -> Void = { _ in },
         finally: @escaping () -> Void = {}
@@ -121,7 +122,7 @@ extension JobListViewController {
                 refreshButton.isHidden = true
                 errorEmptyState.isHidden = true
                 navigationController?.setNavigationBarHidden(false, animated: true)
-                var jobOffers = try await CloudKitManager.shared.fetchAllJobOffers()
+                var jobOffers = try await CloudKitManager.shared.fetchAllJobOffers(forceUpdate: forceUpdate)
                 jobOffers = SelectedPositions.applyFilter(to: jobOffers)
                 jobOffers.sort { $0.postedAt > $1.postedAt }
                 
