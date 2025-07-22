@@ -23,11 +23,8 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         descriptionLabel.text = job.company?.establishmentType.rawValue.localizedCapitalized ?? "Desconhecido"
         location.text = job.company?.address.cityAndState ?? "Desconhecido"
 
-        // TODO: In future, use real images
-        imageView.image = UIImage(
-            named:
-                "companyPhotos/\((job.company?.name ?? "").replacingOccurrences(of: "é", with: "e").replacingOccurrences(of: "ô", with: "o"))"
-        )
+        imageView.image = job.company?.profileImage ?? UIImage(named: "placeholder")
+
         
         setBadgesText([
             job.startDate.formatted("dd/MM"),
@@ -123,8 +120,9 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
     // Declare your UI elements here (e.g., labels, images, buttons)
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(named: "DefaultRestaurantPhoto")
+        imageView.image = UIImage(named: "placeholder")
 
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true

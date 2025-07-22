@@ -19,6 +19,9 @@ struct CompanyProfile: Identifiable {
     
     var address: (streetAndNumber: String, neighborhood: String, cityAndState: String)
     var description: String
+    
+    static var profilePictureResolution: CGSize = .init(width: 2250, height: 850)
+    var profileImage: UIImage?
 }
 
 enum EstablishmentType: String, CaseIterable {

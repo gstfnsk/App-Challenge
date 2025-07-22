@@ -67,3 +67,38 @@ extension Date {
         return DateFormatterHelper.shared.dateFormatter.string(from: self)
     }
 }
+
+// MARK: - Image Resize + Base64
+extension UIImage {
+    /// Resize image to target size while maintaining aspect ratio.
+    func resized(to targetSize: CGSize) -> UIImage? {
+        let aspectWidth = targetSize.width / size.width
+        let aspectHeight = targetSize.height / size.height
+        let scaleFactor = min(aspectWidth, aspectHeight)
+
+        let newSize = CGSize(
+            width: size.width * scaleFactor,
+            height: size.height * scaleFactor
+        )
+
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+
+    /// Returns a base64-encoded JPEG string after optional resizing.
+    func base64(resizedTo targetSize: CGSize? = nil, compressionQuality: CGFloat = 1.0) -> String? {
+        let imageToEncode = targetSize != nil ? self.resized(to: targetSize!) ?? self : self
+        return imageToEncode.jpegData(compressionQuality: compressionQuality)?
+            .base64EncodedString()
+    }
+
+    /// Initializes a UIImage from base64 string
+    convenience init?(fromBase64 base64String: String) {
+        guard let imageData = Data(base64Encoded: base64String, options: .ignoreUnknownCharacters) else {
+            return nil
+        }
+        self.init(data: imageData)
+    }
+}

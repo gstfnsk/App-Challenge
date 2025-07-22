@@ -76,7 +76,10 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
         record["address_neighborhood"] = company.address.neighborhood
         record["address_cityAndState"] = company.address.cityAndState
 
-        try await publicDB.save(record)
+        // Save profile picture enconded as base64
+        record["profilePictureData"]  = company.profileImage?.base64(resizedTo: CompanyProfile.profilePictureResolution)
+        
+        try await publicDatabase.save(record)
     }
     
     // MARK: - Delete Company
