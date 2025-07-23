@@ -10,7 +10,7 @@ class BadgeLabelViewCell: UICollectionViewCell {
     private lazy var badge: BadgeLabelWithIcon = {
         let badge = BadgeLabelWithIcon()
         badge.translatesAutoresizingMaskIntoConstraints = false
-        badge.backColor = .systemBackground
+        badge.state = .transparent
         return badge
     }()
     
@@ -20,11 +20,14 @@ class BadgeLabelViewCell: UICollectionViewCell {
     // MARK: Functions
     func configure(title: String, imageName: String) {
         badge.icon = UIImage(systemName: imageName)
+//        if imageName == "bartender"{
+//            badge.icon = .bartender
+//        }
         badge.text = title
     }
     
     func cellJob() -> JobPosition {
-        let jobText = badge.text
+        let jobText = badge.text ?? "other"
         return JobPosition(rawValue: jobText) ?? .other
     }
     
@@ -54,16 +57,14 @@ class BadgeLabelViewCell: UICollectionViewCell {
 
     private func setupContentView() {
         contentView.backgroundColor = .systemBackground
-        contentView.layer.cornerRadius = 12
+        contentView.layer.cornerRadius = 15
         contentView.layer.masksToBounds = true
     }
     func setSelectedStyle() {
-        badge.backColor = .DesignSystem.terracota600
-        badge.featureColor = .white
+        badge.state = .normal
     }
     func setDeselectedStyle() {
-        badge.backColor = .systemBackground
-        badge.featureColor = .DesignSystem.terracota600
+        badge.state = .white
     }
 }
 

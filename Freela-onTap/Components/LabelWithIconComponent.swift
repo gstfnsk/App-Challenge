@@ -13,14 +13,14 @@ class LabelWithIconComponent: UIView {
         image.contentMode = .scaleAspectFit
         image.tintColor = UIColor.DesignSystem.terracota600
         image.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        image.setContentCompressionResistancePriority(.required, for: .horizontal)
+        image.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
 
         return image
     }()
     
     private lazy var label: UILabel = {
         var label = UILabel()
-        label.font = UIFont.DesignSystem.footnote
+        label.applyDynamicFont(UIFont.DesignSystem.footnote)
         label.text = "1h atrás"
         label.textAlignment = .left
         label.textColor = .secondaryLabel
