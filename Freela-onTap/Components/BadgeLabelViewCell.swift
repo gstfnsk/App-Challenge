@@ -13,27 +13,27 @@ class BadgeLabelViewCell: UICollectionViewCell {
         badge.state = .transparent
         return badge
     }()
-    
+
     // MARK: Properties
     static let identifier = "badgeCollectionCell"
-    
+
     // MARK: Functions
     func configure(title: String, imageName: String) {
         badge.icon = UIImage(systemName: imageName)
-//        if imageName == "bartender"{
-//            badge.icon = .bartender
-//        }
+        //        if imageName == "bartender"{
+        //            badge.icon = .bartender
+        //        }
         badge.text = title
     }
-    
+
     func cellJob() -> JobPosition {
         let jobText = badge.text ?? "other"
         return JobPosition(rawValue: jobText) ?? .other
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setupShadow()
         setupContentView()
         setup()
@@ -41,7 +41,7 @@ class BadgeLabelViewCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         setupShadow()
         setupContentView()
         setup()
@@ -72,7 +72,7 @@ extension BadgeLabelViewCell: ViewCodeProtocol {
     func addSubviews() {
         contentView.addSubview(badge)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             badge.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

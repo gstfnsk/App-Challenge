@@ -10,12 +10,12 @@ import CloudKit
 enum CloudKitError: Error {
     case unknown
     case notImplemented
-    
+
     // iCloud account errors
     case accountRestricted
     case accountUnavailable
     case noAccount
-    
+
     var localizedDescription: String? {
         switch self {
         case .unknown:
@@ -39,15 +39,15 @@ struct CloudKitManager: FreelaOnTapPersistence {
     static let allWithIdPredicate = NSPredicate(format: "id != %@", "")
     // Prevent external instantiation
     private init() {}
-    
-    
+
+
     static let containerIdentifier = "iCloud.br.poa.academy.freelaOnTap"
     internal let publicDB = CKContainer(identifier: Self.containerIdentifier).publicCloudDatabase
     internal let jobOfferRecordType = "JobOffer"
     internal let companyProfileRecordType = "CompanyProfile"
-    
+
     static var companyProfileCache: [CKRecord.ID: CompanyProfile] = [:]
-   
+
 
     // MARK: - Check iCloud Availability
 

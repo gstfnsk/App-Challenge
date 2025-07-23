@@ -25,7 +25,7 @@ class ThirdScreenViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy var lastStepLabel: UILabel = {
         var label = UILabel()
         label.text = "Última etapa, prometo!"
@@ -45,7 +45,7 @@ class ThirdScreenViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
-    
+
     lazy var stepStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [lastStepLabel, lastStepDescriptionLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -53,7 +53,7 @@ class ThirdScreenViewController: UIViewController {
         stack.spacing = 3
         return stack
     }()
-    
+
     lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.text = "Sobre seu negócio: "
@@ -62,7 +62,7 @@ class ThirdScreenViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
-    
+
     lazy var descriptionTextField: UITextView = {
         let textField = UITextView()
         textField.backgroundColor = .DesignSystem.terracota0
@@ -74,7 +74,7 @@ class ThirdScreenViewController: UIViewController {
         textField.textContainerInset = UIEdgeInsets(top: 12, left: 6, bottom: 12, right: 12)
         return textField
     }()
-    
+
     lazy var limitLabel: UILabel = {
         var label = UILabel()
         label.text = "Limite de 2.000 caracteres"
@@ -83,7 +83,7 @@ class ThirdScreenViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 11)
         return label
     }()
-    
+
     lazy var descriptionStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [descriptionLabel, descriptionTextField, limitLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -91,7 +91,7 @@ class ThirdScreenViewController: UIViewController {
         stack.spacing = 10
         return stack
     }()
-    
+
     lazy var photoButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -103,7 +103,7 @@ class ThirdScreenViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     // MARK: BigStack
     lazy var bigStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [stepStack, descriptionStack, photoButton, photoLabel])
@@ -112,7 +112,7 @@ class ThirdScreenViewController: UIViewController {
         stack.spacing = 20
         return stack
     }()
-    
+
     lazy var finishButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +170,7 @@ class ThirdScreenViewController: UIViewController {
         stack.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return stack
     }()
-    
+
     lazy var imageView: UIImageView = {
         var imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -180,7 +180,7 @@ class ThirdScreenViewController: UIViewController {
         imageView.layer.cornerRadius = 8
         return imageView
     }()
-    
+
     lazy var photoisSelectedStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [imageView, photoStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -193,24 +193,24 @@ class ThirdScreenViewController: UIViewController {
         return stack
     }()
 
-    
+
     @objc func photoAction() {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
         present(picker, animated: true, completion: nil)
     }
-    
+
     @objc func finishAction() {
         let alert = UIAlertController(title: "Cadastro finalizado!", message: "Seu perfil tá no ar. Que tal divulgar sua primeira vaga agora?", preferredStyle: .alert)
         let alertActionOne = UIAlertAction(title: "Divulgar vaga agora", style: .default) {_ in
             let jobRegisterVC = JobRegisterViewController()
-                    self.navigationController?.pushViewController(jobRegisterVC, animated: true)
+            self.navigationController?.pushViewController(jobRegisterVC, animated: true)
         }
         alertActionOne.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
         let alertActionTwo = UIAlertAction(title: "Fazer isso mais tarde", style: .default) {_ in
             let companyVC = CompanyPublishedJobsViewController()
-                    self.navigationController?.pushViewController(companyVC, animated: true)
+            self.navigationController?.pushViewController(companyVC, animated: true)
         }
         alertActionTwo.setValue(UIColor.DesignSystem.terracota600, forKey: "titleTextColor")
 
@@ -218,23 +218,23 @@ class ThirdScreenViewController: UIViewController {
         alert.addAction(alertActionTwo)
         present(alert, animated: true)
     }
-    
+
     @objc func changePhotoAction() {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = self
         present(picker, animated: true, completion: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapDismissKeyboard)
         descriptionTextField.delegate = self
         setup()
     }
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -247,7 +247,7 @@ extension ThirdScreenViewController: ViewCodeProtocol {
         view.addSubview(finishButton)
         view.addSubview(orangeView)
         view.addSubview(photoisSelectedStack)
-      
+
         title = "Cadastro de conta"
         view.backgroundColor = .DesignSystem.lavanda0
         let appearance = UINavigationBarAppearance()
@@ -255,40 +255,40 @@ extension ThirdScreenViewController: ViewCodeProtocol {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             stepLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             stepLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             stepLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
+
             bigStack.topAnchor.constraint(equalTo: stepLabel.bottomAnchor, constant: 22),
             bigStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             bigStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
+
             finishButton.heightAnchor.constraint(equalToConstant: 50),
             photoButton.heightAnchor.constraint(equalToConstant: 50),
             descriptionTextField.heightAnchor.constraint(equalToConstant: 112),
             photoisSelectedStack.heightAnchor.constraint(equalToConstant: 132),
             imageView.heightAnchor.constraint(equalToConstant: 112),
             imageView.widthAnchor.constraint(equalToConstant: 112),
-            
+
             finishButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -44),
             finishButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             finishButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
+
             photoisSelectedStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -282),
             photoisSelectedStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             photoisSelectedStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
+
             orangeView.heightAnchor.constraint(equalToConstant: 4),
             orangeView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             orangeView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
             orangeView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0)
         ])
     }
-    
-    
+
+
     func adicionalSetup() {
         navigationItem.hidesBackButton = true
     }
@@ -311,7 +311,7 @@ extension ThirdScreenViewController: UITextViewDelegate {
 extension ThirdScreenViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         picker.dismiss(animated: true, completion: nil)
-        
+
         if let image = info[.originalImage] as? UIImage {
             imageView.image = image
             photoisSelectedStack.isHidden = false

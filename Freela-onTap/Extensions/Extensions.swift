@@ -45,14 +45,14 @@ extension CaseIterable where Self: RawRepresentable {
 class DateFormatterHelper {
     static let shared = DateFormatterHelper()
     private init() {}
-    
+
     let relativeDateFormatter: RelativeDateTimeFormatter = {
         let formatter = RelativeDateTimeFormatter()
         formatter.locale = Locale(identifier: "pt_BR")
         formatter.unitsStyle = .abbreviated
         return formatter
     }()
-    
+
     let dateFormatter = DateFormatter()
 }
 
@@ -61,7 +61,7 @@ extension Date {
         let now = Date()
         return DateFormatterHelper.shared.relativeDateFormatter.localizedString(for: self, relativeTo: now)
     }
-    
+
     func formatted(_ stringFormat: String) -> String {
         DateFormatterHelper.shared.dateFormatter.dateFormat = stringFormat
         return DateFormatterHelper.shared.dateFormatter.string(from: self)

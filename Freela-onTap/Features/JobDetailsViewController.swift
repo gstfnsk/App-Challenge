@@ -326,7 +326,7 @@ class JobDetailsViewController: UIViewController {
     @objc private func didTapRightButton() {
         // Open denunciar alert
     }
-    
+
     @objc private func shareButtonTapped() {
         let texto = "“Vi que estão buscando \(jobOffer?.title.rawValue.localizedCapitalized ?? "") no Freela onTap! Pode ser uma boa pra você."
         let activityVC = UIActivityViewController(activityItems: [texto, "https://testflight.apple.com/join/fhWYxupt"], applicationActivities: nil)
@@ -388,7 +388,7 @@ class JobDetailsViewController: UIViewController {
 
     @objc private func openInMaps() {
         let address = companyAddress.text ?? ""
-        
+
         let encodedAddress = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
         if let url = URL(string: "http://maps.apple.com/?q=\(encodedAddress)") {

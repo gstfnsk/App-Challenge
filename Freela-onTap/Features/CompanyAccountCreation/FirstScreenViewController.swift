@@ -18,7 +18,7 @@ class FirstScreenViewController: UIViewController {
         label.applyDynamicFont(UIFont.DesignSystem.title3SemiBold)
         return label
     }()
-    
+
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ class FirstScreenViewController: UIViewController {
         label.applyDynamicFont(UIFont.DesignSystem.subheadline)
         return label
     }()
-    
+
     private lazy var titleStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +37,7 @@ class FirstScreenViewController: UIViewController {
         stack.spacing = 3
         return stack
     }()
-    
+
     private lazy var inputsStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [name, cnpj, companyStack, typeOfCompanyStack, whatsapp])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -45,21 +45,21 @@ class FirstScreenViewController: UIViewController {
         stack.spacing = 20
         return stack
     }()
-    
+
     private lazy var name: TextInput = {
-       let input = TextInput()
+        let input = TextInput()
         input.labelText = "Nome fantasia:"
         input.placeholderText = "Sunset Drinks"
         return input
     }()
-    
+
     private lazy var cnpj: TextInput = {
-       let input = TextInput()
+        let input = TextInput()
         input.labelText = "CNPJ:"
         input.placeholderText = "12.345.678.0001-23"
         return input
     }()
-    
+
     private lazy var companySizeLabel: UILabel = {
         let companySizeLabel = UILabel()
         companySizeLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -68,7 +68,7 @@ class FirstScreenViewController: UIViewController {
         companySizeLabel.textColor = UIColor.labelsSecondary
         return companySizeLabel
     }()
-    
+
     lazy var companyStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [companySizeLabel, companySize])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -76,7 +76,7 @@ class FirstScreenViewController: UIViewController {
         stack.spacing = 10
         return stack
     }()
-    
+
     lazy var typeOfCompanyStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [typeOfCompanyLabel, typeOfCompany])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -93,26 +93,26 @@ class FirstScreenViewController: UIViewController {
         typeOfCompanyLabel.textColor = UIColor.labelsSecondary
         return typeOfCompanyLabel
     }()
-    
+
     private lazy var companySize: SizeSelector = {
         let companySize = SizeSelector()
         return companySize
     }()
-    
+
     private lazy var typeOfCompany: TypeOfRestaurantSelector = {
         let typeOfCompany = TypeOfRestaurantSelector()
         return typeOfCompany
     }()
-    
-    
+
+
     private lazy var whatsapp: TextInput = {
-       let input = TextInput()
+        let input = TextInput()
         input.labelText = "Whatsapp:"
         input.placeholderText = "+55 51 98765-4321"
         return input
     }()
-    
-    
+
+
     private lazy var continueButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -124,9 +124,9 @@ class FirstScreenViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var progressBar = ProgressBar()
-    
+
     private lazy var label: UILabel = {
         let label = UILabel()
         label.text = "Etapa 1 de 3"
@@ -136,33 +136,33 @@ class FirstScreenViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationController?.navigationBar.prefersLargeTitles = false
         title = "Cadastro de conta"
-        
+
         view.backgroundColor = .DesignSystem.lavanda0
-        
+
         progressBar.currentState = .first
 
         view.addSubview(progressBar)
         progressBar.translatesAutoresizingMaskIntoConstraints = false
-        
+
         let tapDismissKeyboard = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
 
         view.addGestureRecognizer(tapDismissKeyboard)
-        
+
         setup()
     }
-    
+
     @objc func continueAction() {
         let secondScreen = SecondScreenViewController()
         self.navigationItem.backButtonTitle = "Voltar"
         self.navigationController?.pushViewController(secondScreen, animated: true)
     }
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -176,37 +176,37 @@ extension FirstScreenViewController: ViewCodeProtocol {
         view.addSubview(inputsStack)
         view.addSubview(progressBar)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            
+
             progressBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             progressBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             progressBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             progressBar.heightAnchor.constraint(equalToConstant: 4),
-            
+
             label.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 12),
             label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
             titleStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 149),
             titleStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
+
             continueButton.heightAnchor.constraint(equalToConstant: 50),
             continueButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             continueButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             continueButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -44),
-            
+
             inputsStack.topAnchor.constraint(equalTo: view.topAnchor, constant: 237),
             inputsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             inputsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
-        
-//        guard let nav = self.navigationController else {
-//            return
-//        }
-//        
-//        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
+
+        //        guard let nav = self.navigationController else {
+        //            return
+        //        }
+        //
+        //        progressBar.topAnchor.constraint(equalTo: nav.navigationBar.bottomAnchor).isActive = true
     }
 }
 #Preview {

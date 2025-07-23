@@ -18,7 +18,7 @@ class UserPathViewController: UIViewController {
         label.textColor = UIColor.labelsSecondary
         return label
     }()
-    
+
     lazy var iconimage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +26,7 @@ class UserPathViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     lazy var iconText: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ class UserPathViewController: UIViewController {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     lazy var stack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [iconimage, iconText])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -42,7 +42,7 @@ class UserPathViewController: UIViewController {
         stack.spacing = 23
         return stack
     }()
-    
+
     lazy var freelancerImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .freelancer
@@ -51,7 +51,7 @@ class UserPathViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
+
     lazy var freelancerText: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -60,7 +60,7 @@ class UserPathViewController: UIViewController {
         label.textColor = UIColor.DesignSystem.terracota0
         return label
     }()
-    
+
     lazy var freelaSubText: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +69,7 @@ class UserPathViewController: UIViewController {
         label.textColor = UIColor.DesignSystem.terracota0
         return label
     }()
-    
+
     lazy var freelancerTextStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [freelancerText, freelaSubText])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +77,7 @@ class UserPathViewController: UIViewController {
         stack.spacing = 5
         return stack
     }()
-    
+
     lazy var freelaStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [freelancerImageView, freelancerTextStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -90,7 +90,7 @@ class UserPathViewController: UIViewController {
         stack.layoutMargins = .init(top: 10, left: 10, bottom: 10, right: 10)
         return stack
     }()
-    
+
     lazy var freelaButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -100,7 +100,7 @@ class UserPathViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     lazy var companyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .empresa
@@ -109,7 +109,7 @@ class UserPathViewController: UIViewController {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
+
     lazy var companyText: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +118,7 @@ class UserPathViewController: UIViewController {
         label.textColor = UIColor.DesignSystem.terracota0
         return label
     }()
-    
+
     lazy var companySubText: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -127,7 +127,7 @@ class UserPathViewController: UIViewController {
         label.textColor = UIColor.DesignSystem.terracota0
         return label
     }()
-    
+
     lazy var companyTextStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [companyText, companySubText])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -135,7 +135,7 @@ class UserPathViewController: UIViewController {
         stack.spacing = 5
         return stack
     }()
-    
+
     lazy var companyStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [companyImageView, companyTextStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -156,7 +156,7 @@ class UserPathViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     lazy var buttonsStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [freelaButton, companyButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -164,10 +164,10 @@ class UserPathViewController: UIViewController {
         stack.spacing = 12
         return stack
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         view.backgroundColor = UIColor.DesignSystem.terracota0
         setup()
     }
@@ -176,16 +176,16 @@ class UserPathViewController: UIViewController {
         self.navigationItem.backButtonTitle = "Voltar"
         self.navigationController?.pushViewController(jobList, animated: true)
     }
-    
+
     @objc func companyAction() {
         let registerCompany = FirstScreenViewController()
         self.navigationItem.backButtonTitle = "Voltar"
         self.navigationController?.pushViewController(registerCompany, animated: true)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
@@ -204,41 +204,41 @@ extension UserPathViewController: ViewCodeProtocol {
         view.addSubview(companyStack)
         view.addSubview(buttonsStack)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             stack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 38),
             stack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             stack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            
+
             iconimage.heightAnchor.constraint(equalToConstant: 138),
             iconimage.widthAnchor.constraint(equalToConstant: 138),
-            
+
             iconText.heightAnchor.constraint(equalToConstant: 93),
             iconText.widthAnchor.constraint(equalToConstant: 200),
-            
+
             label.bottomAnchor.constraint(equalTo: buttonsStack.topAnchor, constant: -26),
             label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
+
             freelaButton.heightAnchor.constraint(equalToConstant: 132),
             freelaButton.widthAnchor.constraint(equalToConstant: 361),
             freelancerImageView.heightAnchor.constraint(equalToConstant: 112),
             freelancerImageView.widthAnchor.constraint(equalToConstant: 112),
             companyImageView.heightAnchor.constraint(equalToConstant: 112),
             companyImageView.widthAnchor.constraint(equalToConstant: 112),
-            
+
             companyButton.heightAnchor.constraint(equalToConstant: 132),
             companyButton.widthAnchor.constraint(equalToConstant: 361),
-            
+
             buttonsStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -83),
             buttonsStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             buttonsStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
+
             freelaStack.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 26),
             freelaStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             freelaStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            
+
             companyStack.topAnchor.constraint(equalTo: freelaStack.bottomAnchor, constant: 12),
             companyStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             companyStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)

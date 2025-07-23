@@ -17,7 +17,7 @@ class EmptyStateJobBoard: UIView {
         label.text = "Nenhuma vaga no radar"
         return label
     }()
-    
+
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
         label.applyDynamicFont(UIFont.DesignSystem.subheadline)
@@ -31,7 +31,7 @@ class EmptyStateJobBoard: UIView {
         """
         return label
     }()
-    
+
     private lazy var stack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class EmptyStateJobBoard: UIView {
         stack.spacing = 3
         return stack
     }()
-    
+
     private lazy var imageView: UIImageView = {
         var imageView = UIImageView()
         imageView.image = UIImage(systemName: "tray")
@@ -48,14 +48,14 @@ class EmptyStateJobBoard: UIView {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         self.backgroundColor = UIColor.DesignSystem.lavanda0
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -66,14 +66,14 @@ extension EmptyStateJobBoard: ViewCodeProtocol {
         addSubview(imageView)
         addSubview(stack)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             imageView.bottomAnchor.constraint(equalTo: stack.topAnchor, constant: -15),
             imageView.heightAnchor.constraint(equalToConstant: 186),
             imageView.widthAnchor.constraint(equalToConstant: 393),
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
+
             stack.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -210),
             stack.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             stack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20)

@@ -13,36 +13,36 @@ extension JobListViewController {
         /// item
         let itemSize = Size(widthDimension: .estimated(93), heightDimension: .absolute(28))
         let item = Item(layoutSize: itemSize)
-        
+
         /// group
         let groupSize = Size(widthDimension: .estimated(64.0), heightDimension: .absolute(34.0))
         let group = Group.horizontal(layoutSize: groupSize, subitems: [item])
-                
+
         /// section
         let section = Section(group: group)
         section.interGroupSpacing = 8
         section.contentInsets = Edges(top: 16.0, leading: 16.0, bottom: 0, trailing: 16.0)
         section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
-        
+
         return section
     }
-    
+
     func createSection1() -> Section {
         /// item
         let itemSize = Size(widthDimension: .absolute(390.0), heightDimension: .absolute(53.0))
         let item = Item(layoutSize: itemSize)
-        
+
         /// group
         let groupSize = Size(widthDimension: .estimated(393.0), heightDimension: .absolute(34.0))
         let group = Group.horizontal(layoutSize: groupSize, subitems: [item])
-                
+
         /// section
         let section = Section(group: group)
         section.contentInsets = Edges(top: 20, leading: 20, bottom: 20, trailing: 20)
-        
+
         return section
     }
-    
+
     func createJobListSectionLayout() -> Section {
         // item
         let itemSize = Size(
@@ -50,23 +50,23 @@ extension JobListViewController {
             heightDimension: .fractionalHeight(1.0)
         )
         let item = Item(layoutSize: itemSize)
-        
+
         // group
         let groupSize = Size(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(140.0)
         )
         let group = Group.vertical(layoutSize: groupSize, subitems: [item])
-        
+
         // section
         let section = Section(group: group)
         section.interGroupSpacing = 10.0
         section.contentInsets = Edges(top: 20, leading: 16, bottom: 16, trailing: 16)
         return section
     }
-    
+
     func createAllLayout() -> UICollectionViewLayout {
-        return Layout { sectionIndex, layoutEnvironment in
+        return Layout { sectionIndex, _ in
             switch sectionIndex {
             case 0:
                 return self.createSection0()

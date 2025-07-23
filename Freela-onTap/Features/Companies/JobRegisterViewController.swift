@@ -506,7 +506,7 @@ class JobRegisterViewController: UIViewController {
         dateForm.dateFormat = "HH:mm"
 
         if let stringHour = time.text,
-            let date = dateForm.date(from: stringHour)
+           let date = dateForm.date(from: stringHour)
         {
             begginingHour = date
             print("data convertida")
@@ -527,13 +527,13 @@ class JobRegisterViewController: UIViewController {
         print("clicou")
 
         if let job,
-            let date,
-            let duration,
-            let begginingHour,
-            let intSalary,
-            let description,
-            let qualifications,
-            let duties
+           let date,
+           let duration,
+           let begginingHour,
+           let intSalary,
+           let description,
+           let qualifications,
+           let duties
         {
             let numberDuration = duration.replacingOccurrences(of: "h", with: "")
             let intDuration = Int(numberDuration) ?? 00
@@ -548,7 +548,7 @@ class JobRegisterViewController: UIViewController {
 
             guard let startDate = Calendar.current.date(from: startDateComponents) else {
                 #if DEBUG
-                    print("\(#file) \(#line) - Couldn't create Date from DateComponents")
+                print("\(#file) \(#line) - Couldn't create Date from DateComponents")
                 #endif
 
                 return

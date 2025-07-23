@@ -10,7 +10,7 @@ import UIKit
 extension CompanyPublishedJobsViewController: ViewCodeProtocol {
     func addSubviews() {
         view.addSubview(collectionView)
-      
+
         title = "Minhas vagas"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
@@ -19,7 +19,7 @@ extension CompanyPublishedJobsViewController: ViewCodeProtocol {
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.standardAppearance = appearance
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -28,8 +28,8 @@ extension CompanyPublishedJobsViewController: ViewCodeProtocol {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
         ])
     }
-    
-    
+
+
     func adicionalSetup() {
         navigationItem.hidesBackButton = true
     }

@@ -8,7 +8,6 @@
 import CloudKit
 
 
-
 // MARK: - JobOffer methods
 extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
     func fetchAllJobOffers() async throws -> [JobOffer] {
@@ -27,7 +26,7 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         for company in cachedCompanies {
             companyProfileCache[company.id] = company
         }
-        
+
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
@@ -39,10 +38,10 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
                 throw error
             }
         }
-        
+
         return offers
     }
-        
+
 
     func fetchJobOffer(id: UUID) async throws -> JobOffer? {
         try await throwIfICloudNotAvailable()
@@ -51,7 +50,7 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
 
         let query = CKQuery(recordType: jobOfferRecordType, predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
-        
+
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
@@ -66,10 +65,10 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
 
     func saveJobOffer(_ jobOffer: JobOffer) async throws {
         try await throwIfICloudNotAvailable()
-        
+
         let recordID = CKRecord.ID(recordName: jobOffer.id.uuidString)
         let record = CKRecord(recordType: jobOfferRecordType, recordID: recordID)
-        
+
         record["id"] = jobOffer.id.uuidString
         record["companyId"] = jobOffer.companyId.uuidString
         record["postedAt"] = jobOffer.postedAt
@@ -81,22 +80,22 @@ extension CloudKitManager: FreelaOnTapPersistence_JobOffer {
         record["description"] = jobOffer.description
         record["qualifications"] = jobOffer.qualifications
         record["duties"] = jobOffer.duties
-        
+
         try await publicDB.save(record)
     }
-    
+
     // MARK: - Delete JobOffer
-    
+
     func deleteJobOffer(jobOfferUUID id: UUID) async throws {
         try await throwIfICloudNotAvailable()
 
         let recordID = CKRecord.ID(recordName: id.uuidString)
         try await publicDB.deleteRecord(withID: recordID)
     }
-    
+
     func deleteJobOffer(_ jobOffer: JobOffer) async throws {
         try await throwIfICloudNotAvailable()
-        
+
         try await deleteJobOffer(jobOfferUUID: jobOffer.id)
     }
 }

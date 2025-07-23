@@ -13,7 +13,7 @@ class TitleJobListCell: UICollectionViewCell {
         label.textColor = .label
         return label
     }()
-    
+
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Vagas adicionadas recentemente"
@@ -21,7 +21,7 @@ class TitleJobListCell: UICollectionViewCell {
         label.textColor = .secondaryLabel
         return label
     }()
-    
+
     private lazy var labelStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         stackView.axis = .vertical
@@ -34,27 +34,27 @@ class TitleJobListCell: UICollectionViewCell {
         button.isHidden = true
         return button
     }()
-    
+
     private lazy var stack: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [labelStackView, filterButton])
         stackView.spacing = 40
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
-    
+
+
     // MARK: Properties
     static let identifier = "TitleJobListCell"
-    
+
     // MARK: Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
         contentView.layer.cornerRadius = 8.0
         contentView.clipsToBounds = true
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -63,7 +63,7 @@ extension TitleJobListCell: ViewCodeProtocol {
     func addSubviews() {
         contentView.addSubview(stack)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             stack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
