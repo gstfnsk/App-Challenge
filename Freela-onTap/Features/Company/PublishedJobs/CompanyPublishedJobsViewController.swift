@@ -7,7 +7,7 @@ import UIKit
 
 class CompanyPublishedJobsViewController: UIViewController {
     let refreshControl = UIRefreshControl()
-    
+
     var openJobs: [JobOffer] = []
     var filledJobs: [JobOffer] = []
     var closedJobs: [JobOffer] = []
@@ -23,34 +23,34 @@ class CompanyPublishedJobsViewController: UIViewController {
 
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
-        
+
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         collectionView.register(BadgeLabelViewCell.self, forCellWithReuseIdentifier: BadgeLabelViewCell.identifier)
         collectionView.register(CompanyPublishedJobsHeader.self, forCellWithReuseIdentifier: CompanyPublishedJobsHeader.identifier)
         collectionView.register(JobOfferCollectionViewCell.self, forCellWithReuseIdentifier: JobOfferCollectionViewCell.identifier)
-       
+
         collectionView.dataSource = self
         collectionView.delegate = self
-        
+
         collectionView.allowsMultipleSelection = true
-        
+
         refreshControl.addTarget(self, action: #selector(refreshJobs), for: .valueChanged)
         collectionView.refreshControl = refreshControl
-        
+
         return collectionView
     }()
 
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setup()
         updateJobOfferList()
-        
+
         collectionView.backgroundColor = .DesignSystem.lavanda0
     }
-    
+
     @objc private func refreshJobs() {
         // swiftlint:disable:next trailing_closure
         updateJobOfferList(finally: {
@@ -77,15 +77,15 @@ extension CompanyPublishedJobsViewController: UICollectionViewDelegate {
             updateJobOfferList()
             collectionView.reloadData()
         }
-        
+
         // Is JobList section
         else if isJobListSection(section) {
             let backItem = UIBarButtonItem()
             backItem.title = "Voltar"
             navigationItem.backBarButtonItem = backItem
-            
+
             let jobDetailsVC = JobDetailsViewController()
-            
+
             let selectedJobOffer: JobOffer = {
                 switch section {
                 case openJobsListSectionId:
@@ -96,18 +96,18 @@ extension CompanyPublishedJobsViewController: UICollectionViewDelegate {
                     return closedJobs[indexPath.item]
                 }
             }()
-            
+
             jobDetailsVC.configure(with: selectedJobOffer)
 
             navigationController?.pushViewController(jobDetailsVC, animated: true)
         }
-        
+
         // Is JobList title section
         else if isHeaderSection(section) {
             // No action
         }
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let section = indexPath.section
 

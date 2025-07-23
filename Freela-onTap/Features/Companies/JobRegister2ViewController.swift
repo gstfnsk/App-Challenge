@@ -12,14 +12,14 @@ class JobRegister2ViewController: UIViewController {
     // //MARK: GAMBIARRA PRA DEPOIS
     var begginingHour: Date?
     var begginingDate: Date?
-    
-    
+
+
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     private lazy var orangeView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +59,7 @@ class JobRegister2ViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
-    
+
 
     private lazy var descriptionLabel: UILabel = {
         var label = UILabel()
@@ -68,7 +68,7 @@ class JobRegister2ViewController: UIViewController {
         label.font = UIFont.DesignSystem.headline
         return label
     }()
-    
+
     // certinho
     private lazy var descriptionText: UILabel = {
         var label = UILabel()
@@ -104,7 +104,7 @@ class JobRegister2ViewController: UIViewController {
         if let jobOffer {
             label.text = jobOffer.duties
         }
-        
+
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.DesignSystem.body
@@ -126,7 +126,7 @@ class JobRegister2ViewController: UIViewController {
         label.font = UIFont.DesignSystem.headline
         return label
     }()
-    
+
     // certinho
     private lazy var requirementsText: UILabel = {
         var label = UILabel()
@@ -134,7 +134,7 @@ class JobRegister2ViewController: UIViewController {
         if let jobOffer {
             label.text = jobOffer.duties
         }
-        
+
         label.textColor = UIColor.secondaryLabel.withAlphaComponent(0.6)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.DesignSystem.body
@@ -165,7 +165,7 @@ class JobRegister2ViewController: UIViewController {
         label.font = UIFont.DesignSystem.title2Emphasized
         return label
     }()
-    
+
     // MARK: VEM DO CADASTRO DA EMPRESA
     private lazy var establishmentType: UILabel = {
         var label = UILabel()
@@ -240,12 +240,12 @@ class JobRegister2ViewController: UIViewController {
     // ESSE CARA E O HORARIO QUE COMEÇA
     private lazy var time: BadgeLabelWithIcon = {
         let badge = BadgeLabelWithIcon()
-        
+
         // MARK: MUDAR AQUI
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
         let stringBeginningHour = formatter.string(from: begginingHour ?? Date())
-        
+
         badge.text = stringBeginningHour
         badge.badgeSize = .medium
         return badge
@@ -267,7 +267,7 @@ class JobRegister2ViewController: UIViewController {
         badge.badgeSize = .medium
         return badge
     }()
-    
+
     // certinho
     private lazy var duration: BadgeLabelWithIcon = {
         var badge = BadgeLabelWithIcon()
@@ -298,7 +298,7 @@ class JobRegister2ViewController: UIViewController {
         button.addTarget(self, action: #selector(saveDataAtCloudKit), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var returnButton: UIButton = {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -309,7 +309,7 @@ class JobRegister2ViewController: UIViewController {
         button.addTarget(self, action: #selector(saveDataAtCloudKit), for: .touchUpInside)
         return button
     }()
-    
+
     private lazy var buttonsStack: UIStackView = {
         var stack = UIStackView(arrangedSubviews: [publishButton, returnButton])
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -320,7 +320,7 @@ class JobRegister2ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         print(begginingHour as Any)
         setup()
     }
@@ -346,14 +346,14 @@ class JobRegister2ViewController: UIViewController {
     }
     @objc private func openInMaps() {
         let address = companyAddress.text ?? ""
-        
+
         let encodedAddress = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
-        
+
         if let url = URL(string: "http://maps.apple.com/?q=\(encodedAddress)") {
             UIApplication.shared.open(url)
         }
     }
-    }
+}
 
 
 extension JobRegister2ViewController: ViewCodeProtocol {
@@ -391,7 +391,7 @@ extension JobRegister2ViewController: ViewCodeProtocol {
                 equalTo: imageContainerView.widthAnchor,
                 multiplier: 196.0 / 361.0
             ),
-            
+
             orangeView.heightAnchor.constraint(equalToConstant: 4),
             orangeView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             orangeView.topAnchor.constraint(equalTo: view.topAnchor, constant: 98),
@@ -416,10 +416,10 @@ extension JobRegister2ViewController: ViewCodeProtocol {
 
             buttonsStack.centerXAnchor.constraint(equalTo: overlayView.centerXAnchor),
             buttonsStack.bottomAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: -34.5),
-            
+
             publishButton.widthAnchor.constraint(equalToConstant: 321),
             publishButton.heightAnchor.constraint(equalToConstant: 50),
-            
+
             returnButton.widthAnchor.constraint(equalToConstant: 321),
             returnButton.heightAnchor.constraint(equalToConstant: 50),
 
@@ -427,7 +427,7 @@ extension JobRegister2ViewController: ViewCodeProtocol {
             buttonsStack.widthAnchor.constraint(equalToConstant: 321)
         ])
     }
-    
+
     func setupAdditionalConfiguration() {
         title = "cadastro de vagas"
         view.backgroundColor = .systemGray6

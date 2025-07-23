@@ -16,7 +16,7 @@ class SizeSelector: UIView {
             "Selecionar",
             attributes: AttributeContainer([
                 .foregroundColor: UIColor.labelsSecondary,
-                .font: UIFont.systemFont(ofSize: 16),
+                .font: UIFont.systemFont(ofSize: 16)
             ])
         )
 
@@ -43,11 +43,10 @@ class SizeSelector: UIView {
     private var functionSelector: [UIAction] {
         return CompanySize.allCases.reversed().map { size in
             UIAction(
-                title: size.rawValue,
-                handler: { [weak self] _ in
+                title: size.rawValue
+            )                { [weak self] _ in
                     self?.selectedFunction = size
                 }
-            )
         }
     }
 

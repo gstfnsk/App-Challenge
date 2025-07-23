@@ -14,19 +14,19 @@ class ProgressBar: UIView {
         case second
         case last
     }
-    
+
     lazy var firstBar: UIView = {
         let bar = UIView()
         bar.backgroundColor = UIColor.DesignSystem.terracota0
         return bar
     }()
-    
+
     lazy var secondBar: UIView = {
         let bar = UIView()
         bar.backgroundColor = UIColor.DesignSystem.terracota0
         return bar
     }()
-    
+
     lazy var lastBar: UIView = {
         let bar = UIView()
         bar.backgroundColor = UIColor.DesignSystem.terracota0
@@ -41,50 +41,49 @@ class ProgressBar: UIView {
         stack.backgroundColor = UIColor.DesignSystem.terracota600
         return stack
     }()
-    
 
-    
+
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         setup()
     }
-    
+
     // MARK: public
     var currentState = progressBarState.first {
         didSet {
             updateState()
         }
     }
-    
-    // MARK: - Private Methods
-    
-    private func updateState() {
-            let activeColor = UIColor.DesignSystem.terracota400
-            let inactiveColor = UIColor.DesignSystem.terracota0
 
-            switch currentState {
-            case .first:
-                firstBar.backgroundColor = activeColor
-                secondBar.backgroundColor = inactiveColor
-                lastBar.backgroundColor = inactiveColor
-            case .second:
-                firstBar.backgroundColor = activeColor
-                secondBar.backgroundColor = activeColor
-                lastBar.backgroundColor = inactiveColor
-            case .last:
-                firstBar.backgroundColor = activeColor
-                secondBar.backgroundColor = activeColor
-                lastBar.backgroundColor = activeColor
-            }
+    // MARK: - Private Methods
+
+    private func updateState() {
+        let activeColor = UIColor.DesignSystem.terracota400
+        let inactiveColor = UIColor.DesignSystem.terracota0
+
+        switch currentState {
+        case .first:
+            firstBar.backgroundColor = activeColor
+            secondBar.backgroundColor = inactiveColor
+            lastBar.backgroundColor = inactiveColor
+        case .second:
+            firstBar.backgroundColor = activeColor
+            secondBar.backgroundColor = activeColor
+            lastBar.backgroundColor = inactiveColor
+        case .last:
+            firstBar.backgroundColor = activeColor
+            secondBar.backgroundColor = activeColor
+            lastBar.backgroundColor = activeColor
         }
+    }
 }
 
 extension ProgressBar: ViewCodeProtocol {
@@ -92,7 +91,7 @@ extension ProgressBar: ViewCodeProtocol {
         addSubview(barContainer)
         updateState()
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             barContainer.heightAnchor.constraint(equalToConstant: 4),

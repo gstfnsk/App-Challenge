@@ -40,9 +40,9 @@ extension JobListViewController: UICollectionViewDataSource {
             ) as? BadgeLabelViewCell else {
                 fatalError("Erro ao criar BadgeCollectionViewCell")
             }
-            
+
             let selectedJobPositions: Set<JobPosition> = SelectedPositions.getSelectedPositions()
-            
+
             if indexPath.item == 0 {
                 cell.configure(title: "Todos", imageName: "checklist.checked")
                 if selectedJobPositions.isEmpty {
@@ -53,8 +53,8 @@ extension JobListViewController: UICollectionViewDataSource {
             } else {
                 let jobPosition = JobPosition.allCases[indexPath.item - 1]
                 cell.configure(title: jobPosition.rawValue.capitalized, imageName: jobPosition.iconName)
-                
-                
+
+
                 if selectedJobPositions.contains(jobPosition) {
                     cell.setSelectedStyle()
                 } else {
@@ -97,7 +97,7 @@ extension JobListViewController: UICollectionViewDataSource {
         cell.configure(job: listedJobOffers[indexPath.item])
         return cell
     }
-    
+
     func showEmptyView() {
         emptyView.isHidden = false
         collectionView.isHidden = true
@@ -124,41 +124,41 @@ extension JobListViewController {
                 var jobOffers = try await CloudKitManager.shared.fetchAllJobOffers()
                 jobOffers = SelectedPositions.applyFilter(to: jobOffers)
                 jobOffers.sort { $0.postedAt > $1.postedAt }
-                
+
                 await MainActor.run {
                     self.listedJobOffers = jobOffers
                     self.collectionView.reloadData()
-                    
-//                    if jobOffers.isEmpty {
-//                        self.showEmptyView()
-//                    } else {
-//                        self.hideEmptyView()
-//                    }
-                    
+
+                    //                    if jobOffers.isEmpty {
+                    //                        self.showEmptyView()
+                    //                    } else {
+                    //                        self.hideEmptyView()
+                    //                    }
+
                     onSuccess()
                     finally()
                 }
             } catch {
                 await MainActor.run {
                     let alert = UIAlertController(
-                            title: "Error",
-                            message: "Could not fetch job offers." + error.localizedDescription,
-                            preferredStyle: .alert
-                        )
-                        
-                        if let error = error as? CloudKitError {
-                            alert.message = error.localizedDescription
-                        }
-                       
-                        alert.addAction(UIAlertAction(title: "OK", style: .default))
-                        self.present(alert, animated: true)
-                    
+                        title: "Error",
+                        message: "Could not fetch job offers." + error.localizedDescription,
+                        preferredStyle: .alert
+                    )
+
+                    if let error = error as? CloudKitError {
+                        alert.message = error.localizedDescription
+                    }
+
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true)
+
                     // emptystate
                     collectionView.isHidden = true
                     refreshButton.isHidden = false
                     errorEmptyState.isHidden = false
                     navigationController?.setNavigationBarHidden(true, animated: true)
-                        
+
                     onFailure(error)
                     finally()
                 }

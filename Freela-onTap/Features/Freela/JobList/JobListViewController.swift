@@ -14,20 +14,20 @@ class JobListViewController: UIViewController {
     internal var filterSectionId = 0
     internal var titleSectionId = 1
     internal var jobListingSectionId = 2
-    
+
     lazy var emptyView: EmptyStateJobBoard = {
         let emptyView = EmptyStateJobBoard()
         emptyView.translatesAutoresizingMaskIntoConstraints = false
         emptyView.isHidden = true
         return emptyView
     }()
-    
+
     lazy var errorEmptyState: ErrorEmptyStateJobBoard = {
         let emptyState = ErrorEmptyStateJobBoard()
         emptyState.translatesAutoresizingMaskIntoConstraints = false
         return emptyState
     }()
-    
+
     lazy var refreshButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -35,14 +35,14 @@ class JobListViewController: UIViewController {
             .font: UIFont.systemFont(ofSize: 15, weight: .bold),
             .foregroundColor: UIColor.DesignSystem.terracota600
         ]
-        
+
         let attributedTitle = NSAttributedString(string: "Recarregar", attributes: attributes)
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(buttonRefresh), for: .touchUpInside)
-        
+
         return button
     }()
-    
+
     @objc func buttonRefresh() {
         self.updateJobOfferList()
         self.collectionView.reloadData()
@@ -76,7 +76,7 @@ class JobListViewController: UIViewController {
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setup()
         updateJobOfferList()
     }
@@ -103,7 +103,7 @@ extension JobListViewController: UICollectionViewDelegate {
             let backItem = UIBarButtonItem()
             backItem.title = "Voltar"
             navigationItem.backBarButtonItem = backItem
-            
+
             let jobDetailsVC = JobDetailsViewController()
             let selectedJobOffer = listedJobOffers[indexPath.row]
             jobDetailsVC.configure(with: selectedJobOffer)

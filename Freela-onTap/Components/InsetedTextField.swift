@@ -6,7 +6,6 @@
 //
 
 
-
 import UIKit
 
 class InsetedTextField: UITextField {
@@ -15,15 +14,15 @@ class InsetedTextField: UITextField {
 
     init(insetX: Double, insetY: Double) {
         super.init(frame: .zero)
-        
+
         self.insetX = insetX
         self.insetY = insetY
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         bounds.insetBy(dx: insetX, dy: insetY)
     }

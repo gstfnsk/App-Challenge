@@ -48,14 +48,14 @@ extension CompanyPublishedJobsViewController {
             heightDimension: .fractionalHeight(1.0)
         )
         let item = Item(layoutSize: itemSize)
-        
+
         // group
         let groupSize = Size(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .estimated(140.0)
         )
         let group = Group.vertical(layoutSize: groupSize, subitems: [item])
-        
+
         // section
         let section = Section(group: group)
         section.interGroupSpacing = 10.0
@@ -64,15 +64,15 @@ extension CompanyPublishedJobsViewController {
     }
 
     var collectionLayout: UICollectionViewLayout {
-        return Layout { sectionIndex, layoutEnvironment in
+        return Layout { sectionIndex, _ in
             if sectionIndex == 0 {
                 return self.createFilterSectionLayout()
             }
-            
+
             if self.isHeaderSection(sectionIndex) {
                 return self.createHeaderSectionLayout()
             }
-            
+
             if self.isJobListSection(sectionIndex) {
                 return self.createJobListSectionLayout()
             }

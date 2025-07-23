@@ -9,7 +9,7 @@ import UIKit
 
 class Onboarding2ViewController: UIViewController {
     var currentIndex = 0
-    
+
     lazy var onboardingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -25,9 +25,9 @@ class Onboarding2ViewController: UIViewController {
         collectionView.isScrollEnabled = false
         return collectionView
     }()
-    
+
     lazy var swipeButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = UIColor(red: 205 / 255, green: 83 / 255, blue: 39 / 255, alpha: 1.0)
         button.layer.cornerRadius = 12
@@ -38,7 +38,7 @@ class Onboarding2ViewController: UIViewController {
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         return button
     }()
-    
+
     @objc func buttonAction() {
         if currentIndex == 0 {
             currentIndex += 1
@@ -52,10 +52,10 @@ class Onboarding2ViewController: UIViewController {
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(userPathRoot)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setup()
     }
 }

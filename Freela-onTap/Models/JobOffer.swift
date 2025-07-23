@@ -10,14 +10,14 @@ struct JobOffer: Identifiable {
     var id: UUID
     var companyId: UUID
     var company: CompanyProfile?
-    
+
     let postedAt: Date // Data de publicação da vaga
-    
+
     var title: JobPosition // Cargo ou título da vaga
-    var titleOther: String? 
+    var titleOther: String?
     var durationInHours: Int // Duração total da oportunidade (em horas)
     var startDate: Date // Data de início do trabalho
-    
+
     var salaryBRL: Int // Salário ofertado (em Reais)
     var description: String // Detalhes sobre a vaga
     var qualifications: String // Requisitos necessários para o candidato
@@ -38,7 +38,7 @@ enum JobPosition: String, CaseIterable {
     case dishwasher = "auxiliar de limpeza"
     case barista = "barista"
     case other = "outro"
-    
+
     var iconName: String {
         switch self {
         case .receptionist:

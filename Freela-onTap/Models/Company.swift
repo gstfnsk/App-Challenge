@@ -9,14 +9,14 @@ import UIKit
 
 struct CompanyProfile: Identifiable {
     var id: UUID
-    
+
     var name: String
     var cnpj: String
     var whatsappNumber: String
-    
+
     var establishmentType: EstablishmentType
     var companySize: CompanySize
-    
+
     var address: (streetAndNumber: String, neighborhood: String, cityAndState: String)
     var description: String
 }

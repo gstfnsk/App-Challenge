@@ -11,7 +11,7 @@ extension Onboarding2ViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Onboarding2Cell.identifier, for: indexPath) as? Onboarding2Cell else {
             return UICollectionViewCell()
@@ -24,14 +24,14 @@ extension Onboarding2ViewController: UICollectionViewDataSource, UICollectionVie
                     .font: UIFont.systemFont(ofSize: 40, weight: .regular)
                 ]
             )
-            
+
             let text2 = NSAttributedString(
                 string: "freelas ",
                 attributes: [
                     .font: UIFont(name: "PPValve-PlainMedium", size: 40) ?? UIFont.systemFont(ofSize: 40)
                 ]
             )
-            
+
             let text3 = NSAttributedString(
                 string: "beeeeeem perto de você!",
                 attributes: [

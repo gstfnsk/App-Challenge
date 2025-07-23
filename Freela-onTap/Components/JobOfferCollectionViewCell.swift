@@ -28,7 +28,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
             named:
                 "companyPhotos/\((job.company?.name ?? "").replacingOccurrences(of: "é", with: "e").replacingOccurrences(of: "ô", with: "o"))"
         )
-        
+
         setBadgesText([
             job.startDate.formatted("dd/MM"),
             "Horário: \(job.startDate.formatted("HH'h'mm"))",
@@ -72,7 +72,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
             stateIcon.image = nil
             stack.backgroundColor = nil
         case .highlighted:
-            assertionFailure("State not yet implemented: \(state) in \(#function)")            
+            assertionFailure("State not yet implemented: \(state) in \(#function)")
         }
 
         // State icon visibility
@@ -92,7 +92,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
             .compactMap { $0 as? BadgeLabelWithIcon }
             .forEach { $0.state = badgeState }
     }
-    
+
     private func setupShadow() {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.15
@@ -106,16 +106,16 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         contentView.layer.cornerRadius = 12
         contentView.layer.masksToBounds = true
     }
-    
+
     private func setBadgesText(_ texts: [String]){
         badgeStack.arrangedSubviews.forEach { $0.removeFromSuperview() }
-        
+
         for text in texts {
             let badgeView = BadgeLabelWithIcon(text: text, state: self.state == .disabled ? .disabled : .mutted)
-                
+
             badgeStack.addArrangedSubview(badgeView)
         }
-        
+
         badgeStack.addArrangedSubview(UIView())
     }
 
@@ -137,7 +137,7 @@ class JobOfferCollectionViewCell: UICollectionViewCell {
         imageView.contentMode = .center
         imageView.tintColor = .DesignSystem.terracota600
         imageView.setContentHuggingPriority(.required, for: .horizontal)
-        
+
         return imageView
     }()
 
@@ -223,13 +223,13 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
     func setup(){
         addSubviews()
         setupConstraints()
-        
+
         setupShadow()
         setupContentView()
         updateBasedOnState()
         setBadgesText(["Label", "Label"])
     }
-    
+
     func addSubviews() {
         contentView.addSubview(stack)
     }
@@ -243,7 +243,7 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
 
             imageView.heightAnchor.constraint(equalToConstant: 56),
             imageView.widthAnchor.constraint(equalToConstant: 56),
-            
+
             stateIcon.heightAnchor.constraint(equalToConstant: 50),
             stateIcon.widthAnchor.constraint(equalToConstant: 50)
         ])
@@ -253,7 +253,7 @@ extension JobOfferCollectionViewCell: ViewCodeProtocol {
 #Preview {
     let cell = JobOfferCollectionViewCell()
     cell.state = .disabled
-    
+
     /// Ignore lines bellow, the are only for the pourpuse of this preview
     cell.translatesAutoresizingMaskIntoConstraints = false
 

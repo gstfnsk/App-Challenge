@@ -12,13 +12,13 @@ final class GradientOverlayView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setupGradient()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         setupGradient()
     }
 
@@ -28,15 +28,15 @@ final class GradientOverlayView: UIView {
             UIColor.systemGray6.withAlphaComponent(0.65).cgColor,
             UIColor.systemGray6.withAlphaComponent(1).cgColor
         ]
-//        gradient.
-//        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-//        gradient.endPoint = CGPoint(x: 0.0, y: 0.5)
+        //        gradient.
+        //        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        //        gradient.endPoint = CGPoint(x: 0.0, y: 0.5)
         layer.addSublayer(gradient)
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
+
         gradient.frame = bounds
     }
 }

@@ -27,7 +27,7 @@ class BigTextField: UIView {
         textField.textContainerInset = UIEdgeInsets(top: 12, left: 6, bottom: 12, right: 12)
         return textField
     }()
-    
+
     lazy var stackView: UIStackView = {
         var stackView = UIStackView(arrangedSubviews: [descriptionLabel, descriptionTextField])
         stackView.axis = .vertical
@@ -35,7 +35,7 @@ class BigTextField: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     var text: String? {
         didSet {
             descriptionLabel.text = text
@@ -46,14 +46,14 @@ class BigTextField: UIView {
             descriptionTextField.text = placeholder
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
         descriptionTextField.delegate = self
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -63,7 +63,7 @@ extension BigTextField: ViewCodeProtocol {
     func addSubviews() {
         addSubview(stackView)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),

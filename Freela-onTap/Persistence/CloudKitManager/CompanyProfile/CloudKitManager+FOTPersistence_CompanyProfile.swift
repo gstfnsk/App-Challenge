@@ -42,7 +42,7 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
 
         let query = CKQuery(recordType: companyProfileRecordType, predicate: predicate)
         let (matchResults, _) = try await publicDB.records(matching: query)
-        
+
         for (_, result) in matchResults {
             switch result {
             case .success(let record):
@@ -78,14 +78,14 @@ extension CloudKitManager: FreelaOnTapPersistence_CompanyProfile {
 
         try await publicDB.save(record)
     }
-    
+
     // MARK: - Delete Company
     func deleteCompany(_ company: CompanyProfile) async throws {
         try await throwIfICloudNotAvailable()
-        
+
         try await deleteCompany(companyUUID: company.id)
     }
-    
+
     func deleteCompany(companyUUID id: UUID) async throws {
         try await throwIfICloudNotAvailable()
 

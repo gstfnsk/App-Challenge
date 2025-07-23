@@ -17,7 +17,7 @@ class LabelWithIconComponent: UIView {
 
         return image
     }()
-    
+
     private lazy var label: UILabel = {
         var label = UILabel()
         label.applyDynamicFont(UIFont.DesignSystem.footnote)
@@ -28,7 +28,7 @@ class LabelWithIconComponent: UIView {
         label.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         return label
     }()
-    
+
     private lazy var labelWihIcon: UIStackView = {
         var labelWihIcon = UIStackView(arrangedSubviews: [icon, label])
         labelWihIcon.alignment = .center
@@ -37,7 +37,7 @@ class LabelWithIconComponent: UIView {
         labelWihIcon.translatesAutoresizingMaskIntoConstraints = false
         return labelWihIcon
     }()
-    
+
     var text: String? {
         didSet {
             label.text = text
@@ -48,19 +48,19 @@ class LabelWithIconComponent: UIView {
             icon.image = image
         }
     }
-    
+
     var imageColor: UIColor? {
         didSet {
             icon.tintColor = imageColor
         }
     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -70,7 +70,7 @@ extension LabelWithIconComponent: ViewCodeProtocol {
     func addSubviews() {
         addSubview(labelWihIcon)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             labelWihIcon.topAnchor.constraint(equalTo: self.topAnchor),

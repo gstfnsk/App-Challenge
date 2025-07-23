@@ -16,25 +16,25 @@ final class TextInput: UIView {
         case error
         case disabled
     }
-    
+
     var state = TextInputState.normal {
         didSet {
             changeState(state)
         }
     }
-    
+
     var labelText = "Input" {
         didSet {
             label.text = labelText
         }
     }
-    
+
     var placeholderText = "Input name" {
         didSet {
             textField.placeholder = placeholderText
         }
     }
-    
+
     var text: String? {
         get {
             textField.text
@@ -43,26 +43,26 @@ final class TextInput: UIView {
             textField.text = newValue
         }
     }
-    
-    
-//    // ------
+
+
+    //    // ------
     var editingFunc: () -> Void = {}
 
     @objc private func textFieldDidChange() {
         editingFunc()
     }
-//    // -----
+    //    // -----
     // MARK: - Initializers
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         setup()
     }
 
@@ -79,24 +79,24 @@ final class TextInput: UIView {
             label.textColor = .quaternaryLabel
             textField.layer.borderWidth = 0
         }
-        
+
         textField.isEnabled = state != .disabled
     }
 
     // MARK: - UI Elements
     private lazy var label: UILabel = {
         let label = UILabel()
-        
+
         label.font = .DesignSystem.subheadline
         label.textColor = .secondaryLabel
         label.text = labelText
-        
+
         return label
     }()
-    
+
     private lazy var textField: InsetedTextField = {
         let textField = InsetedTextField(insetX: 16, insetY: 10)
-                
+
         textField.font = .DesignSystem.body
         textField.textColor = .label
         textField.placeholder = placeholderText
@@ -104,18 +104,18 @@ final class TextInput: UIView {
         textField.backgroundColor = .tertiarySystemBackground
         textField.layer.cornerRadius = 12
         textField.layer.borderWidth = 1
-                
+
         return textField
     }()
-    
+
     private lazy var inputStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [label, textField])
-        
+
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         stackView.axis = .vertical
         stackView.spacing = 10
-                
+
         return stackView
     }()
 }
@@ -125,7 +125,7 @@ extension TextInput: ViewCodeProtocol {
     func addSubviews() {
         addSubview(inputStackView)
     }
-    
+
     // MARK: - Setup Constraints
     func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -133,11 +133,11 @@ extension TextInput: ViewCodeProtocol {
             inputStackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             inputStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             inputStackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
+
             textField.heightAnchor.constraint(equalToConstant: 42)
         ])
     }
-    
+
     // MARK: - Additional Configuration
     func setupAdditionalConfiguration() {
         changeState(state)
@@ -146,27 +146,26 @@ extension TextInput: ViewCodeProtocol {
 }
 
 
-
 #Preview {
     let normalTextInput = TextInput()
 
     let errorTextInput = TextInput()
     errorTextInput.state = .error
-    
+
     let filledTextInput = TextInput()
     filledTextInput.text = "Some text"
-    
+
     let disabledTextInput = TextInput()
     disabledTextInput.state = .disabled
-    
+
     let stacked: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [normalTextInput, errorTextInput, filledTextInput, disabledTextInput])
         stack.axis = .vertical
         stack.spacing = 16
-        
+
         return stack
     }()
-    
+
     stacked.widthAnchor.constraint(equalToConstant: 300).isActive = true
     return stacked
 }

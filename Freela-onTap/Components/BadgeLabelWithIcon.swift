@@ -57,13 +57,13 @@ final class BadgeLabelWithIcon: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+
         setup()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+
         setup()
     }
 
@@ -79,9 +79,9 @@ final class BadgeLabelWithIcon: UIView {
         self.systemImageName = systemImageName
         self.state = state
         self.badgeSize = size
-        
+
         super.init(frame: .zero)
-        
+
         setup()
     }
 

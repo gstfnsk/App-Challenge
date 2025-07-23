@@ -83,7 +83,7 @@ extension CompanyPublishedJobsViewController: UICollectionViewDataSource {
                     withReuseIdentifier: CompanyPublishedJobsHeader.identifier,
                     for: indexPath
                 )
-                    as? CompanyPublishedJobsHeader
+                as? CompanyPublishedJobsHeader
             else {
                 fatalError("Erro ao criar CompanyPublishedJobsHeader")
             }
@@ -107,7 +107,7 @@ extension CompanyPublishedJobsViewController: UICollectionViewDataSource {
                     withReuseIdentifier: JobOfferCollectionViewCell.identifier,
                     for: indexPath
                 )
-                    as? JobOfferCollectionViewCell
+                as? JobOfferCollectionViewCell
             else {
                 fatalError("Erro ao criar CardCollectionViewCell")
             }
